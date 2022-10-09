@@ -1,10 +1,13 @@
+import { PrismaService } from '@/database/prisma.service';
+import { UserRepository } from '@/database/repository/user.repository';
 import { Global, Module } from '@nestjs/common';
 import { PrismaClient } from '@prisma/client';
-import { PrismaService } from '@/database/prisma.service';
+
+const repositories = [UserRepository];
 
 @Global()
 @Module({
-  providers: [PrismaClient, PrismaService],
-  exports: [PrismaClient, PrismaService],
+  providers: [PrismaClient, PrismaService, ...repositories],
+  exports: [PrismaClient, PrismaService, ...repositories],
 })
 export class PrismaModule {}

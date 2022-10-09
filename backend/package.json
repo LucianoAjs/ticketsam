@@ -1,5 +1,5 @@
 {
-  "name": "backend",
+  "name": "unknow",
   "version": "0.0.1",
   "description": "",
   "author": "",
@@ -13,7 +13,8 @@
     "start:dev": "nest start --watch",
     "start:debug": "nest start --debug --watch",
     "start:prod": "node dist/main",
-    "prisma:migrate": "dotenv -e .env npx prisma migrate dev --schema ./prisma/schema.prisma",
+    "prisma:migrate:local": "dotenv -e .env npx prisma migrate dev --schema ./prisma/schema.prisma",
+    "prisma:migrate:reset:local": "dotenv -e .env npx prisma migrate reset",
     "lint": "eslint \"{src,apps,libs,test}/**/*.ts\" --fix",
     "test": "jest",
     "test:watch": "jest --watch",
@@ -71,12 +72,15 @@
       "ts"
     ],
     "rootDir": "src",
-    "testRegex": ".*\\.spec\\.ts$",
+    "testRegex": "..spec.ts$",
     "transform": {
-      "^.+\\.(t|j)s$": "ts-jest"
+      "^.+.(t|j)s$": "ts-jest"
+    },
+    "moduleNameMapper": {
+      "@/(.*)": "<rootDir>/$1"
     },
     "collectCoverageFrom": [
-      "**/*.(t|j)s"
+      "*/.(t|j)s"
     ],
     "coverageDirectory": "../coverage",
     "testEnvironment": "node"
