@@ -1,0 +1,98 @@
+@startuml
+
+hide circle
+skinparam linetype ortho
+
+entity "User_seller" as userSeller {
+    * **id: text <<generated>>  <<PK>> **
+    --
+    *email: text
+    *birthdate: date
+    *firstName: text
+    *lastName: text
+    *cpf: text
+    *phoneNumber: text
+    *gender: text
+    *createdAt: date
+    *updatedAt: date
+}
+
+
+entity "Address" as address {
+    * **id: text <<generated>>  <<PK>> **
+    --
+    * **userSellerId: text <<FK>> **
+    *postalCode: number
+    *city: text
+    *state: text
+    *street: text
+    *number: number
+    *complement: text
+    *neighborhood: text
+    *createdAt: date
+    *updatedAt: date
+}
+
+entity "Document" as document {
+    * **id: text <<generated>>  <<PK>> **
+    --
+    * **userSellerId: text <<FK>> **
+    *type: text
+    *front: text
+    *back: text
+    *selfie: text
+    *createdAt: date
+    *updatedAt: date
+}
+
+entity "Boat" as boat {
+    * **id: text <<generated>>  <<PK>> **
+    --
+    * **userSellerId: text <<FK>> **
+    *IMO: text
+    *name: text
+    *subscription: text
+    *flag: text
+    *createdAt: date
+    *updatedAt: date
+}
+
+entity "Ticket" as ticket {
+    * **id: text <<generated>> <<PK>> **
+    --
+    * **userSellerId: text <<FK>> **
+    *accommodation_name: text
+    *destination_city: text
+    *home_city: text
+    *dt_arrival: date
+    *dt_modification: date
+    *dt_record: date
+    *dt_output: date
+    *boat_name: text
+    *boat_phone: text
+    *image_url: text
+    *remaining_quantity: number
+    *food_value: number
+    *transport_value: number
+    *createdAt: date
+    *updatedAt: date
+}
+
+entity "Payment" as payment {
+    * **id: text <<generated>> <<PK>> **
+    --
+    * **ticketId: text <<FK>> **
+    *paymentId: text
+    *createdAt: date
+    *updatedAt: date
+}
+
+
+userSeller ||--|| address
+userSeller ||--|{ boat
+userSeller ||--|{ ticket
+userSeller ||--|{ document
+ticket ||--|{ payment
+
+
+@enduml

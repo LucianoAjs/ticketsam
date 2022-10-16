@@ -1,0 +1,89 @@
+@startuml
+
+actor USER_BUYER 
+
+boundary UNKNOW_FRONTEND
+
+control WEB_SERVER
+control MERCADO_PAGO_API
+control DATABASE
+
+autonumber "<b> [000]"
+
+/'
+ USER_BUYER Flow ->
+'/
+
+group user_buyer_flow
+    group user_filter_ticket
+      USER_BUYER -> UNKNOW_FRONTEND: Should filter tickets according to search rules
+      activate UNKNOW_FRONTEND
+      UNKNOW_FRONTEND -> WEB_SERVER: Sends filters params to backend
+      activate WEB_SERVER
+      WEB_SERVER -> DATABASE: Sends query to database
+      activate DATABASE
+      DATABASE -> WEB_SERVER: Sends filtered data 
+      deactivate DATABASE
+      WEB_SERVER -> UNKNOW_FRONTEND: Sends handle filtered data 
+      deactivate UNKNOW_FRONTEND
+      deactivate WEB_SERVER
+
+        /'
+          Should filter following data in database:
+          QueryParams {
+           origin: string; cidade. estado, país
+           destination: string; cidade. estado, país
+           startDate: timestamp;
+           endDate: timestamp;
+           cheapiestValue: boolean;
+           passengers: {
+              minor: number;
+              adult: number;
+           }
+           class: string; Enum (Primeira classe/ economica)
+          }
+      '/
+    end
+
+    group payment_ticket
+      USER_BUYER -> UNKNOW_FRONTEND: Choose product
+      activate UNKNOW_FRONTEND
+      UNKNOW_FRONTEND -> WEB_SERVER: Send product data
+      activate WEB_SERVER
+      WEB_SERVER -> MERCADO_PAGO_API: Send produt data
+      activate MERCADO_PAGO_API
+      MERCADO_PAGO_API -> WEB_SERVER: Sends operation with sucessfully
+      WEB_SERVER -> UNKNOW_FRONTEND: Send URL to render payment options from MERCADO_PAGO
+      UNKNOW_FRONTEND -> MERCADO_PAGO_API: Send choose method payment
+      WEB_SERVER -> UNKNOW_FRONTEND: Send payment status
+      deactivate WEB_SERVER
+      deactivate UNKNOW_FRONTEND
+      deactivate MERCADO_PAGO_API
+
+
+      /'
+        ROUTE_ONE: https://api.mercadopago.com/checkout/preferences?access_token={TOKEN}
+        Request Body ->
+          preference {
+            items: [
+              {
+                title: 'My product',
+                unit_price: 100,
+                quantity: 1,
+              }
+            ]
+          }
+
+        sandbox_init_point é a URL para renderizar as opções de 
+        pagamento do mercado pago em um iframe no frontend.
+      
+      
+      
+      '/
+    end
+
+  end
+
+@enduml
+
+

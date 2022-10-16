@@ -1,0 +1,174 @@
+@startuml
+
+actor USER_SELLER
+
+boundary UNKNOW_FRONTEND
+
+control WEB_SERVER
+control MERCADO_PAGO_API
+control DATABASE
+
+autonumber "<b> [000]"
+
+
+/'
+ USER_SELLER Flow ->
+'/
+
+group user_seller_flow
+
+  group Login
+      USER_SELLER -> UNKNOW_FRONTEND: Login with email and password
+      activate UNKNOW_FRONTEND
+      UNKNOW_FRONTEND -> WEB_SERVER: Login with email and password
+      activate WEB_SERVER
+      WEB_SERVER -> DATABASE: verify user information
+      activate DATABASE
+      DATABASE -> WEB_SERVER: send user information
+      deactivate DATABASE
+      WEB_SERVER -> UNKNOW_FRONTEND: generate and send authorization token
+      deactivate UNKNOW_FRONTEND
+      deactivate WEB_SERVER
+  end
+
+  group signup
+      USER_SELLER -> UNKNOW_FRONTEND: signup with personal data
+      activate UNKNOW_FRONTEND
+      UNKNOW_FRONTEND -> WEB_SERVER: signup with personal data
+      activate WEB_SERVER
+      WEB_SERVER -> DATABASE: Persist personal data in database
+      activate DATABASE
+      DATABASE -> WEB_SERVER: Sends operation with sucessfully
+      deactivate DATABASE
+      WEB_SERVER -> UNKNOW_FRONTEND: Sends user information
+      deactivate UNKNOW_FRONTEND
+      deactivate WEB_SERVER
+
+      /'
+        Should persist following data in database:
+        BodyRequest {
+          email: string,
+          firstName: string,
+          lastName: string,,
+          cpf: number,
+          phoneNumber?: number, 
+          birthdate: string,
+          gender?: string,
+          address{
+            postalCode: string,
+            complement: string,
+            state: string,
+            city: string,
+            number: string,
+            neighborhood: string,
+            street: string,
+          } 
+        }
+
+      '/
+  end
+
+  group validate_boat_owner
+    USER_SELLER -> UNKNOW_FRONTEND: send with personal data
+    activate UNKNOW_FRONTEND
+    UNKNOW_FRONTEND -> WEB_SERVER: send personal document and boat data
+    activate WEB_SERVER
+    WEB_SERVER -> DATABASE: send data handle
+    activate DATABASE
+    DATABASE -> WEB_SERVER: send update operation status
+    deactivate DATABASE
+    WEB_SERVER -> UNKNOW_FRONTEND: send status result
+    deactivate WEB_SERVER
+    deactivate UNKNOW_FRONTEND
+
+     /'
+        Should persist following data in database:
+        BodyRequest {
+          documentType: 'RG'|'CNH';
+          documentFront: 'binary';
+          documentBack: 'binary';
+          documentSelfie: 'binary';
+          boat{
+            IMO: number;
+            name: string;
+            subscription: string;
+            flag: 'type UF';
+          },
+          CNPJ: string;
+        }
+
+      '/
+  end
+    group add_method_payment
+    USER_SELLER -> UNKNOW_FRONTEND: payment information 
+    activate UNKNOW_FRONTEND 
+    UNKNOW_FRONTEND -> WEB_SERVER: payment information  
+    activate WEB_SERVER
+    WEB_SERVER -> DATABASE: Persist payment information in the database 
+    activate DATABASE
+    DATABASE -> WEB_SERVER: send update operation status
+    deactivate DATABASE
+    WEB_SERVER -> UNKNOW_FRONTEND: Sends operation with sucessfully
+    deactivate WEB_SERVER
+    deactivate UNKNOW_FRONTEND
+
+     /'
+        Should persist following data in database:
+        BodyRequest {
+          document{
+            type: 'RG'|'CNH';
+            front: 'binary';
+            back: 'binary';
+            selfie: 'binary';
+          },
+          boat{
+            IMO: number;
+            name: string;
+            subscription: string;
+            flag: 'type UF';
+          },
+          CNPJ: string;
+        }
+
+      '/
+  end
+
+  group create_ticket_seller
+    USER_SELLER -> UNKNOW_FRONTEND: send ticket data
+    activate UNKNOW_FRONTEND
+    UNKNOW_FRONTEND -> WEB_SERVER: send ticket data
+    activate WEB_SERVER
+    WEB_SERVER -> DATABASE: Persist ticket data in database
+    activate DATABASE
+    DATABASE -> WEB_SERVER: Sends operation with sucessfully
+    deactivate DATABASE
+    WEB_SERVER -> UNKNOW_FRONTEND: Sends ticket information
+    deactivate WEB_SERVER
+    deactivate UNKNOW_FRONTEND
+
+     /'
+        Should persist following data in database:
+        BodyRequest {
+          acomodacao_nome: string;
+          cidade_destino: string;
+          cidade_origem: string;
+          dt_chegada: date;
+          dt_modificacao: date;
+          dt_registro: date;
+          dt_saida: date;
+          embarcacao_nome: string;
+          embarcacao_telefone: number;
+          imagem_url: string;
+          quantidade_restante: number;
+          valor_alimentacao: number;
+          valor_transporte: number;
+        }
+      '/
+
+  end
+end
+
+
+@enduml
+
+
