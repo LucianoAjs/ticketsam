@@ -12,5 +12,18 @@ export const darkTheme = {
   gradient: "linear-gradient(#091236, #1E215D)",
 };
 
+export const theme = {
+  primary100: "#255178",
+  primary200: "#98CBF9",
+  primary300: "#4DA8F7",
+  primary400: "#496278",
+  primary500: "#3D85C4",
+  body: "#363537",
+  text: "#FAFAFA",
+  toggleBorder: "#6B8096",
+  gradient: "linear-gradient(#091236, #1E215D)",
+};
+
 export type LightTheme = typeof lightTheme;
 export type DarkTheme = typeof darkTheme;
+export type Theme = typeof theme;
