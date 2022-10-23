@@ -19,6 +19,12 @@ export const USER = {
         DESC: 'Email.',
         VALUE: 'luciano@gmail.com',
       },
+      PASSWORD: {
+        DESC: 'Password.',
+        VALUE: 'ADMIN@123',
+        REGEX:
+          /^(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[0-9a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{6,}$/,
+      },
       FIRST_NAME: {
         DESC: 'First name.',
         VALUE: 'luciano',

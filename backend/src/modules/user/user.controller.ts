@@ -16,7 +16,7 @@ const {
   },
 } = USER;
 
-@Controller('unknow')
+@Controller('unknown')
 export class UserController {
   constructor(private readonly userService: UserService) {}
 

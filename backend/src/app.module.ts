@@ -1,3 +1,4 @@
+import { AuthModule } from '@/auth/auth.module';
 import { PrismaModule } from '@/database/prisma.module';
 import { HealthModule } from '@/health/health.module';
 import { UsersLoggerModule } from '@/logger/logger.module';
@@ -16,6 +17,7 @@ import { ConfigModule } from '@nestjs/config';
     HealthModule,
     UserModule,
     UsersLoggerModule,
+    AuthModule,
   ],
   controllers: [],
   providers: [],

@@ -28,4 +28,10 @@ export class UserRepository {
       },
     });
   }
+
+  async getUserByEmail(email: string): Promise<UserDto> {
+    return await this.prisma.user.findUnique({
+      where: { email: email },
+    });
+  }
 }

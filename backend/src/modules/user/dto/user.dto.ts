@@ -17,6 +17,7 @@ const {
       BIRTHDATE,
       CPF,
       EMAIL,
+      PASSWORD,
       FIRST_NAME,
       GENDER,
       LAST_NAME,
@@ -37,6 +38,16 @@ export class UserDto {
     type: String,
   })
   email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: PASSWORD.DESC,
+    example: PASSWORD.VALUE,
+    pattern: String(PASSWORD.REGEX),
+    type: String,
+  })
+  password: string;
 
   @IsOptional()
   @IsString()
@@ -73,7 +84,7 @@ export class UserDto {
   @ApiProperty({
     description: PHONE_NUMBER.DESC,
     example: PHONE_NUMBER.VALUE,
-    pattern: '[1-9][0-9]`9[0-9]{8}$',
+    pattern: '^[1-9][0-9]`9[0-9]{8}$',
     type: Number,
     required: false,
   })
