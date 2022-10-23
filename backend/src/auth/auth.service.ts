@@ -1,4 +1,4 @@
-import { UserService } from '@/modules/user/user.service';
+import { UserService } from '@/modules/user/services/user/user.service';
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';
@@ -26,7 +26,8 @@ export class AuthService {
   }
 
   async login(user: LoginRequestDto) {
-    const payload = { email: user.email, sub: user.id };
+    const response = await this.userService.getUserByEmail(user.email);
+    const payload = { email: user.email, sub: response.id };
     return {
       access_token: this.jwtService.sign(payload),
     };

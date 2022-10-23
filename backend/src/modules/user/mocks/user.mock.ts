@@ -1,5 +1,5 @@
-import { UserResponseDto } from '@/modules/user/dto/user-response.dto';
-import { UserDto } from '@/modules/user/dto/user.dto';
+import { UserDto } from '@/modules/user/dto/user';
+import { UserResponseDto } from '@/modules/user/dto/user/user-response.dto';
 import { HttpStatus } from '@nestjs/common';
 
 export class UserMock {

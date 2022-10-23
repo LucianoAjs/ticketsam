@@ -84,17 +84,19 @@ group user_seller_flow
      /'
         Should persist following data in database:
         BodyRequest {
-          documentType: 'RG'|'CNH';
-          documentFront: 'binary';
-          documentBack: 'binary';
-          documentSelfie: 'binary';
+          CNPJ: string;
+          document:{
+            Type: 'RG'|'CNH';
+            Front: 'string';
+            Back: 'string';
+            Selfie: 'string';
+          },
           boat{
             IMO: number;
             name: string;
             subscription: string;
             flag: 'type UF';
           },
-          CNPJ: string;
         }
 
       '/

@@ -1,7 +1,7 @@
 import { UserRepository } from '@/database/repository/user.repository';
 import { UsersLoggerService } from '@/logger/logger.service';
-import { UserResponseDto } from '@/modules/user/dto/user-response.dto';
-import { UserDto } from '@/modules/user/dto/user.dto';
+import { UserDto } from '@/modules/user/dto/user';
+import { UserResponseDto } from '@/modules/user/dto/user/user-response.dto';
 import { PrismaException } from '@/shared/errors/prisma.exception';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';

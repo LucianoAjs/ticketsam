@@ -2,14 +2,15 @@
 CREATE TABLE `User` (
     `id` VARCHAR(191) NOT NULL,
     `paymentId` VARCHAR(255) NULL,
-    `email` VARCHAR(255) NOT NULL,
-    `password` VARCHAR(255) NOT NULL,
+    `email` VARCHAR(255) NULL,
+    `password` VARCHAR(255) NULL,
     `birthdate` DATETIME NULL,
     `firstName` VARCHAR(255) NULL,
     `lastName` VARCHAR(255) NULL,
-    `cpf` VARCHAR(255) NOT NULL,
+    `cpf` VARCHAR(255) NULL,
     `phoneNumber` INTEGER NULL,
     `gender` VARCHAR(255) NULL,
+    `DocumentType` VARCHAR(255) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -42,10 +43,9 @@ CREATE TABLE `Address` (
 CREATE TABLE `Document` (
     `id` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(255) NULL,
-    `type` VARCHAR(255) NULL,
-    `front` VARCHAR(255) NULL,
-    `back` VARCHAR(255) NULL,
-    `selfie` VARCHAR(255) NULL,
+    `DocumentFrontUri` VARCHAR(255) NULL,
+    `DocumentBackUri` VARCHAR(255) NULL,
+    `DocumentSelfieUri` VARCHAR(255) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
@@ -58,14 +58,15 @@ CREATE TABLE `Document` (
 CREATE TABLE `Boat` (
     `id` VARCHAR(191) NOT NULL,
     `userId` VARCHAR(255) NULL,
-    `IMO` VARCHAR(255) NULL,
+    `IMO` INTEGER NULL,
     `name` VARCHAR(255) NULL,
-    `subscription` VARCHAR(255) NULL,
+    `subscription` INTEGER NULL,
     `flag` VARCHAR(255) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `Boat_userId_key`(`userId`),
+    UNIQUE INDEX `Boat_IMO_key`(`IMO`),
     INDEX `Boat_userId_fkey`(`userId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

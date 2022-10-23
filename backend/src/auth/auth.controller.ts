@@ -3,14 +3,9 @@ import { AUTH } from '@/auth/constants/auth.constant';
 import { LoginRequestDto } from '@/auth/dto/login-request.dto';
 import { LoginResponseDto } from '@/auth/dto/login-response.dto';
 import { JwtAuthGuard } from '@/auth/guard/jwt-auth.guard';
-import {
-  Body,
-  Controller,
-  InternalServerErrorException,
-  Post,
-  UnauthorizedException,
-  UseGuards,
-} from '@nestjs/common';
+import { InternalServerErrorException } from '@/shared/errors/internal-server-error.exception';
+import { UnauthorizedException } from '@/shared/errors/unauthorized.exception';
+import { Body, Controller, Post, UseGuards } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 
 const {

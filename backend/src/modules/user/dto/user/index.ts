@@ -1,5 +1,5 @@
-import { USER } from '@/modules/user/constants/user.constant';
-import { AddressDto } from '@/modules/user/dto/nested/address.dto';
+import { USER } from '@/modules/user/constants/user';
+import { AddressDto } from '@/modules/user/dto/user/nested/address.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
@@ -22,6 +22,7 @@ const {
       GENDER,
       LAST_NAME,
       PHONE_NUMBER,
+      DOCUMENT_TYPE,
     },
   },
 } = USER;
@@ -111,6 +112,17 @@ export class UserDto {
     required: false,
   })
   gender?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: DOCUMENT_TYPE.DESC,
+    example: DOCUMENT_TYPE.VALUE,
+    pattern: '`(RG|CNH)$',
+    type: String,
+    required: false,
+  })
+  DocumentType?: string;
 
   @IsOptional()
   @IsObject()

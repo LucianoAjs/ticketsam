@@ -1,4 +1,4 @@
-import { ADDRESS } from '@/modules/user/constants/nested/address.constant';
+import { ADDRESS } from '@/modules/user/constants/user/nested/address.constant';
 
 export const USER = {
   API_OPERATION: {
@@ -49,6 +49,7 @@ export const USER = {
         DESC: 'Gender.',
         VALUE: 'M',
       },
+      DOCUMENT_TYPE: { DESC: 'Document type.', VALUE: 'CNH' },
       ADDRESS,
     },
   },

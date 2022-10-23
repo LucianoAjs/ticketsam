@@ -1,9 +1,9 @@
 import { UserRepository } from '@/database/repository/user.repository';
 import { UsersLoggerService } from '@/logger/logger.service';
-import { UserResponseDto } from '@/modules/user/dto/user-response.dto';
-import { UserDto } from '@/modules/user/dto/user.dto';
+import { UserDto } from '@/modules/user/dto/user';
+import { UserResponseDto } from '@/modules/user/dto/user/user-response.dto';
 import { UserMock } from '@/modules/user/mocks/user.mock';
-import { UserService } from '@/modules/user/user.service';
+import { UserService } from '@/modules/user/services/user/user.service';
 import { Test, TestingModule } from '@nestjs/testing';
 
 describe('UserService', () => {

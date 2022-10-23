@@ -1,3 +1,4 @@
+import { S3AdapterModule } from '@/adapters/s3-adapter/s3-adapter.module';
 import { AuthModule } from '@/auth/auth.module';
 import { PrismaModule } from '@/database/prisma.module';
 import { HealthModule } from '@/health/health.module';
@@ -18,6 +19,7 @@ import { ConfigModule } from '@nestjs/config';
     UserModule,
     UsersLoggerModule,
     AuthModule,
+    S3AdapterModule,
   ],
   controllers: [],
   providers: [],
