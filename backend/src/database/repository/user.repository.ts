@@ -39,17 +39,45 @@ export class UserRepository {
 
   async upsertBoatByUserId(
     userId: string,
+    statusId: string,
     validateBoat: ValidateBoatDto,
   ): Promise<any> {
     const { boat } = validateBoat;
+
     return await this.prisma.boat.upsert({
-      where: { id: userId },
-      select: { id: true },
+      where: { IMO: boat.IMO },
       update: {
+        userId,
         ...boat,
+        statusId,
       },
       create: {
+        userId,
         ...boat,
+        statusId,
+      },
+    });
+  }
+
+  async upsertStatusByBoatId(userId: string, status: string): Promise<any> {
+    return await this.prisma.status.upsert({
+      where: { userId },
+      update: {
+        userId,
+        status,
+      },
+      create: {
+        userId,
+        status,
+      },
+    });
+  }
+
+  async getBoatStatus(userId: string): Promise<any> {
+    return await this.prisma.boat.findUnique({
+      where: { userId },
+      include: {
+        status: true,
       },
     });
   }

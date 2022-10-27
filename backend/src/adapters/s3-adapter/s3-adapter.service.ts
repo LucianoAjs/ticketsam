@@ -23,7 +23,13 @@ export class S3AdapterService extends S3Client {
     protected readonly configService: ConfigService,
     private readonly usersLogger: UsersLoggerService,
   ) {
-    super({ region: configService.get('AWS_REGION') });
+    super({
+      region: configService.get('AWS_REGION'),
+      credentials: {
+        accessKeyId: configService.get('AWS_ACCESS_KEY'),
+        secretAccessKey: configService.get('AWS_SECRET_KEY'),
+      },
+    });
   }
 
   async uploadImages(
@@ -71,14 +77,10 @@ export class S3AdapterService extends S3Client {
     return s3UrlMap;
   }
 
-  private getParams(
-    financeId: string,
-    fieldName: string,
-    file: Buffer,
-  ): S3Params {
+  private getParams(userId: string, fieldName: string, file: Buffer): S3Params {
     return {
       Bucket: this.configService.get('S3_BUCKET_NAME'),
-      Key: `${fieldName}/${financeId}-${fieldName}.png`,
+      Key: `${fieldName}/${userId}-${fieldName}.png`,
       Body: file,
     };
   }

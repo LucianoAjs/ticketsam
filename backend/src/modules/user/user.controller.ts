@@ -1,8 +1,11 @@
 import { VALIDATE_BOAT } from '@/modules/user/constants/boat';
-import { BoatResponseDto } from '@/modules/user/constants/boat/boat-response.dto';
+
+import { GET_BOAT_STATUS } from '@/modules/user/constants/boat/get-boat-status.constant';
 import { DOCUMENT } from '@/modules/user/constants/document.constant';
 import { USER } from '@/modules/user/constants/user';
 import { ValidateBoatDto } from '@/modules/user/dto/boat';
+import { BoatResponseDto } from '@/modules/user/dto/boat/boat-response.dto';
+import { DocumentResponseDto } from '@/modules/user/dto/boat/document-response.dto';
 import { FilesDto } from '@/modules/user/dto/files.dto';
 import { UserDto } from '@/modules/user/dto/user';
 import { UserResponseDto } from '@/modules/user/dto/user/user-response.dto';
@@ -15,6 +18,7 @@ import { parseJwt } from '@/shared/utils/common';
 import {
   Body,
   Controller,
+  Get,
   Post,
   Req,
   UploadedFiles,
@@ -94,7 +98,7 @@ export class UserController {
   @ApiResponse({
     status: 201,
     description: DOCUMENT.API_RESPONSE.SUCCESS_OPERATION.DESC,
-    type: () => BoatResponseDto,
+    type: () => DocumentResponseDto,
   })
   @ApiResponse({
     status: 401,
@@ -112,10 +116,11 @@ export class UserController {
   @ApiConsumes('multipart/form-data')
   async uploadUserDocuments(
     @UploadedFiles()
-    @Body()
-    body: FilesDto,
-    @Req() req,
-  ) {
+    @Req()
+    req,
+  ): Promise<DocumentResponseDto> {
+    const body: FilesDto = req.body;
+
     const jwt = req.headers['authorization'];
     const { sub } = parseJwt(jwt);
 
@@ -151,5 +156,33 @@ export class UserController {
     const { sub } = parseJwt(jwt);
 
     return this.boatService.validateBoatOwner(sub, body);
+  }
+
+  @ApiTags('USERS')
+  @Get('users/boat')
+  @ApiOperation({
+    summary: GET_BOAT_STATUS.API_OPERATION.SUMMARY,
+    description: GET_BOAT_STATUS.API_OPERATION.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: 201,
+    description: VALIDATE_BOAT.API_RESPONSE.SUCCESS_OPERATION.DESC,
+    type: () => BoatResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  async getBoatStatus(@Req() req): Promise<BoatResponseDto> {
+    const jwt = req.headers['authorization'];
+    const { sub } = parseJwt(jwt);
+
+    return this.boatService.getBoatStatusByUserId(sub);
   }
 }

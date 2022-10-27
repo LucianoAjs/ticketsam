@@ -1,8 +1,8 @@
 import { S3AdapterService } from '@/adapters/s3-adapter/s3-adapter.service';
 import { UserRepository } from '@/database/repository/user.repository';
 import { UsersLoggerService } from '@/logger/logger.service';
-
 import { DOCUMENT } from '@/modules/user/constants/document.constant';
+import { DocumentResponseDto } from '@/modules/user/dto/boat/document-response.dto';
 import { FilesDto } from '@/modules/user/dto/files.dto';
 import { PrismaException } from '@/shared/errors/prisma.exception';
 import { BadRequestException, Injectable } from '@nestjs/common';
@@ -17,7 +17,10 @@ export class DocumentService {
     private readonly usersLogger: UsersLoggerService,
   ) {}
 
-  async uploadUserDocuments(userId: string, files: FilesDto) {
+  async uploadUserDocuments(
+    userId: string,
+    files: FilesDto,
+  ): Promise<DocumentResponseDto> {
     try {
       await this.s3AdapterService.uploadImages(userId, files);
     } catch (error) {
