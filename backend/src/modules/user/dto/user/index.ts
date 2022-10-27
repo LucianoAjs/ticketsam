@@ -1,5 +1,5 @@
-import { USER } from '@/modules/user/constants/user.constant';
-import { AddressDto } from '@/modules/user/dto/nested/address.dto';
+import { USER } from '@/modules/user/constants/user';
+import { AddressDto } from '@/modules/user/dto/user/nested/address.dto';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
 import {
@@ -17,10 +17,12 @@ const {
       BIRTHDATE,
       CPF,
       EMAIL,
+      PASSWORD,
       FIRST_NAME,
       GENDER,
       LAST_NAME,
       PHONE_NUMBER,
+      DOCUMENT_TYPE,
     },
   },
 } = USER;
@@ -37,6 +39,16 @@ export class UserDto {
     type: String,
   })
   email: string;
+
+  @IsNotEmpty()
+  @IsString()
+  @ApiProperty({
+    description: PASSWORD.DESC,
+    example: PASSWORD.VALUE,
+    pattern: String(PASSWORD.REGEX),
+    type: String,
+  })
+  password: string;
 
   @IsOptional()
   @IsString()
@@ -73,7 +85,7 @@ export class UserDto {
   @ApiProperty({
     description: PHONE_NUMBER.DESC,
     example: PHONE_NUMBER.VALUE,
-    pattern: '[1-9][0-9]`9[0-9]{8}$',
+    pattern: '^[1-9][0-9]`9[0-9]{8}$',
     type: Number,
     required: false,
   })
@@ -100,6 +112,17 @@ export class UserDto {
     required: false,
   })
   gender?: string;
+
+  @IsOptional()
+  @IsString()
+  @ApiProperty({
+    description: DOCUMENT_TYPE.DESC,
+    example: DOCUMENT_TYPE.VALUE,
+    pattern: '`(RG|CNH)$',
+    type: String,
+    required: false,
+  })
+  DocumentType?: string;
 
   @IsOptional()
   @IsObject()

@@ -1,4 +1,4 @@
-import { ADDRESS } from '@/modules/user/constants/nested/address.constant';
+import { ADDRESS } from '@/modules/user/constants/user/nested/address.constant';
 
 export const USER = {
   API_OPERATION: {
@@ -18,6 +18,12 @@ export const USER = {
       EMAIL: {
         DESC: 'Email.',
         VALUE: 'luciano@gmail.com',
+      },
+      PASSWORD: {
+        DESC: 'Password.',
+        VALUE: 'ADMIN@123',
+        REGEX:
+          /^(?=.*\d)(?=.*[!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~])[0-9a-zA-Z!"#$%&'()*+,-./:;<=>?@[\]^_`{|}~]{6,}$/,
       },
       FIRST_NAME: {
         DESC: 'First name.',
@@ -43,6 +49,7 @@ export const USER = {
         DESC: 'Gender.',
         VALUE: 'M',
       },
+      DOCUMENT_TYPE: { DESC: 'Document type.', VALUE: 'CNH' },
       ADDRESS,
     },
   },

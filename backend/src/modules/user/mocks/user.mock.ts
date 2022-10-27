@@ -1,5 +1,5 @@
-import { UserResponseDto } from '@/modules/user/dto/user-response.dto';
-import { UserDto } from '@/modules/user/dto/user.dto';
+import { UserDto } from '@/modules/user/dto/user';
+import { UserResponseDto } from '@/modules/user/dto/user/user-response.dto';
 import { HttpStatus } from '@nestjs/common';
 
 export class UserMock {
@@ -11,6 +11,7 @@ export class UserMock {
       lastName: 'anjos',
       cpf: '04808850440',
       phoneNumber: 982506489,
+      password: 'ADMIN@123',
       birthdate: new Date('06/04/2000'),
       gender: 'M',
       address: {

@@ -11,17 +11,24 @@ datasource db {
 }
 
 model User {
-  id          String    @id @default(uuid())
-  email       String    @unique @db.VarChar(255)
-  birthdate   DateTime? @db.DateTime()
-  firstName   String?   @db.VarChar(255)
-  lastName    String?   @db.VarChar(255)
-  cpf         String    @unique @db.VarChar(255)
-  phoneNumber Int?      @db.Int
-  gender      String?   @db.VarChar(255)
-  createdAt   DateTime  @default(now())
-  updatedAt   DateTime  @updatedAt
-  address     Address?
+  id           String    @id @default(uuid())
+  paymentId    String?   @unique @db.VarChar(255)
+  email        String?   @unique @db.VarChar(255)
+  password     String?   @db.VarChar(255)
+  birthdate    DateTime? @db.DateTime()
+  firstName    String?   @db.VarChar(255)
+  lastName     String?   @db.VarChar(255)
+  cpf          String?   @unique @db.VarChar(255)
+  phoneNumber  Int?      @db.Int
+  gender       String?   @db.VarChar(255)
+  DocumentType String?   @db.VarChar(255)
+  createdAt    DateTime  @default(now())
+  updatedAt    DateTime  @updatedAt
+  address      Address?
+  Document     Document?
+  Boat         Boat?
+  Ticket       Ticket?
+  Payment      Payment?  @relation(fields: [paymentId], references: [id])
 }
 
 model Address {
@@ -36,7 +43,70 @@ model Address {
   street       String?  @db.VarChar(255)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  user         User?    @relation(fields: [userId], references: [id])
+  user         User?    @relation(fields: [userId], references: [id], map: "Address_userId_fkey")
 
   @@index([userId], map: "Address_userId_fkey")
+}
+
+model Document {
+  id                String   @id @default(uuid())
+  userId            String?  @unique @db.VarChar(255)
+  DocumentFrontUri  String?  @db.VarChar(255)
+  DocumentBackUri   String?  @db.VarChar(255)
+  DocumentSelfieUri String?  @db.VarChar(255)
+  createdAt         DateTime @default(now())
+  updatedAt         DateTime @updatedAt
+  user              User?    @relation(fields: [userId], references: [id], map: "Document_userId_fkey")
+
+  @@index([userId], map: "Document_userId_fkey")
+}
+
+model Boat {
+  id           String   @id @default(uuid())
+  userId       String?  @unique @db.VarChar(255)
+  IMO          Int?     @unique @db.Int
+  name         String?  @db.VarChar(255)
+  subscription Int?     @db.Int
+  flag         String?  @db.VarChar(255)
+  createdAt    DateTime @default(now())
+  updatedAt    DateTime @updatedAt
+  user         User?    @relation(fields: [userId], references: [id], map: "Boat_userId_fkey")
+
+  @@index([userId], map: "Boat_userId_fkey")
+}
+
+model Ticket {
+  id                 String    @id @default(uuid())
+  userId             String?   @unique @db.VarChar(255)
+  accommodation_name String?   @db.VarChar(255)
+  destination_city   String?   @db.VarChar(255)
+  home_city          String?   @db.VarChar(255)
+  dt_arrival         DateTime? @db.DateTime()
+  dt_modification    DateTime? @db.DateTime()
+  dt_record          DateTime? @db.DateTime()
+  dt_output          DateTime? @db.DateTime()
+  boat_name          String?   @db.VarChar(255)
+  boat_phone         String?   @db.VarChar(255)
+  image_url          String?   @db.VarChar(255)
+  remaining_quantity Int?      @db.Int
+  food_value         Int?      @db.Int
+  transport_value    Int?      @db.Int
+  createdAt          DateTime  @default(now())
+  updatedAt          DateTime  @updatedAt
+  user               User?     @relation(fields: [userId], references: [id], map: "Ticket_userId_fkey")
+  Payment            Payment?
+
+  @@index([userId], map: "Ticket_userId_fkey")
+}
+
+model Payment {
+  id        String   @id @default(uuid())
+  ticketId  String?  @unique @db.VarChar(255)
+  paymentId String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+  ticket    Ticket?  @relation(fields: [ticketId], references: [id], map: "Payment_userId_fkey")
+  User      User[]
+
+  @@index([ticketId], map: "Payment_userId_fkey")
 }
