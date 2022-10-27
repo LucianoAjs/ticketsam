@@ -11,15 +11,18 @@ export const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  width: 570px;
   align-self: center;
   flex-grow: 1;
-
+  
   label {
     opacity: 1;
     color: ${({ theme }) => theme.text} !important;
   }
   button {
-    width: 386px;
+    width: 475px;
+    border-radius: 15px !important;
+    height: 50px;
   }
 
   .color-slate-dark {
@@ -28,6 +31,7 @@ export const Main = styled.div`
 
   a {
     color: unset;
+    text-decoration: none;
   }
 
   img {
@@ -48,11 +52,15 @@ export const AlignItems = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
-
-  a {
-    display: flex;
-    align-items: center;
-  }
+  text-align: center;
+  background-color: #fff;
+  padding: 20px;
+  align-items: center;
+  height: 820px;
+  color: rgb(77, 77, 77);
+  min-height: 500px;
+  width: 520px;
+  border-radius: 9px;
 `;
 
 export const Align = styled.div`
@@ -70,16 +78,58 @@ export const NavigateTo = styled.div`
 
 export const AlignInput = styled.div`
   display: flex;
-  flex-direction: column;
+  flex-direction: column; 
+  margin-left: 60px;
+  width: 100%;
   gap: 2rem;
 `;
 
 export const AlignCheckBox = styled.div`
-  width: 386px;
+  color: #3D85C4;
+  font-size: 18px;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
-`;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  margin-top: -50px;
+  padding: 10px;
+  &:hover {
+    background-color: #e9e9e9;
+    border-radius: 7px;
+    padding: 10px;
+  }
+  `;
+
+
+export const AlignRecPassword = styled.div 
+`
+  color: #3D85C4;
+  padding: 2px;
+  font-size: 18px;
+  font-size: 18px;
+  display: flex;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  padding: 10px;
+  &:hover {
+    background-color: #e9e9e9;
+    border-radius: 7px;
+    padding: 10px;
+  }
+  `;
+
+
+export const HaveAccount = styled.div 
+  `
+  width: 386px;
+  color: #3D85C4;
+  font-size: 18px;
+  display: flex;
+  text-decoration: none;
+  text-align: center;
+  justify-content: center;
+  `;
 
 export const ConfirmationIcon = styled.div`
   display: flex;

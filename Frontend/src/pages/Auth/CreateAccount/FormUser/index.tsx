@@ -10,7 +10,7 @@ import useUserContext from "shared/contexts/UserContext/userContext";
 import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
-import { AlignButtons, AlignForm } from "styles/app-styles";
+import { AlignButtons, AlignForm, AlignLabelTerms } from "styles/app-styles";
 
 export const FormUser = ({ next }: { next: Function }) => {
   const { update, user } = useUserContext();
@@ -47,6 +47,7 @@ export const FormUser = ({ next }: { next: Function }) => {
     <>
       <form>
         <AlignForm>
+          <h5>Primeiro, precisamos de algumas informacoes...</h5>
           <InputFormController
             formControl={control}
             formControlName="firstName"
@@ -107,6 +108,10 @@ export const FormUser = ({ next }: { next: Function }) => {
             placeholder="DD/MM/AAAA"
           />
         </AlignForm>
+
+        <AlignLabelTerms>
+          
+        </AlignLabelTerms>
       </form>
 
       <AlignButtons>

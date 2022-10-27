@@ -10,7 +10,7 @@ import {
 } from "shared/constants/routes";
 import { ILoginForm } from "shared/interfaces/auth-interface";
 import { login } from "shared/schemas/login.schema";
-import { AlignCheckBox, AlignInput, AlignItems, Main } from "../styles";
+import { AlignCheckBox, AlignInput, AlignItems, Main, HaveAccount, AlignRecPassword } from "../styles";
 
 export const Login = () => {
   const initState = {
@@ -39,10 +39,10 @@ export const Login = () => {
     <Main>
       <AlignItems>
         <div>
-          <h1>Bem vindo ao Unknown</h1>
+          <h1>UNKNOWN</h1>
+          <br />
           <h5>
-            Insira suas credenciais nos campos abaixo <br />
-            para iniciar a sessão:
+            Login
           </h5>
         </div>
 
@@ -69,17 +69,24 @@ export const Login = () => {
           />
         </AlignInput>
 
-        <AlignCheckBox>
-          <a href={`/${AUTH}/${CREATE_ACCOUNT}`}>Criar conta</a>
-
-          <a href={`/${AUTH}/${RECOVERY_PASSWORD}`}>Recuperar senha</a>
-        </AlignCheckBox>
-
         <NextButton
           disabled={!isValid}
           handleClick={onSubmit}
           text="Iniciar sessão"
         />
+
+        <AlignRecPassword>
+          <a href={`/${AUTH}/${RECOVERY_PASSWORD}`}>Esqueci minha senha</a>
+        </AlignRecPassword>
+
+        <HaveAccount>
+        <h4>Nao tem uma conta?</h4>
+        </HaveAccount>
+
+        <AlignCheckBox >
+        <a href={`/${AUTH}/${CREATE_ACCOUNT}`}>Clique aqui para criar um conta.</a>
+        </AlignCheckBox>
+
       </AlignItems>
     </Main>
   );

@@ -12,7 +12,10 @@ export default styled.div`
     flex-direction: column;
     justify-content: center;
     align-items: center;
-
     gap: 2rem;
+  }
+
+  h5{
+    font-weight: 400;
   }
 `;

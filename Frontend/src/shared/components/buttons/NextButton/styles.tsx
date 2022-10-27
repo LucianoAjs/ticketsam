@@ -7,8 +7,8 @@ export default styled.div`
     &:disabled {
       pointer-events: none !important;
       opacity: 0.8;
-      color: ${({ theme }) => theme.primary300};
-      background-color: ${({ theme }) => theme.primary400};
+      color: ${({ theme }) => theme.primary700};
+      background-color: ${({ theme }) => theme.primary600};
     }
   }
 `;
