@@ -101,4 +101,10 @@ export class UserRepository {
       },
     });
   }
+
+  async getTicket(): Promise<CreateTicketDto[]> {
+    return await this.prisma.ticket.findMany({
+      include: { boat: true },
+    });
+  }
 }

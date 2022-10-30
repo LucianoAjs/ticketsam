@@ -15,7 +15,7 @@ import { UserDto } from '@/modules/user-seller/dto/user';
 import { UserResponseDto } from '@/modules/user-seller/dto/user/user-response.dto';
 import { BoatService } from '@/modules/user-seller/services/boat/boat.service';
 import { DocumentService } from '@/modules/user-seller/services/document/document.service';
-import { TicketService } from '@/modules/user-seller/services/ticket/boat.service';
+import { TicketService } from '@/modules/user-seller/services/ticket/ticket.service';
 import { UserService } from '@/modules/user-seller/services/user/user.service';
 import { InternalServerErrorException } from '@/shared/errors/internal-server-error.exception';
 import { UnauthorizedException } from '@/shared/errors/unauthorized.exception';
@@ -61,7 +61,7 @@ export class UserController {
     private readonly ticketService: TicketService,
   ) {}
 
-  @ApiTags('USERS')
+  @ApiTags('USER SELLER')
   @Post('users')
   @ApiOperation({
     summary: API_OPERATION.SUMMARY,
