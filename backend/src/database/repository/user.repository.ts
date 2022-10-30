@@ -1,6 +1,8 @@
 import { PrismaService } from '@/database/prisma.service';
+import { GetTicketQueryDto } from '@/modules/user-buyer/dto/get-ticket-query.dto';
 import { ValidateBoatDto } from '@/modules/user-seller/dto/boat';
 import { DocumentDto } from '@/modules/user-seller/dto/boat/nested/document.dto';
+import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
 import { CreateTicketDto } from '@/modules/user-seller/dto/create-ticket.dto';
 import { UserDto } from '@/modules/user-seller/dto/user';
 import { AddressDto } from '@/modules/user-seller/dto/user/nested/address.dto';
@@ -102,8 +104,41 @@ export class UserRepository {
     });
   }
 
-  async getTicket(): Promise<CreateTicketDto[]> {
+  async getAllTicket(): Promise<CreateTicketResponseDto[]> {
     return await this.prisma.ticket.findMany({
+      include: { boat: true },
+    });
+  }
+
+  async getTicketByFilter({
+    destination_city,
+    home_city,
+    dt_arrival,
+    dt_output,
+  }: GetTicketQueryDto): Promise<CreateTicketResponseDto[]> {
+    return await this.prisma.ticket.findMany({
+      where: {
+        AND: [
+          {
+            dt_arrival: {
+              lte: dt_arrival,
+            },
+            dt_output: {
+              lte: dt_output,
+            },
+          },
+          {
+            destination_city: {
+              equals: destination_city,
+            },
+          },
+          {
+            home_city: {
+              equals: home_city,
+            },
+          },
+        ],
+      },
       include: { boat: true },
     });
   }
