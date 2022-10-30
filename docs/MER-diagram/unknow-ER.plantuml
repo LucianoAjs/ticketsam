@@ -49,10 +49,20 @@ entity "Boat" as boat {
     * **id: text <<generated>>  <<PK>> **
     --
     * **userSellerId: text <<FK>> **
+    * **statusId: text <<FK>> **
     *IMO: text
     *name: text
     *subscription: text
     *flag: text
+    *createdAt: date
+    *updatedAt: date
+}
+
+
+entity "Status" as status {
+    * **id: text <<generated>> <<PK>> **
+    --
+    *status: text
     *createdAt: date
     *updatedAt: date
 }
@@ -87,12 +97,11 @@ entity "Payment" as payment {
     *updatedAt: date
 }
 
-
 userSeller ||--|| address
 userSeller ||--|{ boat
-userSeller ||--|{ ticket
 userSeller ||--|{ document
+boat ||--|{ ticket
 ticket ||--|{ payment
-
+status ||--|{ boat
 
 @enduml

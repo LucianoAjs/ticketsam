@@ -12,7 +12,6 @@ datasource db {
 
 model User {
   id           String    @id @default(uuid())
-  paymentId    String?   @unique @db.VarChar(255)
   email        String?   @unique @db.VarChar(255)
   password     String?   @db.VarChar(255)
   birthdate    DateTime? @db.DateTime()
@@ -25,10 +24,9 @@ model User {
   createdAt    DateTime  @default(now())
   updatedAt    DateTime  @updatedAt
   address      Address?
-  Document     Document?
-  Boat         Boat?
-  Ticket       Ticket?
-  Payment      Payment?  @relation(fields: [paymentId], references: [id])
+  document     Document?
+  boat         Boat[]
+  payment      Payment[]
 }
 
 model Address {
@@ -63,21 +61,36 @@ model Document {
 
 model Boat {
   id           String   @id @default(uuid())
-  userId       String?  @unique @db.VarChar(255)
+  userId       String?  @db.VarChar(255)
+  cnpj         String?  @unique @db.VarChar(255)
   IMO          Int?     @unique @db.Int
   name         String?  @db.VarChar(255)
   subscription Int?     @db.Int
   flag         String?  @db.VarChar(255)
   createdAt    DateTime @default(now())
   updatedAt    DateTime @updatedAt
-  user         User?    @relation(fields: [userId], references: [id], map: "Boat_userId_fkey")
+  user         User?    @relation(fields: [userId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Boat_userId_fkey")
+  status       Status?
+  ticket       Ticket[]
 
   @@index([userId], map: "Boat_userId_fkey")
 }
 
+model Status {
+  id        String   @id @default(uuid())
+  boatId    String?  @unique @db.VarChar(255)
+  status    String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  boat Boat? @relation(fields: [boatId], references: [id], map: "Status_boatId_fkey")
+
+  @@index([boatId], map: "Status_boatId_fkey")
+}
+
 model Ticket {
   id                 String    @id @default(uuid())
-  userId             String?   @unique @db.VarChar(255)
+  boatId             String?   @db.VarChar(255)
   accommodation_name String?   @db.VarChar(255)
   destination_city   String?   @db.VarChar(255)
   home_city          String?   @db.VarChar(255)
@@ -93,20 +106,22 @@ model Ticket {
   transport_value    Int?      @db.Int
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
-  user               User?     @relation(fields: [userId], references: [id], map: "Ticket_userId_fkey")
-  Payment            Payment?
+  boat               Boat?     @relation(fields: [boatId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Ticket_boatId_fkey")
+  payment            Payment?
 
-  @@index([userId], map: "Ticket_userId_fkey")
+  @@index([boatId], map: "Ticket_boatId_fkey")
 }
 
 model Payment {
   id        String   @id @default(uuid())
+  userId    String?  @unique @db.VarChar(255)
   ticketId  String?  @unique @db.VarChar(255)
   paymentId String?  @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-  ticket    Ticket?  @relation(fields: [ticketId], references: [id], map: "Payment_userId_fkey")
-  User      User[]
+  ticket    Ticket?  @relation(fields: [ticketId], references: [id], map: "Payment_ticketId_fkey")
+  user      User?    @relation(fields: [userId], references: [id], map: "Payment_userId_fkey")
 
-  @@index([ticketId], map: "Payment_userId_fkey")
+  @@index([ticketId], map: "Payment_ticketId_fkey")
+  @@index([userId], map: "Payment_userId_fkey")
 }

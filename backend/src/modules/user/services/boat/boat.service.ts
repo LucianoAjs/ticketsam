@@ -1,6 +1,8 @@
 import { UserRepository } from '@/database/repository/user.repository';
 import { UsersLoggerService } from '@/logger/logger.service';
+
 import { ValidateBoatDto } from '@/modules/user/dto/boat';
+import { BoatResponseDto } from '@/modules/user/dto/boat/boat-response.dto';
 import { PrismaException } from '@/shared/errors/prisma.exception';
 import { Injectable } from '@nestjs/common';
 
@@ -8,19 +10,30 @@ import { Injectable } from '@nestjs/common';
 export class BoatService {
   constructor(
     private readonly userRepository: UserRepository,
-
     private readonly usersLogger: UsersLoggerService,
   ) {}
 
   async validateBoatOwner(userId: string, body: ValidateBoatDto) {
+    const defaultStatus = 'pending';
+    let statusData;
     try {
-      this.userRepository.upsertBoatByUserId(userId, body);
+      statusData = await this.userRepository.creatBoatStatus(defaultStatus);
+      await this.userRepository.createBoatByUserId(userId, statusData.id, body);
     } catch (error) {
       throw new PrismaException(error, this.usersLogger);
     }
 
-    // TODO: Create table status
+    return { status: statusData?.status };
+  }
 
-    return { status: 'pending' };
+  async getBoatStatusByUserId(userId: string): Promise<BoatResponseDto[]> {
+    let boat;
+    try {
+      boat = await this.userRepository.getBoatStatusByUserId(userId);
+    } catch (error) {
+      throw new PrismaException(error, this.usersLogger);
+    }
+
+    return boat;
   }
 }

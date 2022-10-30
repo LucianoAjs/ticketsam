@@ -1,13 +1,21 @@
 import { VALIDATE_BOAT } from '@/modules/user/constants/boat';
-import { BoatResponseDto } from '@/modules/user/constants/boat/boat-response.dto';
+
+import { GET_BOAT_STATUS } from '@/modules/user/constants/boat/get-boat-status.constant';
+import { CREATE_TICKET } from '@/modules/user/constants/create-ticket.contant';
 import { DOCUMENT } from '@/modules/user/constants/document.constant';
 import { USER } from '@/modules/user/constants/user';
 import { ValidateBoatDto } from '@/modules/user/dto/boat';
+import { BoatResponseDto } from '@/modules/user/dto/boat/boat-response.dto';
+import { DocumentResponseDto } from '@/modules/user/dto/boat/document-response.dto';
+import { CreateTicketQueryDto } from '@/modules/user/dto/create-ticket-query.dto';
+import { CreateTicketResponseDto } from '@/modules/user/dto/create-ticket-response.dto';
+import { CreateTicketDto } from '@/modules/user/dto/create-ticket.dto';
 import { FilesDto } from '@/modules/user/dto/files.dto';
 import { UserDto } from '@/modules/user/dto/user';
 import { UserResponseDto } from '@/modules/user/dto/user/user-response.dto';
 import { BoatService } from '@/modules/user/services/boat/boat.service';
 import { DocumentService } from '@/modules/user/services/document/document.service';
+import { TicketService } from '@/modules/user/services/ticket/boat.service';
 import { UserService } from '@/modules/user/services/user/user.service';
 import { InternalServerErrorException } from '@/shared/errors/internal-server-error.exception';
 import { UnauthorizedException } from '@/shared/errors/unauthorized.exception';
@@ -15,6 +23,8 @@ import { parseJwt } from '@/shared/utils/common';
 import {
   Body,
   Controller,
+  Get,
+  Param,
   Post,
   Req,
   UploadedFiles,
@@ -48,6 +58,7 @@ export class UserController {
     private readonly userService: UserService,
     private readonly boatService: BoatService,
     private readonly documentService: DocumentService,
+    private readonly ticketService: TicketService,
   ) {}
 
   @ApiTags('USERS')
@@ -74,8 +85,8 @@ export class UserController {
   @ApiBody({
     type: () => UserDto,
   })
-  async createUser(@Body() bode: UserDto): Promise<UserResponseDto> {
-    return await this.userService.createUser(bode);
+  async createUser(@Body() body: UserDto): Promise<UserResponseDto> {
+    return await this.userService.createUser(body);
   }
 
   @ApiTags('USERS')
@@ -94,7 +105,7 @@ export class UserController {
   @ApiResponse({
     status: 201,
     description: DOCUMENT.API_RESPONSE.SUCCESS_OPERATION.DESC,
-    type: () => BoatResponseDto,
+    type: () => DocumentResponseDto,
   })
   @ApiResponse({
     status: 401,
@@ -112,10 +123,11 @@ export class UserController {
   @ApiConsumes('multipart/form-data')
   async uploadUserDocuments(
     @UploadedFiles()
-    @Body()
-    body: FilesDto,
-    @Req() req,
-  ) {
+    @Req()
+    req,
+  ): Promise<DocumentResponseDto> {
+    const body: FilesDto = req.body;
+
     const jwt = req.headers['authorization'];
     const { sub } = parseJwt(jwt);
 
@@ -151,5 +163,61 @@ export class UserController {
     const { sub } = parseJwt(jwt);
 
     return this.boatService.validateBoatOwner(sub, body);
+  }
+
+  @ApiTags('USERS')
+  @Get('users/boat')
+  @ApiOperation({
+    summary: GET_BOAT_STATUS.API_OPERATION.SUMMARY,
+    description: GET_BOAT_STATUS.API_OPERATION.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: 201,
+    description: VALIDATE_BOAT.API_RESPONSE.SUCCESS_OPERATION.DESC,
+    type: () => BoatResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  async getBoatStatus(@Req() req): Promise<BoatResponseDto[]> {
+    const jwt = req.headers['authorization'];
+    const { sub } = parseJwt(jwt);
+
+    return this.boatService.getBoatStatusByUserId(sub);
+  }
+
+  @ApiTags('USERS')
+  @Post('users/ticket/:boatId')
+  @ApiOperation({
+    summary: CREATE_TICKET.API_OPERATION.SUMMARY,
+    description: CREATE_TICKET.API_OPERATION.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: 201,
+    description: CREATE_TICKET.API_RESPONSE.SUCCESS_OPERATION.DESC,
+    type: () => CreateTicketResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  async createTicketByUserId(
+    @Body() body: CreateTicketDto,
+    @Param() params: CreateTicketQueryDto,
+  ): Promise<CreateTicketResponseDto> {
+    return this.ticketService.createTicketByUserId(params, body);
   }
 }

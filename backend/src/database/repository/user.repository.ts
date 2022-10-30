@@ -1,6 +1,7 @@
 import { PrismaService } from '@/database/prisma.service';
 import { ValidateBoatDto } from '@/modules/user/dto/boat';
 import { DocumentDto } from '@/modules/user/dto/boat/nested/document.dto';
+import { CreateTicketDto } from '@/modules/user/dto/create-ticket.dto';
 import { UserDto } from '@/modules/user/dto/user';
 import { AddressDto } from '@/modules/user/dto/user/nested/address.dto';
 import { Injectable } from '@nestjs/common';
@@ -37,20 +38,34 @@ export class UserRepository {
     });
   }
 
-  async upsertBoatByUserId(
+  async createBoatByUserId(
     userId: string,
+    statusId: string,
     validateBoat: ValidateBoatDto,
   ): Promise<any> {
     const { boat } = validateBoat;
-    return await this.prisma.boat.upsert({
-      where: { id: userId },
-      select: { id: true },
-      update: {
+
+    return await this.prisma.boat.create({
+      data: {
         ...boat,
+        status: { connect: { id: statusId } },
+        user: { connect: { id: userId } },
       },
-      create: {
-        ...boat,
+    });
+  }
+
+  async creatBoatStatus(status: string): Promise<any> {
+    return await this.prisma.status.create({
+      data: {
+        status,
       },
+    });
+  }
+
+  async getBoatStatusByUserId(userId: string): Promise<any> {
+    return await this.prisma.boat.findMany({
+      where: { userId },
+      include: { status: true, ticket: true },
     });
   }
 
@@ -65,6 +80,24 @@ export class UserRepository {
       },
       create: {
         ...document,
+      },
+    });
+  }
+
+  async getBoatStatusByBoatId(boatId: string): Promise<any> {
+    return await this.prisma.status.findUnique({
+      where: { boatId },
+    });
+  }
+
+  async createTicketBoatId(
+    boatId: string,
+    createTicketDto: CreateTicketDto,
+  ): Promise<any> {
+    return await this.prisma.ticket.create({
+      data: {
+        ...createTicketDto,
+        boat: { connect: { id: boatId } },
       },
     });
   }

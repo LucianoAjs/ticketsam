@@ -20,5 +20,20 @@ services:
     ports:
       - 8080:8080
 
+  api:
+    build:
+      context: ./
+      dockerfile: Dockerfile
+    image: unknown-backend
+    command: npm run start:dev
+    env_file: .env
+    environment:
+      - NODE_ENV=development
+      - DATABASE_URL=${DATABASE_URL}
+    volumes:
+      - ./src:/app/src
+    expose:
+      - 80
+
 volumes:
   mysql_db_data_container:
