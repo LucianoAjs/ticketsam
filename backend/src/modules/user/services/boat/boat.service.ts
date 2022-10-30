@@ -10,30 +10,26 @@ import { Injectable } from '@nestjs/common';
 export class BoatService {
   constructor(
     private readonly userRepository: UserRepository,
-
     private readonly usersLogger: UsersLoggerService,
   ) {}
 
   async validateBoatOwner(userId: string, body: ValidateBoatDto) {
+    const defaultStatus = 'pending';
+    let statusData;
     try {
-      const { id } = await this.userRepository.upsertStatusByBoatId(
-        userId,
-        'pending',
-      );
-      await this.userRepository.upsertBoatByUserId(userId, id, body);
+      statusData = await this.userRepository.creatBoatStatus(defaultStatus);
+      await this.userRepository.createBoatByUserId(userId, statusData.id, body);
     } catch (error) {
       throw new PrismaException(error, this.usersLogger);
     }
 
-    return { status: 'pending' };
+    return { status: statusData?.status };
   }
 
-  async getBoatStatusByUserId(userId: string): Promise<BoatResponseDto> {
+  async getBoatStatusByUserId(userId: string): Promise<BoatResponseDto[]> {
     let boat;
     try {
-      boat = await this.userRepository.getBoatStatus(userId);
-
-      console.log(boat);
+      boat = await this.userRepository.getBoatStatusByUserId(userId);
     } catch (error) {
       throw new PrismaException(error, this.usersLogger);
     }

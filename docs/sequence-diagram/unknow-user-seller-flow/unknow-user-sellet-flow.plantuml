@@ -101,40 +101,39 @@ group user_seller_flow
 
       '/
   end
-    group add_method_payment
-    USER_SELLER -> UNKNOW_FRONTEND: payment information 
-    activate UNKNOW_FRONTEND 
-    UNKNOW_FRONTEND -> WEB_SERVER: payment information  
+
+  group get_boat_status
+    USER_SELLER -> UNKNOW_FRONTEND: request boat status
+    activate UNKNOW_FRONTEND
+    UNKNOW_FRONTEND -> WEB_SERVER: request boat status
     activate WEB_SERVER
-    WEB_SERVER -> DATABASE: Persist payment information in the database 
+    WEB_SERVER -> DATABASE: get boat status
     activate DATABASE
-    DATABASE -> WEB_SERVER: send update operation status
+    DATABASE -> WEB_SERVER: send boat status
     deactivate DATABASE
-    WEB_SERVER -> UNKNOW_FRONTEND: Sends operation with sucessfully
+    WEB_SERVER -> UNKNOW_FRONTEND: render boat status
     deactivate WEB_SERVER
     deactivate UNKNOW_FRONTEND
 
-     /'
-        Should persist following data in database:
-        BodyRequest {
-          document{
-            type: 'RG'|'CNH';
-            front: 'binary';
-            back: 'binary';
-            selfie: 'binary';
-          },
-          boat{
-            IMO: number;
-            name: string;
-            subscription: string;
-            flag: 'type UF';
-          },
-          CNPJ: string;
-        }
-
-      '/
   end
 
+  /'
+    group add_method_payment
+      USER_SELLER -> UNKNOW_FRONTEND: payment information 
+      activate UNKNOW_FRONTEND 
+      UNKNOW_FRONTEND -> WEB_SERVER: payment information  
+      activate WEB_SERVER
+      WEB_SERVER -> DATABASE: Persist payment information in the database 
+      activate DATABASE
+      DATABASE -> WEB_SERVER: send update operation status
+      deactivate DATABASE
+      WEB_SERVER -> UNKNOW_FRONTEND: Sends operation with sucessfully
+      deactivate WEB_SERVER
+      deactivate UNKNOW_FRONTEND
+
+    end
+  '/
+  
   group create_ticket_seller
     USER_SELLER -> UNKNOW_FRONTEND: send ticket data
     activate UNKNOW_FRONTEND

@@ -99,8 +99,8 @@ entity "Payment" as payment {
 
 userSeller ||--|| address
 userSeller ||--|{ boat
-userSeller ||--|{ ticket
 userSeller ||--|{ document
+boat ||--|{ ticket
 ticket ||--|{ payment
 status ||--|{ boat
 
