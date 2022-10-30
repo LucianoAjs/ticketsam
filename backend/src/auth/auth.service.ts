@@ -1,4 +1,4 @@
-import { UserService } from '@/modules/user/services/user/user.service';
+import { UserService } from '@/modules/user-seller/services/user/user.service';
 import { Injectable, NotAcceptableException } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import * as bcrypt from 'bcrypt';

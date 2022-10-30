@@ -1,6 +1,6 @@
 import { UsersLoggerService } from '@/logger/logger.service';
-import { DOCUMENT } from '@/modules/user/constants/document.constant';
-import { FilesDto } from '@/modules/user/dto/files.dto';
+import { DOCUMENT } from '@/modules/user-seller/constants/document.constant';
+import { FilesDto } from '@/modules/user-seller/dto/files.dto';
 import {
   PutObjectCommand,
   PutObjectCommandOutput,

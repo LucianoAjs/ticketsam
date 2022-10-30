@@ -1,9 +1,9 @@
 import { PrismaService } from '@/database/prisma.service';
-import { ValidateBoatDto } from '@/modules/user/dto/boat';
-import { DocumentDto } from '@/modules/user/dto/boat/nested/document.dto';
-import { CreateTicketDto } from '@/modules/user/dto/create-ticket.dto';
-import { UserDto } from '@/modules/user/dto/user';
-import { AddressDto } from '@/modules/user/dto/user/nested/address.dto';
+import { ValidateBoatDto } from '@/modules/user-seller/dto/boat';
+import { DocumentDto } from '@/modules/user-seller/dto/boat/nested/document.dto';
+import { CreateTicketDto } from '@/modules/user-seller/dto/create-ticket.dto';
+import { UserDto } from '@/modules/user-seller/dto/user';
+import { AddressDto } from '@/modules/user-seller/dto/user/nested/address.dto';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -99,6 +99,12 @@ export class UserRepository {
         ...createTicketDto,
         boat: { connect: { id: boatId } },
       },
+    });
+  }
+
+  async getTicket(): Promise<CreateTicketDto[]> {
+    return await this.prisma.ticket.findMany({
+      include: { boat: true },
     });
   }
 }
