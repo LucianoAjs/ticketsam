@@ -4,7 +4,8 @@ import { PrismaModule } from '@/database/prisma.module';
 import { HealthModule } from '@/health/health.module';
 import { UsersLoggerModule } from '@/logger/logger.module';
 import { UserLoggerMiddleware } from '@/middleware/logger.middleware';
-import { UserModule } from '@/modules/user/user.module';
+import { UserBuyerModule } from '@/modules/user-buyer/user-buyer.module';
+import { UserSellerModule } from '@/modules/user-seller/user-seller.module';
 import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { ConfigModule } from '@nestjs/config';
 
@@ -16,10 +17,11 @@ import { ConfigModule } from '@nestjs/config';
     }),
     PrismaModule,
     HealthModule,
-    UserModule,
+    UserSellerModule,
     UsersLoggerModule,
     AuthModule,
     S3AdapterModule,
+    UserBuyerModule,
   ],
   controllers: [],
   providers: [],

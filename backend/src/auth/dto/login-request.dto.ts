@@ -1,4 +1,4 @@
-import { USER } from '@/modules/user/constants/user';
+import { USER } from '@/modules/user-seller/constants/user';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 
