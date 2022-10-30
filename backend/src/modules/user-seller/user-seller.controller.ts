@@ -89,7 +89,7 @@ export class UserController {
     return await this.userService.createUser(body);
   }
 
-  @ApiTags('USERS')
+  @ApiTags('USER SELLER')
   @Post('users/upload_documents')
   @UseInterceptors(
     FileFieldsInterceptor([
@@ -134,7 +134,7 @@ export class UserController {
     return this.documentService.uploadUserDocuments(sub, body);
   }
 
-  @ApiTags('USERS')
+  @ApiTags('USER SELLER')
   @Post('users/boat')
   @ApiOperation({
     summary: VALIDATE_BOAT.API_OPERATION.SUMMARY,
@@ -165,7 +165,7 @@ export class UserController {
     return this.boatService.validateBoatOwner(sub, body);
   }
 
-  @ApiTags('USERS')
+  @ApiTags('USER SELLER')
   @Get('users/boat')
   @ApiOperation({
     summary: GET_BOAT_STATUS.API_OPERATION.SUMMARY,
@@ -193,7 +193,7 @@ export class UserController {
     return this.boatService.getBoatStatusByUserId(sub);
   }
 
-  @ApiTags('USERS')
+  @ApiTags('USER SELLER')
   @Post('users/ticket/:boatId')
   @ApiOperation({
     summary: CREATE_TICKET.API_OPERATION.SUMMARY,
