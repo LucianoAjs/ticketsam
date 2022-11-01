@@ -3,6 +3,7 @@ import { VALIDATE_BOAT } from '@/modules/user-seller/constants/boat';
 import { GET_BOAT_STATUS } from '@/modules/user-seller/constants/boat/get-boat-status.constant';
 import { CREATE_TICKET } from '@/modules/user-seller/constants/create-ticket.contant';
 import { DOCUMENT } from '@/modules/user-seller/constants/document.constant';
+import { PAYMENT_STATUS } from '@/modules/user-seller/constants/payment-status.constant';
 import { USER } from '@/modules/user-seller/constants/user';
 import { ValidateBoatDto } from '@/modules/user-seller/dto/boat';
 import { BoatResponseDto } from '@/modules/user-seller/dto/boat/boat-response.dto';
@@ -11,10 +12,12 @@ import { CreateTicketQueryDto } from '@/modules/user-seller/dto/create-ticket-qu
 import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
 import { CreateTicketDto } from '@/modules/user-seller/dto/create-ticket.dto';
 import { FilesDto } from '@/modules/user-seller/dto/files.dto';
+import { PaymentQueryDto } from '@/modules/user-seller/dto/payment-query.dto';
 import { UserDto } from '@/modules/user-seller/dto/user';
 import { UserResponseDto } from '@/modules/user-seller/dto/user/user-response.dto';
 import { BoatService } from '@/modules/user-seller/services/boat/boat.service';
 import { DocumentService } from '@/modules/user-seller/services/document/document.service';
+import { PaymentService } from '@/modules/user-seller/services/payment/payment.service';
 import { TicketService } from '@/modules/user-seller/services/ticket/ticket.service';
 import { UserService } from '@/modules/user-seller/services/user/user.service';
 import { InternalServerErrorException } from '@/shared/errors/internal-server-error.exception';
@@ -26,6 +29,7 @@ import {
   Get,
   Param,
   Post,
+  Query,
   Req,
   UploadedFiles,
   UseInterceptors,
@@ -59,6 +63,7 @@ export class UserController {
     private readonly boatService: BoatService,
     private readonly documentService: DocumentService,
     private readonly ticketService: TicketService,
+    private readonly paymentService: PaymentService,
   ) {}
 
   @ApiTags('USER SELLER')
@@ -219,5 +224,30 @@ export class UserController {
     @Param() params: CreateTicketQueryDto,
   ): Promise<CreateTicketResponseDto> {
     return this.ticketService.createTicketByUserId(params, body);
+  }
+
+  @ApiTags('USER SELLER')
+  @Get('user_seller/payment/status')
+  @ApiOperation({
+    summary: PAYMENT_STATUS.API_OPERATION.SUMMARY,
+    description: PAYMENT_STATUS.API_OPERATION.DESCRIPTION,
+  })
+  //@ApiResponse({
+  //  status: 201,
+  //  description: VALIDATE_BOAT.API_RESPONSE.SUCCESS_OPERATION.DESC,
+  //  type: () => BoatResponseDto,
+  //})
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  async getPaymentStatus(@Query() param?: PaymentQueryDto): Promise<any> {
+    return this.paymentService.getPaymentStatusByPaymentId(param);
   }
 }

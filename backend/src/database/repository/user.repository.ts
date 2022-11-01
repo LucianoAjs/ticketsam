@@ -120,6 +120,13 @@ export class UserRepository {
     });
   }
 
+  async getPaymentStatus(paymentId: string): Promise<any> {
+    return await this.prisma.payment.findUnique({
+      where: { paymentId },
+      include: { ticket: true },
+    });
+  }
+
   async getAllTicket(): Promise<CreateTicketResponseDto[]> {
     return await this.prisma.ticket.findMany({
       include: { boat: true },
