@@ -13,7 +13,7 @@ import { TicketService } from '@/modules/user-buyer/services/ticket/ticket.servi
 import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
 import { InternalServerErrorException } from '@/shared/errors/internal-server-error.exception';
 import { UnauthorizedException } from '@/shared/errors/unauthorized.exception';
-import { Body, Controller, Get, Post, Query } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
 import { GENERATE_QRCODE } from './cosntants/generate-qrcode.constant';
 
@@ -72,7 +72,7 @@ export class UserBuyerController {
   })
   async createTicket(
     @Body() body: CreatePreferenceDto,
-    @Query() param?: CreatePreferenceQueryDto,
+    @Param() param?: CreatePreferenceQueryDto,
   ): Promise<CreatePreferenceResponseDto> {
     return await this.ticketService.createPreference(param, body);
   }
