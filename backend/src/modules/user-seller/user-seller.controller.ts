@@ -62,7 +62,7 @@ export class UserController {
   ) {}
 
   @ApiTags('USER SELLER')
-  @Post('users')
+  @Post('user_seller')
   @ApiOperation({
     summary: API_OPERATION.SUMMARY,
     description: API_OPERATION.DESCRIPTION,
@@ -90,7 +90,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Post('users/upload_documents')
+  @Post('user_seller/upload_documents')
   @UseInterceptors(
     FileFieldsInterceptor([
       { name: DOCUMENT_FRONT, maxCount: 1 },
@@ -135,7 +135,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Post('users/boat')
+  @Post('user_seller/boat')
   @ApiOperation({
     summary: VALIDATE_BOAT.API_OPERATION.SUMMARY,
     description: VALIDATE_BOAT.API_OPERATION.DESCRIPTION,
@@ -166,7 +166,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Get('users/boat')
+  @Get('user_seller/boat/status')
   @ApiOperation({
     summary: GET_BOAT_STATUS.API_OPERATION.SUMMARY,
     description: GET_BOAT_STATUS.API_OPERATION.DESCRIPTION,
@@ -194,7 +194,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Post('users/ticket/:boatId')
+  @Post('user_seller/boat/:boatId/ticket')
   @ApiOperation({
     summary: CREATE_TICKET.API_OPERATION.SUMMARY,
     description: CREATE_TICKET.API_OPERATION.DESCRIPTION,
