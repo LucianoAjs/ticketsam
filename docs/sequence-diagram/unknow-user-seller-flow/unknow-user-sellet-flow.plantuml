@@ -167,6 +167,20 @@ group user_seller_flow
       '/
 
   end
+
+  group validate_qrcode_ticket
+    USER_SELLER -> UNKNOW_FRONTEND: Send data payment
+    activate UNKNOW_FRONTEND
+    UNKNOW_FRONTEND -> WEB_SERVER: Send data payment
+    activate WEB_SERVER
+    WEB_SERVER -> MERCADO_PAGO_API: Get payment status
+    activate MERCADO_PAGO_API
+    MERCADO_PAGO_API -> WEB_SERVER: Send payment status
+    WEB_SERVER -> UNKNOW_FRONTEND:  Send payment status
+    deactivate WEB_SERVER
+    deactivate UNKNOW_FRONTEND
+    deactivate MERCADO_PAGO_API
+  end
 end
 
 

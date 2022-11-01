@@ -55,7 +55,7 @@ group user_buyer_flow
       MERCADO_PAGO_API -> WEB_SERVER: Sends operation with sucessfully
       WEB_SERVER -> UNKNOW_FRONTEND: Send URL to render payment options from MERCADO_PAGO
       UNKNOW_FRONTEND -> MERCADO_PAGO_API: Send choose method payment
-      WEB_SERVER -> UNKNOW_FRONTEND: Send payment status
+      MERCADO_PAGO_API -> UNKNOW_FRONTEND: Redirect frontend according payment status
       deactivate WEB_SERVER
       deactivate UNKNOW_FRONTEND
       deactivate MERCADO_PAGO_API
@@ -80,6 +80,20 @@ group user_buyer_flow
       
       
       '/
+    end
+
+    group generate_qrcode_ticket
+      USER_BUYER -> UNKNOW_FRONTEND: Send data payment
+      activate UNKNOW_FRONTEND
+      UNKNOW_FRONTEND -> WEB_SERVER: Send data payment
+      activate WEB_SERVER
+      WEB_SERVER -> MERCADO_PAGO_API: Get payment status
+      activate MERCADO_PAGO_API
+      MERCADO_PAGO_API -> WEB_SERVER: Send payment status
+      WEB_SERVER -> UNKNOW_FRONTEND: Send qrcode with payment confirm url
+      deactivate WEB_SERVER
+      deactivate UNKNOW_FRONTEND
+      deactivate MERCADO_PAGO_API
     end
 
   end
