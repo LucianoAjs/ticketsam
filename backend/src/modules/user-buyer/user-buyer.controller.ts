@@ -3,7 +3,11 @@ import { GET_TICKET } from '@/modules/user-buyer/cosntants/get-ticket.contant';
 import { CreatePreferenceQueryDto } from '@/modules/user-buyer/dto/create-preference-query.dto';
 import { CreatePreferenceResponseDto } from '@/modules/user-buyer/dto/create-preference-response.dto';
 import { CreatePreferenceDto } from '@/modules/user-buyer/dto/create-preference.dto';
+import { GenerateQRcodeResponseDto } from '@/modules/user-buyer/dto/generate-qrcode-response.dto';
+import { GenerateQRcodeDto } from '@/modules/user-buyer/dto/generate-qrcode.dto';
 import { GetTicketQueryDto } from '@/modules/user-buyer/dto/get-ticket-query.dto';
+import { PaymentBodyDto } from '@/modules/user-buyer/dto/payment-body.dto';
+import { GenerateQRcodeService } from '@/modules/user-buyer/services/generate-qrcode/generate-qrcode.service';
 import { PaymentWebhookService } from '@/modules/user-buyer/services/payment-webhook/payment-webhook.service';
 import { TicketService } from '@/modules/user-buyer/services/ticket/ticket.service';
 import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
@@ -11,7 +15,7 @@ import { InternalServerErrorException } from '@/shared/errors/internal-server-er
 import { UnauthorizedException } from '@/shared/errors/unauthorized.exception';
 import { Body, Controller, Get, Post, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { PaymentBodyDto } from './dto/payment-body.dto';
+import { GENERATE_QRCODE } from './cosntants/generate-qrcode.constant';
 
 const {
   API_RESPONSE: { INTERNAL_SERVER_ERROR, UNAUTHORIZED_OPERATION },
@@ -22,6 +26,7 @@ export class UserBuyerController {
   constructor(
     private readonly ticketService: TicketService,
     private readonly paymentWebhookService: PaymentWebhookService,
+    private readonly generateQRcodeService: GenerateQRcodeService,
   ) {}
 
   @ApiTags('USER BUYER')
@@ -79,5 +84,35 @@ export class UserBuyerController {
   })
   async webhookPayment(@Body() body: PaymentBodyDto) {
     return await this.paymentWebhookService.webhookPayment(body);
+  }
+
+  @ApiTags('USER BUYER')
+  @Post('user_buyer/generate_qrcode')
+  @ApiOperation({
+    summary: GENERATE_QRCODE.API_OPERATION.SUMMARY,
+    description: GENERATE_QRCODE.API_OPERATION.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: 201,
+    description: GENERATE_QRCODE.API_RESPONSE.SUCCESS_OPERATION.DESC,
+    type: () => GenerateQRcodeResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  @ApiBody({
+    type: () => GenerateQRcodeDto,
+  })
+  async generateQRcode(
+    @Body() body: GenerateQRcodeDto,
+  ): Promise<GenerateQRcodeResponseDto> {
+    return this.generateQRcodeService.generateQrcode(body);
   }
 }

@@ -116,6 +116,7 @@ CREATE TABLE `Payment` (
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
+    UNIQUE INDEX `Payment_paymentId_key`(`paymentId`),
     INDEX `Payment_ticketId_fkey`(`ticketId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
