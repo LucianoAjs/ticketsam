@@ -1,26 +1,28 @@
 import { api } from "api";
-import { useCallback, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { TOKEN } from "shared/constants/common";
 import { AUTH } from "shared/constants/routes";
+import { getDataStorage } from "shared/utils";
 
 export default function useAuth() {
   const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
   const [fetching, setFetching] = useState<boolean>(true);
-  const Navigate = useNavigate();
 
-  const getCurrentUser = useCallback(async () => {
-    try {
-      setIsLoggedin(true);
-    } catch (error) {
-      Navigate(`/${AUTH}`);
-    } finally {
-      setFetching(false);
-    }
-  }, [Navigate]);
+  const navigate = useNavigate();
 
   useEffect(() => {
-    getCurrentUser();
-  }, [getCurrentUser]);
+    const token = getDataStorage(TOKEN);
+
+    if (token) {
+      setAuthorization(token);
+      setIsLoggedin(true);
+    } else {
+      navigate(`/${AUTH}`);
+    }
+
+    setFetching(false);
+  }, [navigate]);
 
   function setAuthorization(accessToken: string | undefined) {
     api.defaults.headers.common["Authorization"] = `Bearer ${accessToken}`;

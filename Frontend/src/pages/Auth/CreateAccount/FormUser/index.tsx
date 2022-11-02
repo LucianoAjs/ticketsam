@@ -5,7 +5,7 @@ import { NextButton } from "shared/components/buttons";
 import { BackButton } from "shared/components/buttons/BackButton";
 import { InputFormController } from "shared/components/forms/InputFormController";
 import { SelectFormController } from "shared/components/forms/SelectFormController";
-import { HOME } from "shared/constants/routes";
+import { AUTH } from "shared/constants/routes";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
@@ -46,6 +46,7 @@ export const FormUser = ({ next }: { next: Function }) => {
   return (
     <>
       <form>
+        <h2>Dados do usuário</h2>
         <AlignForm>
           <InputFormController
             formControl={control}
@@ -54,7 +55,6 @@ export const FormUser = ({ next }: { next: Function }) => {
             label="Nome"
             error={errors.firstName}
           />
-
           <InputFormController
             formControl={control}
             formControlName="lastName"
@@ -62,13 +62,20 @@ export const FormUser = ({ next }: { next: Function }) => {
             label="Último nome"
             error={errors.lastName}
           />
-
           <InputFormController
             register
             formControl={control}
             formControlName="email"
             label="E-mail"
             error={errors.email}
+          />
+          <InputFormController
+            register
+            formControl={control}
+            formControlName="password"
+            label="Password"
+            error={errors.password}
+            inputType={"password"}
           />
           <InputFormController
             register
@@ -110,7 +117,7 @@ export const FormUser = ({ next }: { next: Function }) => {
       </form>
 
       <AlignButtons>
-        <BackButton key="back-button" text="Voltar" redirectTo={HOME} />
+        <BackButton key="back-button" text="Voltar" redirectTo={`/${AUTH}`} />
         <NextButton
           disabled={!isValid}
           key="next-button"
