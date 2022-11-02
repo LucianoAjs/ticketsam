@@ -16,7 +16,6 @@ export const CreateAccount = () => {
 
   return (
     <Container>
-      <h2>Para começar, precisamos de alguns dados</h2>
       {items[step]}
     </Container>
   );

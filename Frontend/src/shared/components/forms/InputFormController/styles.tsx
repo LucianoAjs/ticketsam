@@ -1,20 +1,19 @@
 import styled from "styled-components";
 
 export default styled.div`
-  max-width: 335px;
-
   label {
-    opacity: 1;
-    color: ${({ theme }) => theme.primary300};
-    font-size: 20px;
+    color: ${({ theme }) => theme.primary800};
+    font-size: 55px;
     font-weight: 700;
-    letter-spacing: 0.91px;
+    width: 390px;
   }
 
   input {
-    color: ${({ theme }) => theme.primary300};
-    font-size: 22px;
-    font-weight: 700;
+    color: ${({ theme }) => theme.primary800};
+    font-size: 18px;
+    width: 390px;
+    font-weight: inherit;
+    text-align: left;
   }
 
   fieldset {
@@ -27,7 +26,8 @@ export default styled.div`
   }
 
   span {
-    color: ${({ theme }) => theme.primary500} !important;
+    color: ${({ theme }) => theme.primary800} !important;
+    align-self: baseline;
   }
 
   svg {

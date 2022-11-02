@@ -19,4 +19,8 @@ export default createGlobalStyle`
     text-transform: unset !important;
   }
 
+  
+  .MuiFormControl-root {
+    width: 385px;
+  }
 `;
