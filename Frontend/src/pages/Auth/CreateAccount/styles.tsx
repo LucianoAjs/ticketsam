@@ -1,12 +1,12 @@
 import styled from "styled-components";
 
-export default styled.div
-`
+export default styled.div`
   display: flex;
   flex-direction: column;
   width: 100%;
   flex-grow: 1;
   gap: 2rem;
+  padding: 6rem 12rem 6rem 12rem;
   color: black;
 
   form {
@@ -17,7 +17,8 @@ export default styled.div
     gap: 2rem;
   }
 
-  h5{
+  h1 {
+    text-align: center;
     font-weight: 400;
   }
 `;

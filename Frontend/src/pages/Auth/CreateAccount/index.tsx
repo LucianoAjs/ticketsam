@@ -16,6 +16,7 @@ export const CreateAccount = () => {
 
   return (
     <Container>
+      <h1>Primeiro, precisamos de algumas informacoes...</h1>
       {items[step]}
     </Container>
   );

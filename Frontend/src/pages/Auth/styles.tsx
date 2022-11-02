@@ -14,7 +14,7 @@ export const Main = styled.div`
   width: 570px;
   align-self: center;
   flex-grow: 1;
-  
+
   label {
     opacity: 1;
     color: ${({ theme }) => theme.text} !important;
@@ -48,8 +48,7 @@ export const Main = styled.div`
   }
 `;
 
-export const AlignItems = styled.div
-`
+export const AlignItems = styled.div`
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -79,14 +78,14 @@ export const NavigateTo = styled.div`
 
 export const AlignInput = styled.div`
   display: flex;
-  flex-direction: column; 
+  flex-direction: column;
   align-items: center;
   width: 100%;
   gap: 2rem;
 `;
 
 export const AlignCheckBox = styled.div`
-  color: #3D85C4;
+  color: #3d85c4;
   font-size: 18px;
   display: flex;
   text-decoration: none;
@@ -99,11 +98,10 @@ export const AlignCheckBox = styled.div`
     border-radius: 7px;
     padding: 10px;
   }
-  `;
+`;
 
-export const AlignRecPassword = styled.div 
-`
-  color: #3D85C4;
+export const AlignRecPassword = styled.div`
+  color: #3d85c4;
   padding: 2px;
   font-size: 18px;
   font-size: 18px;
@@ -117,18 +115,17 @@ export const AlignRecPassword = styled.div
     border-radius: 7px;
     padding: 10px;
   }
-  `;
+`;
 
-export const HaveAccount = styled.div 
-  `
+export const HaveAccount = styled.div`
   width: 386px;
-  color: #3D85C4;
+  color: #3d85c4;
   font-size: 18px;
   display: flex;
   text-decoration: none;
   text-align: center;
   justify-content: center;
-  `;
+`;
 
 export const ConfirmationIcon = styled.div`
   display: flex;

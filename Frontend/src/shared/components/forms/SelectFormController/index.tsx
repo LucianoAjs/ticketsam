@@ -53,7 +53,7 @@ export function SelectFormController({
             labelPlacement="top"
             control={
               <Select
-                className="test"
+                className="width"
                 onChange={onChange}
                 onBlur={onBlur}
                 value={value || ""}
