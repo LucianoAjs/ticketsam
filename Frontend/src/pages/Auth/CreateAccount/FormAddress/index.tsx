@@ -33,6 +33,10 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
   const {
     control,
     getValues,
+    watch,
+    getFieldState,
+    resetField,
+    setValue,
     formState: { isValid, errors },
   } = useForm<IAddress>({
     mode: "onBlur",
@@ -40,6 +44,37 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
     defaultValues: initialValues,
     resolver: yupResolver(addressValidationSchema),
   });
+
+  // TODO: Implement get CEP
+  const getDataCep = useCallback(async () => {
+    const postalCode = watch("postalCode");
+    const fieldState = getFieldState("postalCode");
+
+    if (!postalCode || !fieldState.isTouched) {
+      return;
+    }
+
+    setFetching(true);
+
+    const data = await ENDPOINT.GET_CEP_DATA(
+      postalCode.replace(".", "").replace("-", "")
+    );
+
+    if (data) {
+      const {
+        data: { bairro, cep, complemento, localidade, logradouro, uf },
+      } = data;
+
+      setValue("postalCode", cep);
+      setValue("state", uf);
+      setValue("city", localidade);
+      setValue("street", logradouro);
+      setValue("complement", complemento);
+      setValue("neighborhood", bairro);
+    }
+    setFetching(false);
+    resetField("postalCode");
+  }, [getFieldState, resetField, setValue, watch]);
 
   const createAccount = useCallback(async () => {
     setFetching(true);

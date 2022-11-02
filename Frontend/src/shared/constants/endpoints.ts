@@ -5,6 +5,7 @@ import { ICreatePreferenceResponse } from "shared/interfaces/create-preference-r
 import { IPaymentResponseParams } from "shared/interfaces/payment-response-params.interface";
 import { IProduct } from "shared/interfaces/product.interface";
 import { IUser } from "shared/interfaces/user-interface";
+import { IViaCepResponse } from "shared/interfaces/via-cep-response..interface";
 
 export const ENDPOINT = {
   CREATE_ACCOUNT: (user: IUser) => api.post("/user_seller", user),
@@ -17,4 +18,6 @@ export const ENDPOINT = {
     data: IProduct
   ): Promise<AxiosResponse<ICreatePreferenceResponse>> =>
     api.post(`/user_buyer/ticket/${ticketId}`, data),
+  GET_CEP_DATA: (cep: string): Promise<AxiosResponse<IViaCepResponse>> =>
+    api.get(`http://viacep.com.br/ws/${cep}/json/`),
 };

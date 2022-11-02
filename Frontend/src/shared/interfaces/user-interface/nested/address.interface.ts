@@ -1,9 +1,9 @@
 export interface IAddress {
-  postalCode?: string;
+  postalCode: string;
   complement?: string;
-  state?: string;
-  city?: string;
-  number?: string;
-  neighborhood?: string;
-  street?: string;
+  state: string;
+  city: string;
+  number: string;
+  neighborhood: string;
+  street: string;
 }
