@@ -48,6 +48,7 @@ export const FormUser = ({ next }: { next: Function }) => {
       <form>
         <AlignForm>
           <h5>Primeiro, precisamos de algumas informacoes...</h5>
+
           <InputFormController
             formControl={control}
             formControlName="firstName"

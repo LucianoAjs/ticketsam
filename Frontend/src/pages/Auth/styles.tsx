@@ -48,7 +48,8 @@ export const Main = styled.div`
   }
 `;
 
-export const AlignItems = styled.div`
+export const AlignItems = styled.div
+`
   display: flex;
   flex-direction: column;
   gap: 3rem;
@@ -79,7 +80,7 @@ export const NavigateTo = styled.div`
 export const AlignInput = styled.div`
   display: flex;
   flex-direction: column; 
-  margin-left: 60px;
+  align-items: center;
   width: 100%;
   gap: 2rem;
 `;
@@ -100,7 +101,6 @@ export const AlignCheckBox = styled.div`
   }
   `;
 
-
 export const AlignRecPassword = styled.div 
 `
   color: #3D85C4;
@@ -118,7 +118,6 @@ export const AlignRecPassword = styled.div
     padding: 10px;
   }
   `;
-
 
 export const HaveAccount = styled.div 
   `

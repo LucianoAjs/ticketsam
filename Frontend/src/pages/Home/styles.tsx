@@ -4,6 +4,11 @@ export default styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
+
+  select {
+    width: 800px;
+    background-color: red;
+  }
 `;
 
 export const Main = styled.div`
@@ -20,16 +25,27 @@ export const Main = styled.div`
   h1 {
     color: black;
     font-size: 22px;
-    weigth: 400px;
+    font-weight: 400px;
   }
 `;
 
 export const AlignSearch = styled.div`
   display: flex;
+  justify-content: center;
   flex-direction: column;
-  gap: 3rem;
-  background-color: #fff;
-  height: 320px;
-  width: 720px;
-  border-radius: 9px;
+  border-radius: 20px;
+  margin: auto;
+  width: 800px;
 `;
+
+export const AlignStretch = styled.div 
+`
+  color: black;
+  border: solid 3px;
+  background-color: #fff;
+  max-width: 950px;
+  label {
+    margin: 15px;
+  }
+`;
+

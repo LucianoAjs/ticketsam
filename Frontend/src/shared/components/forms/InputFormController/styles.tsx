@@ -1,8 +1,6 @@
 import styled from "styled-components";
 
 export default styled.div`
-  max-width: 335px;
-
   label {
     color: ${({ theme }) => theme.primary800};
     font-size: 55px;

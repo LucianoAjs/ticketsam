@@ -28,4 +28,8 @@ export default createGlobalStyle`
       letter-spacing: 4px;
     }
   }
+  .MuiFormControl-root {
+  width: 385px;
+  }
 `;
+
