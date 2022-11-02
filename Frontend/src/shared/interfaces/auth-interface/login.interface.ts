@@ -1,5 +1,4 @@
 export interface ILoginForm {
-  user: string;
+  email: string;
   password: string;
-  saveData?: boolean;
 }
