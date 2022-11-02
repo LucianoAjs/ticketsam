@@ -110,16 +110,14 @@ CREATE TABLE `Ticket` (
 -- CreateTable
 CREATE TABLE `Payment` (
     `id` VARCHAR(191) NOT NULL,
-    `userId` VARCHAR(255) NULL,
     `ticketId` VARCHAR(255) NULL,
     `paymentId` VARCHAR(255) NULL,
+    `status` VARCHAR(255) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
-    UNIQUE INDEX `Payment_userId_key`(`userId`),
-    UNIQUE INDEX `Payment_ticketId_key`(`ticketId`),
+    UNIQUE INDEX `Payment_paymentId_key`(`paymentId`),
     INDEX `Payment_ticketId_fkey`(`ticketId`),
-    INDEX `Payment_userId_fkey`(`userId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
@@ -140,6 +138,3 @@ ALTER TABLE `Ticket` ADD CONSTRAINT `Ticket_boatId_fkey` FOREIGN KEY (`boatId`) 
 
 -- AddForeignKey
 ALTER TABLE `Payment` ADD CONSTRAINT `Payment_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
-
--- AddForeignKey
-ALTER TABLE `Payment` ADD CONSTRAINT `Payment_userId_fkey` FOREIGN KEY (`userId`) REFERENCES `User`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

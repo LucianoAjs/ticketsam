@@ -26,7 +26,6 @@ model User {
   address      Address?
   document     Document?
   boat         Boat[]
-  payment      Payment[]
 }
 
 model Address {
@@ -107,21 +106,19 @@ model Ticket {
   createdAt          DateTime  @default(now())
   updatedAt          DateTime  @updatedAt
   boat               Boat?     @relation(fields: [boatId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Ticket_boatId_fkey")
-  payment            Payment?
+  payment            Payment[]
 
   @@index([boatId], map: "Ticket_boatId_fkey")
 }
 
 model Payment {
   id        String   @id @default(uuid())
-  userId    String?  @unique @db.VarChar(255)
-  ticketId  String?  @unique @db.VarChar(255)
-  paymentId String?  @db.VarChar(255)
+  ticketId  String?  @db.VarChar(255)
+  paymentId String?  @unique @db.VarChar(255)
+  status    String?  @db.VarChar(255)
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   ticket    Ticket?  @relation(fields: [ticketId], references: [id], map: "Payment_ticketId_fkey")
-  user      User?    @relation(fields: [userId], references: [id], map: "Payment_userId_fkey")
 
   @@index([ticketId], map: "Payment_ticketId_fkey")
-  @@index([userId], map: "Payment_userId_fkey")
 }

@@ -104,6 +104,29 @@ export class UserRepository {
     });
   }
 
+  async createPaymentByTicketId(createPayment: {
+    ticketId: string;
+    paymentId: string;
+    status: string;
+  }): Promise<any> {
+    const { ticketId, paymentId, status } = createPayment;
+
+    return await this.prisma.payment.create({
+      data: {
+        paymentId,
+        status,
+        ticket: { connect: { id: ticketId } },
+      },
+    });
+  }
+
+  async getPaymentStatus(paymentId: string): Promise<any> {
+    return await this.prisma.payment.findUnique({
+      where: { paymentId },
+      include: { ticket: true },
+    });
+  }
+
   async getAllTicket(): Promise<CreateTicketResponseDto[]> {
     return await this.prisma.ticket.findMany({
       include: { boat: true },
