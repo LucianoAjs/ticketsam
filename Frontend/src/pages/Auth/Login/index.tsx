@@ -1,23 +1,39 @@
 import { NextButton } from "shared/components/buttons";
 
 import { yupResolver } from "@hookform/resolvers/yup";
+import { useCallback, useState } from "react";
 import { useForm } from "react-hook-form";
+import { useNavigate } from "react-router-dom";
 import { InputFormController } from "shared/components/forms/InputFormController";
+import Spin from "shared/components/Spin";
+import { TOKEN } from "shared/constants/common";
+import { ENDPOINT } from "shared/constants/endpoints";
 import {
   AUTH,
   CREATE_ACCOUNT,
+  HOME,
   RECOVERY_PASSWORD,
 } from "shared/constants/routes";
 import { ILoginForm } from "shared/interfaces/auth-interface";
 import { login } from "shared/schemas/login.schema";
-import { AlignCheckBox, AlignInput, AlignItems, Main, HaveAccount, AlignRecPassword } from "../styles";
+import { setDataStorage } from "shared/utils";
+import {
+  AlignCheckBox,
+  AlignInput,
+  AlignItems,
+  AlignRecPassword,
+  HaveAccount,
+  Main,
+} from "../styles";
 
 export const Login = () => {
   const initState = {
-    user: "",
+    email: "",
     password: "",
-    saveData: false,
   };
+
+  const [fetching, setFetching] = useState(false);
+  const navigate = useNavigate();
 
   const {
     control,
@@ -30,10 +46,31 @@ export const Login = () => {
     defaultValues: initState,
     resolver: yupResolver(login),
   });
+  const loginAccount = useCallback(async () => {
+    setFetching(true);
+
+    try {
+      const {
+        data: { access_token },
+      } = await ENDPOINT.LOGIN(getValues());
+
+      setDataStorage(TOKEN, access_token);
+
+      navigate(HOME);
+    } catch (error) {
+      // TODO: Implement error sreen
+    }
+
+    setFetching(false);
+  }, [getValues, navigate]);
 
   const onSubmit = () => {
-    const { user, password } = getValues();
+    loginAccount();
   };
+
+  if (fetching) {
+    return <Spin />;
+  }
 
   return (
     <Main>
@@ -41,21 +78,17 @@ export const Login = () => {
         <div>
           <h1>UNKNOWN</h1>
           <br />
-          <h5>
-            Login
-          </h5>
+          <h5>Login</h5>
         </div>
 
         <AlignInput>
           <InputFormController
             formControl={control}
-            formControlName={"user"}
+            formControlName={"email"}
             label={"Usuário"}
-            error={errors.user}
+            error={errors.email}
             register={register}
-            inputImg={""}
             inputType={"text"}
-            placeholder={"Email"}
           />
           <InputFormController
             formControl={control}
@@ -63,9 +96,7 @@ export const Login = () => {
             label={"Senha"}
             error={errors.password}
             register={register}
-            inputImg={""}
             inputType={"password"}
-            placeholder={"......"}
           />
         </AlignInput>
 
@@ -80,13 +111,14 @@ export const Login = () => {
         </AlignRecPassword>
 
         <HaveAccount>
-        <h4>Nao tem uma conta?</h4>
+          <h4>Nao tem uma conta?</h4>
         </HaveAccount>
 
-        <AlignCheckBox >
-        <a href={`/${AUTH}/${CREATE_ACCOUNT}`}>Clique aqui para criar um conta.</a>
+        <AlignCheckBox>
+          <a href={`/${AUTH}/${CREATE_ACCOUNT}`}>
+            Clique aqui para criar um conta.
+          </a>
         </AlignCheckBox>
-
       </AlignItems>
     </Main>
   );

@@ -31,9 +31,9 @@ function MainRoutes() {
           <Route path={CREATE_ACCOUNT} element={<CreateAccount />} />
         </Route>
 
-        <Route element={<AuthGuard redirectTo={`/${AUTH}`} />}>
-          <Route path={HOME} element={<App />}>
-            <Route index element={<Home />} />
+        <Route path={HOME} element={<App />}>
+          <Route index element={<Home />} />
+          <Route element={<AuthGuard redirectTo={`/${AUTH}`} />}>
             <Route path={FEEDBACK} element={<Feedback />} />
             <Route
               path={PRODUCT_DETAIL}
@@ -45,8 +45,8 @@ function MainRoutes() {
               }
             />
           </Route>
-          <Route path="*" element={<Navigate to={HOME} replace />} />
         </Route>
+        <Route path="*" element={<Navigate to={HOME} replace />} />
       </Routes>
     </BrowserRouter>
   );

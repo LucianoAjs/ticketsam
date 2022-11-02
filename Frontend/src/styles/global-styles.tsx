@@ -19,17 +19,8 @@ export default createGlobalStyle`
     text-transform: unset !important;
   }
 
-  .mask-password {
-    input, input::placeholder {
-      opacity: 0.5;
-      font-family: bold;
-      font-size: 40px;
-      font-weight: 700;
-      letter-spacing: 4px;
-    }
-  }
+  
   .MuiFormControl-root {
-  width: 385px;
+    width: 385px;
   }
 `;
-

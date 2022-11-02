@@ -5,6 +5,7 @@ export const userValidationSchema = yup.object().shape({
   firstName: yup.string().required(),
   lastName: yup.string().required(),
   email: yup.string().email().required(),
+  password: yup.string().required(),
   phoneNumber: yup
     .string()
     .required()
@@ -14,7 +15,7 @@ export const userValidationSchema = yup.object().shape({
     .required("CPF inválido")
     .matches(/^\d{3}\.?\d{3}\.?\d{3}-?\d{2}/, "CPF inválido.")
     .typeError("O campo CPF é obrigatório."),
-  gender: yup.string().required(),
+  gender: yup.string(),
   birthdate: yup
     .date()
     .transform(parseDateString)
