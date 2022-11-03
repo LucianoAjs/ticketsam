@@ -4,9 +4,8 @@ import { CreateTicketQueryDto } from '@/modules/user-seller/dto/create-ticket-qu
 import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
 import { CreateTicketDto } from '@/modules/user-seller/dto/create-ticket.dto';
 import { BoatStatus } from '@/modules/user-seller/enums/boat-status.enum';
-import { InternalServerErrorException } from '@/shared/errors/internal-server-error.exception';
 import { PrismaException } from '@/shared/errors/prisma.exception';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class TicketService {
@@ -27,9 +26,14 @@ export class TicketService {
       );
 
       if (BoatStatus.APPROVED === status) {
-        ticket = await this.userRepository.createTicketBoatId(boatId, body);
+        try {
+          ticket = await this.userRepository.createTicketBoatId(boatId, body);
+        } catch (error) {
+          throw new PrismaException(error, this.usersLogger);
+        }
       } else {
-        throw new InternalServerErrorException();
+        this.usersLogger.error('Boat status not yet approved');
+        throw new BadRequestException();
       }
     } catch (error) {
       throw new PrismaException(error, this.usersLogger);

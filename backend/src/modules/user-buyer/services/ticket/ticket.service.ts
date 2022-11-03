@@ -7,7 +7,7 @@ import { CreatePreferenceDto } from '@/modules/user-buyer/dto/create-preference.
 import { GetTicketQueryDto } from '@/modules/user-buyer/dto/get-ticket-query.dto';
 import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
 import { PrismaException } from '@/shared/errors/prisma.exception';
-import { Injectable } from '@nestjs/common';
+import { BadRequestException, Injectable } from '@nestjs/common';
 
 @Injectable()
 export class TicketService {
@@ -42,12 +42,26 @@ export class TicketService {
     let response;
 
     try {
+      const { remaining_quantity } =
+        await this.userRepository.getTicketByTicketId(ticketId);
+
+      if (remaining_quantity <= 0) {
+        this.usersLogger.error('No tickets available');
+        throw new BadRequestException();
+      }
+    } catch (error) {
+      this.usersLogger.error(error);
+      throw new BadRequestException();
+    }
+
+    try {
       response = await this.mercadoPagoAdapterService.createPreference(
         ticketId,
         body,
       );
     } catch (error) {
       this.usersLogger.error(error);
+      throw new BadRequestException();
     }
 
     const {

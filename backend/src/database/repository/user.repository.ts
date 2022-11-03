@@ -45,10 +45,11 @@ export class UserRepository {
     statusId: string,
     validateBoat: ValidateBoatDto,
   ): Promise<any> {
-    const { boat } = validateBoat;
+    const { cnpj, boat } = validateBoat;
 
     return await this.prisma.boat.create({
       data: {
+        cnpj,
         ...boat,
         status: { connect: { id: statusId } },
         user: { connect: { id: userId } },
@@ -129,7 +130,7 @@ export class UserRepository {
 
   async getAllTicket(): Promise<CreateTicketResponseDto[]> {
     return await this.prisma.ticket.findMany({
-      include: { boat: true },
+      include: { boat: true, payment: true },
     });
   }
 
@@ -162,7 +163,25 @@ export class UserRepository {
           },
         ],
       },
-      include: { boat: true },
+      include: { boat: true, payment: true },
+    });
+  }
+
+  async updateTicketQtdByTicketId(ticketId: string) {
+    const { remaining_quantity } = await this.prisma.ticket.findUnique({
+      where: { id: ticketId },
+    });
+
+    return await this.prisma.ticket.update({
+      where: { id: ticketId },
+      data: { remaining_quantity: remaining_quantity - 1 },
+    });
+  }
+
+  async getTicketByTicketId(ticketId: string) {
+    return await this.prisma.ticket.findUnique({
+      where: { id: ticketId },
+      include: { payment: true },
     });
   }
 }
