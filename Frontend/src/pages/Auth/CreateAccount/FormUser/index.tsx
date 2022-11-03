@@ -122,6 +122,7 @@ export const FormUser = ({ next }: { next: Function }) => {
           key="next-button"
           text="Prosseguir"
           handleClick={onSubmit}
+          disabled={!isValid}
         />
       </AlignButtons>
     </>

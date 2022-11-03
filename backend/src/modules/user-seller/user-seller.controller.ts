@@ -171,13 +171,14 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Get('user_seller/boat/status')
+  @Get('user_seller/boat')
   @ApiOperation({
     summary: GET_BOAT_STATUS.API_OPERATION.SUMMARY,
     description: GET_BOAT_STATUS.API_OPERATION.DESCRIPTION,
   })
   @ApiResponse({
     status: 201,
+    isArray: true,
     description: VALIDATE_BOAT.API_RESPONSE.SUCCESS_OPERATION.DESC,
     type: () => BoatResponseDto,
   })
