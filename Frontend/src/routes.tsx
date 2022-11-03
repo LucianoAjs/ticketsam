@@ -1,3 +1,4 @@
+/* eslint-disable react/jsx-no-comment-textnodes */
 import App from "App";
 import {
   Auth,
@@ -33,17 +34,18 @@ function MainRoutes() {
 
         <Route path={HOME} element={<App />}>
           <Route index element={<Home />} />
+          <Route path={FEEDBACK} element={<Feedback />} />
+          <Route
+            path={PRODUCT_DETAIL}
+            element={
+              <ProductDetail
+                ticketId={"4059d7ce-116b-4bf7-9739-13d08f9e0918"}
+                product={product}
+              />
+            }
+          />
           <Route element={<AuthGuard redirectTo={`/${AUTH}`} />}>
-            <Route path={FEEDBACK} element={<Feedback />} />
-            <Route
-              path={PRODUCT_DETAIL}
-              element={
-                <ProductDetail
-                  ticketId={"4059d7ce-116b-4bf7-9739-13d08f9e0918"}
-                  product={product}
-                />
-              }
-            />
+            // TODO: Add here the admin routes
           </Route>
         </Route>
         <Route path="*" element={<Navigate to={HOME} replace />} />
