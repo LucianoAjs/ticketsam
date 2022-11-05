@@ -1,7 +1,9 @@
 import { FormControlLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
+
 import { Controller } from "react-hook-form";
+import { theme } from "styles/theme";
 
 interface IFormInput {
   formControl: any;
@@ -52,6 +54,15 @@ export function SelectFormController({
           labelPlacement="top"
           control={
             <Select
+              inputProps={{
+                MenuProps: {
+                  MenuListProps: {
+                    sx: {
+                      backgroundColor: `${theme.primary50}`,
+                    },
+                  },
+                },
+              }}
               className="width"
               onChange={onChange}
               onBlur={onBlur}

@@ -53,7 +53,7 @@ export const AlignItems = styled.div`
   flex-direction: column;
   gap: 3rem;
   text-align: center;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.primary400};
   padding: 20px;
   align-items: center;
   height: 820px;

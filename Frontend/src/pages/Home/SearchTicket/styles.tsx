@@ -6,6 +6,7 @@ export const CardStyled = styled(Card)`
   display: flex;
   width: 100%;
   padding: 2rem;
+  border-radius: 10px;
   background: ${({ theme }) => theme.primary400} !important;
 `;
 
@@ -21,13 +22,13 @@ export default styled.div`
     margin: unset;
   }
 
-  span {
-    color: black !important;
-  }
-
   button {
     font: 400 20px bold !important;
     padding: 1rem 1.5rem !important;
+  }
+
+  h2 {
+    color: ${({ theme }) => theme.primary100};
   }
 
   padding: 2rem;

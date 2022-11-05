@@ -148,7 +148,7 @@ export class UserRepository {
               lte: dt_arrival,
             },
             dt_output: {
-              lte: dt_output,
+              gte: dt_output,
             },
           },
           {

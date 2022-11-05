@@ -13,6 +13,7 @@ export const darkTheme = {
 };
 
 export const theme = {
+  primary50: "#39598A",
   primary100: "#255178",
   primary200: "#98CBF9",
   primary300: "#4DA8F7",

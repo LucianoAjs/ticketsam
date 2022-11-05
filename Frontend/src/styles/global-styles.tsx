@@ -9,8 +9,46 @@ export default createGlobalStyle`
   html,body {
     height: 100vh;
     box-sizing: border-box;
-    background: ${({ theme }) => theme.body};
+    background: ${({ theme }) => theme.primary200};
     color: ${({ theme }) => theme.text};
+  }
+
+  h1 {
+    font: 700 52px/78px bold ;
+    color: ${({ theme }) => theme.text} ;
+  }
+
+  h2 {
+    font: 700 clamp(1.5em, 1.5em + 1.5vw, 2em)/52px bold ;
+    color: ${({ theme }) => theme.text} ;
+  }
+
+  h3 {
+    font: 400 28px bold ;
+    color: ${({ theme }) => theme.text} ;
+  }
+
+  h4 {
+    font: 700 26px bold ;
+    color: ${({ theme }) => theme.text} ;
+  }
+
+  h5 {
+    font: 700 24px bold ;
+    color: ${({ theme }) => theme.text} ;
+  }
+
+  h6{
+    font: 400 14px/20px bold ;
+    letter-spacing: 1px;
+    color: ${({ theme }) => theme.text} ;
+    opacity: 0.5;
+  }
+
+  p{
+    font: 22px 22px/42px bold ;
+    color: ${({ theme }) => theme.text};
+    letter-spacing: 0.21px;
   }
 
   .MuiFormControl-root {
@@ -24,31 +62,42 @@ export default createGlobalStyle`
   }
 
   input {
-    color: ${({ theme }) => theme.primary800};
+    color: ${({ theme }) => theme.primary700} !important;
     font-size: 18px;
     font-weight: inherit;
     text-align: left;
   }
 
   fieldset {
-    text-align: center !important;
-    border-radius: 20px !important;
+    text-align: center;
+    border-radius: 20px ;
     border: 1px solid ${({ theme }) => theme.toggleBorder} !important;
-    opacity: 0.38 !important;
-    border-width: 1px !important;
-    border-color: none !important;
+    opacity: 0.38 ;
+    border-width: 1px ;
+    border-color: none ;
   }
 
   span {
-    color: ${({ theme }) => theme.primary800} !important;
+    color: ${({ theme }) => theme.primary700} ;
     align-self: baseline;
   }
 
   svg {
-    color: ${({ theme }) => theme.primary500} !important;
+    color: ${({ theme }) => theme.primary300} !important;
   }
 
   .bg-header {
     background: ${({ theme }) => theme.primary100} !important;
+  }
+
+  .select{
+    color: ${({ theme }) => theme.primary700} !important;
+
+    option {
+      margin: 40px;
+      background: rgba(0, 0, 0, 0.3);
+      color: #fff;
+      text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
+    }
   }
 `;

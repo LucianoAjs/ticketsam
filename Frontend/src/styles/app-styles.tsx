@@ -9,7 +9,7 @@ export const AlignForm = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
   text-align: center;
-  background-color: #fff;
+  background-color: ${({ theme }) => theme.primary400};
   padding: 30px;
   color: rgb(77, 77, 77);
   font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
