@@ -1,5 +1,4 @@
-import Container from './styles';
-import Button from '@mui/material/Button';
+import { default as Button, default as Container } from "../styles";
 
 interface Props {
   handleClick?: any;
@@ -17,8 +16,8 @@ export function ChooseOptionButton({
   return (
     <Container>
       <Button
-        variant='contained'
-        className={selectValue === value ? 'select-item' : ''}
+        variant="contained"
+        className={selectValue === value ? "select-item" : ""}
         onClick={() => handleClick(value)}
       >
         {label || value}

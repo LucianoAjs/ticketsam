@@ -1,7 +1,7 @@
-import Container from './styles';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
-import { IoClose } from 'react-icons/io5';
+import { IoClose } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
+import Button from "../styles";
+import Container from "./styles";
 
 interface Props {
   redirectTo?: string;
@@ -14,7 +14,7 @@ interface Props {
 export function LogoutButton({
   text,
   redirectTo,
-  data = 'show',
+  data = "show",
   handleClick,
   value,
 }: Props) {
@@ -34,12 +34,12 @@ export function LogoutButton({
   return (
     <Container>
       <Button
-        variant='contained'
-        startIcon={<IoClose size='34px' />}
+        variant="contained"
+        startIcon={<IoClose size="34px" />}
         disabled={length}
         onClick={() => execute()}
       >
-        {text ? text : 'Concordar e prosseguir'}
+        {text ? text : "Concordar e prosseguir"}
       </Button>
     </Container>
   );

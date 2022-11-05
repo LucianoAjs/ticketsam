@@ -1,8 +1,8 @@
-import { SvgIcon } from '@mui/material';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
-import Container from './styles';
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import { SvgIcon } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import Button from "../styles";
+import Container from "./styles";
 
 interface Props {
   redirectTo?: string;
@@ -27,11 +27,11 @@ export function BackButton({ text, redirectTo, handleClick, value }: Props) {
   return (
     <Container>
       <Button
-        variant='contained'
+        variant="contained"
         startIcon={<SvgIcon component={KeyboardArrowLeftIcon} />}
         onClick={() => execute()}
       >
-        {text ? text : 'Voltar'}
+        {text ? text : "Voltar"}
       </Button>
     </Container>
   );

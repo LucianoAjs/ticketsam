@@ -2,7 +2,6 @@ import { FormControlLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 import { Controller } from "react-hook-form";
-import Container from "./styles";
 
 interface IFormInput {
   formControl: any;
@@ -38,34 +37,33 @@ export function SelectFormController({
   };
 
   return (
-    <Container>
-      <Controller
-        name={formControlName}
-        control={formControl}
-        render={({ field: { onChange, onBlur, ref, value, name } }) => (
-          <FormControlLabel
-            label={label}
-            name={name}
-            ref={ref}
-            onChange={onChange}
-            onBlur={onBlur}
-            value={value}
-            labelPlacement="top"
-            control={
-              <Select
-                className="width"
-                onChange={onChange}
-                onBlur={onBlur}
-                value={value || ""}
-                {...register}
-                error={!!error}
-              >
-                {getDefaultValuesOfSelectionByProps()}
-              </Select>
-            }
-          />
-        )}
-      />
-    </Container>
+    <Controller
+      name={formControlName}
+      control={formControl}
+      render={({ field: { onChange, onBlur, ref, value, name } }) => (
+        <FormControlLabel
+          className="width"
+          label={label}
+          name={name}
+          ref={ref}
+          onChange={onChange}
+          onBlur={onBlur}
+          value={value}
+          labelPlacement="top"
+          control={
+            <Select
+              className="width"
+              onChange={onChange}
+              onBlur={onBlur}
+              value={value || ""}
+              {...register}
+              error={!!error}
+            >
+              {getDefaultValuesOfSelectionByProps()}
+            </Select>
+          }
+        />
+      )}
+    />
   );
 }

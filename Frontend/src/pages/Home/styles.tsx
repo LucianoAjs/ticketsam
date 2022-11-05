@@ -16,12 +16,9 @@ export const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  font-family: Roboto,sans-serif;
+  font-family: Roboto, sans-serif;
   flex-grow: 1;
 
-  input {
-    height: 30px !important;
-  }
   h1 {
     color: black;
     font-size: 22px;
@@ -38,8 +35,7 @@ export const AlignSearch = styled.div`
   width: 800px;
 `;
 
-export const AlignStretch = styled.div 
-`
+export const AlignStretch = styled.div`
   color: black;
   border: solid 3px;
   background-color: #fff;
@@ -48,4 +44,3 @@ export const AlignStretch = styled.div
     margin: 15px;
   }
 `;
-

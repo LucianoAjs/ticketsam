@@ -21,4 +21,8 @@ export default styled.div`
     text-align: center;
     font-weight: 400;
   }
+
+  .width {
+    width: 390px;
+  }
 `;

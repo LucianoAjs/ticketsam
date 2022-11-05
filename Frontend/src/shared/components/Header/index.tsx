@@ -3,7 +3,7 @@ import { AUTH } from "shared/constants/routes";
 
 const Header = () => {
   return (
-    <Navbar bg="dark" variant="dark" expand="lg">
+    <Navbar className="bg-header" variant="dark" expand="sm">
       <Container fluid>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">
@@ -12,10 +12,10 @@ const Header = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href="#action1">Home</Nav.Link>
+            <Nav.Link href={`/`}>Home</Nav.Link>
           </Nav>
 
-          <Button variant="outline-success" href={`/${AUTH}`}>
+          <Button variant="outline-info" href={`/${AUTH}`}>
             Login
           </Button>
         </Navbar.Collapse>

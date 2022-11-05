@@ -7,7 +7,6 @@ import { IMaskInput } from "react-imask";
 import { NumberFormatCustom } from "shared/components/fields/NumberFormatCustom";
 import { MaskCustom } from "shared/enums/mask-custom";
 import { AlignColumn } from "styles/app-styles";
-import Container from "./styles";
 
 interface IFormInput {
   formControl: any;
@@ -90,52 +89,51 @@ export function InputFormController({
   const maskCustom = showMaskCustom(maskType);
 
   return (
-    <Container>
-      <Controller
-        name={formControlName}
-        control={formControl}
-        render={({ field: { onChange, onBlur, value, ref, name } }) => (
-          <AlignColumn>
-            <FormControlLabel
-              label={label}
-              name={name || ""}
-              ref={ref}
-              onChange={onChange}
-              onBlur={onBlur}
-              value={value || defaultValue || ""}
-              placeholder={placeholder || ""}
-              labelPlacement="top"
-              control={
-                <TextField
-                  id={label}
-                  className={setClassMasPassword}
-                  type={inputType}
-                  {...register}
-                  error={!!error}
-                  onChange={onChange}
-                  onBlur={onBlur}
-                  value={value || defaultValue || ""}
-                  disableunderline="true"
-                  placeholder={placeholder || ""}
-                  helperText={error && error.message}
-                  InputProps={{
-                    endAdornment: (
-                      <InputAdornment position="end">
-                        {(isFieldCorrect && value && (
-                          <CheckCircleRoundedIcon />
-                        )) ||
-                          ""}
-                      </InputAdornment>
-                    ),
-                    startAdornment: showInputStart(),
-                    inputComponent: maskCustom,
-                  }}
-                />
-              }
-            />
-          </AlignColumn>
-        )}
-      />
-    </Container>
+    <Controller
+      name={formControlName}
+      control={formControl}
+      render={({ field: { onChange, onBlur, value, ref, name } }) => (
+        <AlignColumn>
+          <FormControlLabel
+            className="width"
+            label={label}
+            name={name || ""}
+            ref={ref}
+            onChange={onChange}
+            onBlur={onBlur}
+            value={value || defaultValue || ""}
+            placeholder={placeholder || ""}
+            labelPlacement="top"
+            control={
+              <TextField
+                id={label}
+                className={setClassMasPassword}
+                type={inputType}
+                {...register}
+                error={!!error}
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value || defaultValue || ""}
+                disableunderline="true"
+                placeholder={placeholder || ""}
+                helperText={error && error.message}
+                InputProps={{
+                  endAdornment: (
+                    <InputAdornment position="end">
+                      {(isFieldCorrect && value && (
+                        <CheckCircleRoundedIcon />
+                      )) ||
+                        ""}
+                    </InputAdornment>
+                  ),
+                  startAdornment: showInputStart(),
+                  inputComponent: maskCustom,
+                }}
+              />
+            }
+          />
+        </AlignColumn>
+      )}
+    />
   );
 }

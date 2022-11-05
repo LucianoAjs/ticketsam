@@ -1,8 +1,9 @@
-import Container from './styles';
-import Button from '@mui/material/Button';
-import { useNavigate } from 'react-router-dom';
-import KeyboardArrowRight from '@mui/icons-material/KeyboardArrowRight';
-import { SvgIcon } from '@mui/material';
+import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
+import { SvgIcon } from "@mui/material";
+import { useNavigate } from "react-router-dom";
+import Button from "../styles";
+import Container from "./styles";
+
 interface Props {
   redirectTo?: string;
   text?: string;
@@ -35,12 +36,12 @@ export function NextButton({
   return (
     <Container>
       <Button
-        variant='contained'
+        variant="contained"
         endIcon={icon && <SvgIcon component={KeyboardArrowRight} />}
         disabled={disabled}
         onClick={() => execute()}
       >
-        {text ? text : 'Concordar e prosseguir'}
+        {text ? text : "Concordar e prosseguir"}
       </Button>
     </Container>
   );
