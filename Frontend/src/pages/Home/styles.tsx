@@ -4,11 +4,6 @@ export default styled.div`
   display: flex;
   flex-direction: column;
   height: 100vh;
-
-  select {
-    width: 800px;
-    background-color: red;
-  }
 `;
 
 export const Main = styled.div`
@@ -43,4 +38,11 @@ export const AlignStretch = styled.div`
   label {
     margin: 15px;
   }
+`;
+
+export const AlignColumn = styled.div`
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  padding: 0rem 2rem 2rem 2rem;
 `;

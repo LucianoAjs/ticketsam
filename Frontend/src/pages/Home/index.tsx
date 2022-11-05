@@ -1,7 +1,7 @@
 import { SearchTicket } from "pages/Home/SearchTicket";
 import { useState } from "react";
 import { ITicket } from "shared/interfaces/ticket.interface";
-import { Main } from "./styles";
+import { AlignColumn, Main } from "./styles";
 import { Ticket } from "./Ticket";
 
 export const Home = () => {
@@ -11,7 +11,10 @@ export const Home = () => {
     <>
       <Main>
         <SearchTicket setTickets={setTickets} />
-        <Ticket />
+        <AlignColumn>
+          {tickets &&
+            tickets?.map((value: ITicket) => <Ticket ticket={value} />)}{" "}
+        </AlignColumn>
       </Main>
     </>
   );

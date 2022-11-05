@@ -30,7 +30,8 @@ export default createGlobalStyle`
 
   h4 {
     font: 700 26px bold ;
-    color: ${({ theme }) => theme.text} ;
+    color: ${({ theme }) => theme.primary800};
+    opacity: 0.6;
   }
 
   h5 {
@@ -100,4 +101,20 @@ export default createGlobalStyle`
       text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
     }
   }
+
+    /* scrollbar */
+    ::-webkit-scrollbar {
+    width: 7px;
+    background:  ${({ theme }) => theme.primary400} !important;
+  }
+
+  ::-webkit-scrollbar-track {
+    box-shadow: inset 0 0 5px grey;
+    border-radius: 10px;
+  }
+
+  ::-webkit-scrollbar-thumb {
+    background: ${({ theme }) => theme.primary500} !important;
+  }
+
 `;

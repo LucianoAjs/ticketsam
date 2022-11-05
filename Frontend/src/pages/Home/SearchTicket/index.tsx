@@ -56,13 +56,13 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
       new Date(getValues().dt_output).toLocaleDateString()
     );
 
-    const data = { ...getValues(), dt_arrival, dt_output };
+    const dataFilter = { ...getValues(), dt_arrival, dt_output };
 
-    const tickets = await ENDPOINT.GET_TICKET(data);
+    const { data } = await ENDPOINT.GET_TICKET(dataFilter);
 
     setFetching(false);
 
-    setTickets(tickets);
+    setTickets(data);
   };
 
   if (fetching) {
