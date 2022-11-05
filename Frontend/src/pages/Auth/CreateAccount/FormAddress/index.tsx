@@ -79,7 +79,7 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
   const createAccount = useCallback(async () => {
     setFetching(true);
 
-    const birthdate = convertDateFormatInUS(user.birthdate);
+    const birthdate = convertDateFormatInUS(String(user.birthdate));
     const phoneNumber = Number(
       String(user.phoneNumber).substring(4, 14).replace("-", "")
     );

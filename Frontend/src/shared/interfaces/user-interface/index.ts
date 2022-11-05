@@ -7,7 +7,7 @@ export interface IUser {
   lastName?: string;
   cpf: string;
   phoneNumber: number;
-  birthdate: string;
+  birthdate: string | Date;
   gender?: string;
   address: IAddress;
 }

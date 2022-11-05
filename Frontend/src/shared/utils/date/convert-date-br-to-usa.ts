@@ -1,3 +1,5 @@
+import dateFormat from "dateformat";
+
 export const convertDateFormatInUS = (dateBR: string) => {
   const splitDate = dateBR.split("/");
 
@@ -5,5 +7,8 @@ export const convertDateFormatInUS = (dateBR: string) => {
   const moth = splitDate[1];
   const year = splitDate[2];
 
-  return `${year}-${moth}-${day}`;
+  return dateFormat(
+    new Date(`${year}-${moth}-${day} 00:00:00`),
+    "yyyy-mm-dd hh:mm:ss"
+  );
 };
