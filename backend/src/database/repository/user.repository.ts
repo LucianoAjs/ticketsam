@@ -163,7 +163,6 @@ export class UserRepository {
           },
         ],
       },
-      include: { boat: true, payment: true },
     });
   }
 
