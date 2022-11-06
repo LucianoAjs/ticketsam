@@ -6,6 +6,10 @@ export default styled.div`
   height: 100vh;
 `;
 
+export const Content = styled.div`
+  flex: 1;
+`;
+
 export const AlignForm = styled.div`
   display: flex;
   flex-direction: row;

@@ -15,7 +15,6 @@ export default styled.div`
   flex-direction: column;
   flex-grow: 1;
   gap: 2rem;
-  width: 100% !important;
 
   .width {
     width: 100% !important;

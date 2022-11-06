@@ -3,7 +3,7 @@ import { AUTH } from "shared/constants/routes";
 
 const Header = () => {
   return (
-    <Navbar className="bg-header" variant="dark" expand="sm">
+    <Navbar className="bg-header" variant="dark">
       <Container fluid>
         <Navbar.Toggle aria-controls="navbarScroll" />
         <Navbar.Collapse id="navbarScroll">

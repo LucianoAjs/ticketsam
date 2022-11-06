@@ -3,11 +3,13 @@ import { useSearchParams } from "react-router-dom";
 import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
 import { paymentReponseParams } from "shared/constants/payment-response-params.constant";
+import { IPaymentResponseParams } from "shared/interfaces/payment-response-params.interface";
 
 export const Feedback = () => {
   const [searchParams] = useSearchParams();
 
   const [fetching, setFetching] = useState(false);
+  const [dataPayment, setDataPayment] = useState<IPaymentResponseParams>();
 
   const sendPaymentStatus = useCallback(async () => {
     setFetching(true);
@@ -20,7 +22,7 @@ export const Feedback = () => {
     }, {});
 
     const paymentData = JSON.parse(JSON.stringify(paramsConcat));
-
+    setDataPayment(paymentData);
     await ENDPOINT.SEND_PAYMENT_STATUS(paymentData);
 
     setFetching(false);
@@ -34,5 +36,5 @@ export const Feedback = () => {
     return <Spin />;
   }
 
-  return <div>Payment</div>;
+  return <div>{"Status do pagamento: " + dataPayment?.status}</div>;
 };

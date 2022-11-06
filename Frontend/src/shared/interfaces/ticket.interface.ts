@@ -1,4 +1,5 @@
 export interface ITicket {
+  id: string;
   accommodation_name: string;
   destination_city: string;
   home_city: string;
