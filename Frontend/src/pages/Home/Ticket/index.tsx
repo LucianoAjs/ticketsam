@@ -1,9 +1,7 @@
 import { useState } from "react";
-import { useNavigate } from "react-router-dom";
 import { NextButton } from "shared/components/buttons";
 import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
-import { HOME } from "shared/constants/routes";
 import { ITicket } from "shared/interfaces/ticket.interface";
 import { formatCurrencyPtBr } from "shared/utils/common/format-currency-pt-br";
 import { openUrl } from "shared/utils/common/open-url";
@@ -29,8 +27,7 @@ export const Ticket = ({ ticket }: { ticket: ITicket }) => {
   } = ticket;
 
   const [fetching, setFetching] = useState(false);
-  const [sandboxInitPoint, setSandboxInitPoint] = useState<string>("");
-  const navigate = useNavigate();
+
   const createPreference = async () => {
     setFetching(true);
 
@@ -40,13 +37,13 @@ export const Ticket = ({ ticket }: { ticket: ITicket }) => {
       quantity: 1,
     };
 
-    await ENDPOINT.CREATE_PREFERENCE(id, product)
-      .then((v) => setSandboxInitPoint(v.data.sandbox_init_point))
-      .catch(() => navigate(`${HOME}`));
+    const {
+      data: { sandbox_init_point },
+    } = await ENDPOINT.CREATE_PREFERENCE(id, product);
 
     setFetching(false);
 
-    openUrl(sandboxInitPoint);
+    openUrl(sandbox_init_point);
   };
 
   if (fetching) {

@@ -4,7 +4,6 @@ import { NextButton } from "shared/components/buttons";
 import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
 import { paymentReponseParams } from "shared/constants/payment-response-params.constant";
-import { HOME } from "shared/constants/routes";
 import { URL_PAYMENT_STATUS } from "shared/constants/url-payment-status";
 import { IPaymentResponseParams } from "shared/interfaces/payment-response-params.interface";
 import { ITicket } from "shared/interfaces/ticket.interface";
@@ -56,9 +55,11 @@ export const Feedback = () => {
 
     await ENDPOINT.SEND_PAYMENT_STATUS(paymentData).catch(() => {});
 
-    await ENDPOINT.GET_TICKET_BY_ID(paymentData.external_reference)
-      .then((v) => setTicket(v.data))
-      .catch(() => navigate(`${HOME}`));
+    const { data } = await ENDPOINT.GET_TICKET_BY_ID(
+      paymentData.external_reference
+    );
+
+    setTicket(data);
 
     const url = URL_PAYMENT_STATUS(
       paymentData.payment_id,
@@ -72,7 +73,7 @@ export const Feedback = () => {
     setSrc(qrcode);
 
     setFetching(false);
-  }, [navigate, searchParams]);
+  }, [searchParams]);
 
   useEffect(() => {
     sendPaymentStatus();
