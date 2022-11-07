@@ -26,7 +26,7 @@ import { MobileDatePickerController } from "shared/components/forms/MobileDatePi
 import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
 import { HOME } from "shared/constants/routes";
-import { convertDateFormatInUS } from "shared/utils/date/convert-date-br-to-usa";
+import { convertDateFormat } from "shared/utils/date/date-format";
 
 export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
   const initialValues = {
@@ -52,12 +52,8 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
   });
 
   const searchTicket = async () => {
-    const dt_arrival = convertDateFormatInUS(
-      new Date(getValues().dt_arrival).toLocaleDateString()
-    );
-    const dt_output = convertDateFormatInUS(
-      new Date(getValues().dt_output).toLocaleDateString()
-    );
+    const dt_arrival = convertDateFormat(new Date(getValues().dt_arrival));
+    const dt_output = convertDateFormat(new Date(getValues().dt_output));
 
     const dataFilter = { ...getValues(), dt_arrival, dt_output };
 

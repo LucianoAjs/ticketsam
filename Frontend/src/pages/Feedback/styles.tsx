@@ -7,10 +7,6 @@ export default styled.div`
   text-align: center;
   gap: 1rem;
 
-  h3 {
-    font: 400 clamp(1em, 1em + 1vw, 2em) bold;
-  }
-
   img {
     width: clamp(10em, 10em + 10vw, 20em);
   }

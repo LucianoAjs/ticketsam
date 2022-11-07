@@ -14,7 +14,7 @@ export default createGlobalStyle`
   }
 
   h1 {
-    font: 700 52px/78px bold ;
+    font: 700 clamp(2em, 2em + 2vw, 4em)/clamp(1em, 1em + 1vw, 2em) bold;
     color: ${({ theme }) => theme.text} ;
   }
 
@@ -24,7 +24,7 @@ export default createGlobalStyle`
   }
 
   h3 {
-    font: 400 28px bold ;
+    font: 400 clamp(1em, 1em + 1vw, 2em) bold;
     color: ${({ theme }) => theme.text} ;
   }
 
