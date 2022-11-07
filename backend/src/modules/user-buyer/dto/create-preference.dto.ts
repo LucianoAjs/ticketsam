@@ -1,4 +1,4 @@
-import { CREATE_PREFERENCE } from '@/modules/user-buyer/cosntants/create-preference.constant';
+import { CREATE_PREFERENCE } from '@/modules/user-buyer/constants/create-preference.constant';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsNumber, IsString } from 'class-validator';
 

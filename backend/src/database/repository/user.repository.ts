@@ -134,6 +134,13 @@ export class UserRepository {
     });
   }
 
+  async getTicketById(ticket: string): Promise<CreateTicketResponseDto> {
+    return await this.prisma.ticket.findUnique({
+      where: { id: ticket },
+      include: { boat: true, payment: true },
+    });
+  }
+
   async getTicketByFilter({
     destination_city,
     home_city,

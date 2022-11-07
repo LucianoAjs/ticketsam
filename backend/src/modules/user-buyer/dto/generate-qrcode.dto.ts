@@ -1,4 +1,4 @@
-import { GENERATE_QRCODE } from '@/modules/user-buyer/cosntants/generate-qrcode.constant';
+import { GENERATE_QRCODE } from '@/modules/user-buyer/constants/generate-qrcode.constant';
 import { ApiProperty } from '@nestjs/swagger';
 import { IsNotEmpty, IsString } from 'class-validator';
 

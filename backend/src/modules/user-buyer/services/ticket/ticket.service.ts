@@ -4,6 +4,7 @@ import { UsersLoggerService } from '@/logger/logger.service';
 import { CreatePreferenceQueryDto } from '@/modules/user-buyer/dto/create-preference-query.dto';
 import { CreatePreferenceResponseDto } from '@/modules/user-buyer/dto/create-preference-response.dto';
 import { CreatePreferenceDto } from '@/modules/user-buyer/dto/create-preference.dto';
+import { GetTicketParamDto } from '@/modules/user-buyer/dto/get-ticket-param.dto';
 import { GetTicketQueryDto } from '@/modules/user-buyer/dto/get-ticket-query.dto';
 import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
 import { PrismaException } from '@/shared/errors/prisma.exception';
@@ -27,6 +28,20 @@ export class TicketService {
       } else {
         ticket = await this.userRepository.getTicketByFilter(filter);
       }
+    } catch (error) {
+      throw new PrismaException(error, this.usersLogger);
+    }
+
+    return ticket;
+  }
+
+  async getTicketByTicketId(
+    param?: GetTicketParamDto,
+  ): Promise<CreateTicketResponseDto> {
+    const { ticketId } = param;
+    let ticket: CreateTicketResponseDto;
+    try {
+      ticket = await this.userRepository.getTicketById(ticketId);
     } catch (error) {
       throw new PrismaException(error, this.usersLogger);
     }

@@ -37,6 +37,7 @@
     "@prisma/client": "^4.4.0",
     "@types/validator": "^13.7.7",
     "bcrypt": "^5.1.0",
+    "Buffer": "^0.0.0",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.13.2",
     "crypto": "^1.0.1",

@@ -15,7 +15,8 @@ export class GenerateQRcodeService {
     let qrcode;
 
     try {
-      qrcode = await QRCode.toDataURL(url);
+      const dataQrcode = await QRCode.toDataURL(url);
+      qrcode = Buffer.from(dataQrcode).toString('base64');
     } catch (error) {
       this.usersLogger.error(error);
       throw new BadRequestException();

@@ -1,10 +1,12 @@
-import { CREATE_PREFERENCE } from '@/modules/user-buyer/cosntants/create-preference.constant';
-import { GET_TICKET } from '@/modules/user-buyer/cosntants/get-ticket.contant';
+import { CREATE_PREFERENCE } from '@/modules/user-buyer/constants/create-preference.constant';
+import { GENERATE_QRCODE } from '@/modules/user-buyer/constants/generate-qrcode.constant';
+import { GET_TICKET } from '@/modules/user-buyer/constants/get-ticket.contant';
 import { CreatePreferenceQueryDto } from '@/modules/user-buyer/dto/create-preference-query.dto';
 import { CreatePreferenceResponseDto } from '@/modules/user-buyer/dto/create-preference-response.dto';
 import { CreatePreferenceDto } from '@/modules/user-buyer/dto/create-preference.dto';
 import { GenerateQRcodeResponseDto } from '@/modules/user-buyer/dto/generate-qrcode-response.dto';
 import { GenerateQRcodeDto } from '@/modules/user-buyer/dto/generate-qrcode.dto';
+import { GetTicketParamDto } from '@/modules/user-buyer/dto/get-ticket-param.dto';
 import { GetTicketQueryDto } from '@/modules/user-buyer/dto/get-ticket-query.dto';
 import { PaymentBodyDto } from '@/modules/user-buyer/dto/payment-body.dto';
 import { GenerateQRcodeService } from '@/modules/user-buyer/services/generate-qrcode/generate-qrcode.service';
@@ -15,7 +17,7 @@ import { InternalServerErrorException } from '@/shared/errors/internal-server-er
 import { UnauthorizedException } from '@/shared/errors/unauthorized.exception';
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
-import { GENERATE_QRCODE } from './cosntants/generate-qrcode.constant';
+import { GET_TICKET_BY_ID } from './constants/get-ticket-by-id.constant';
 
 const {
   API_RESPONSE: { INTERNAL_SERVER_ERROR, UNAUTHORIZED_OPERATION },
@@ -49,6 +51,33 @@ export class UserBuyerController {
     @Query() filter?: GetTicketQueryDto,
   ): Promise<CreateTicketResponseDto[]> {
     return await this.ticketService.getTicket(filter);
+  }
+
+  @ApiTags('USER BUYER')
+  @Get('user_buyer/ticket/:ticketId')
+  @ApiOperation({
+    summary: GET_TICKET_BY_ID.API_OPERATION.SUMMARY,
+    description: GET_TICKET_BY_ID.API_OPERATION.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: 201,
+    description: GET_TICKET_BY_ID.API_OPERATION.DESCRIPTION,
+    type: () => CreateTicketResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  async getTicketByTicketId(
+    @Param() param?: GetTicketParamDto,
+  ): Promise<CreateTicketResponseDto> {
+    return await this.ticketService.getTicketByTicketId(param);
   }
 
   @ApiTags('USER BUYER')
