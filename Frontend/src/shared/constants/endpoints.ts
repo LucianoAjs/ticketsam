@@ -25,4 +25,8 @@ export const ENDPOINT = {
     api.get(`http://viacep.com.br/ws/${cep}/json/`),
   GET_TICKET: (filter: IGetTicketFilter): Promise<AxiosResponse<ITicket[]>> =>
     api.get(`/user_buyer/ticket/${queryToEncodedString(filter)}`),
+  GENERATE_QRCODE: (url: string) =>
+    api.post(`/user_buyer/generate_qrcode`, { url }),
+  GET_TICKET_BY_ID: (ticketId: string) =>
+    api.get(`user_buyer/ticket/${ticketId}`),
 };

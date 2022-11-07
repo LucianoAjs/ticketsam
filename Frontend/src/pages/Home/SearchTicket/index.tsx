@@ -20,9 +20,12 @@ import Container, {
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { SvgIcon } from "@mui/material";
 import { useState } from "react";
+
+import { useNavigate } from "react-router-dom";
 import { MobileDatePickerController } from "shared/components/forms/MobileDatePickerController";
 import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
+import { HOME } from "shared/constants/routes";
 import { convertDateFormatInUS } from "shared/utils/date/convert-date-br-to-usa";
 
 export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
@@ -34,7 +37,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
   };
 
   const [fetching, setFetching] = useState(false);
-
+  const navigate = useNavigate();
   const cidades = ["Manaus", "Coari", "Tabatinga"];
 
   const {
@@ -58,11 +61,11 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
 
     const dataFilter = { ...getValues(), dt_arrival, dt_output };
 
-    const { data } = await ENDPOINT.GET_TICKET(dataFilter);
+    await ENDPOINT.GET_TICKET(dataFilter)
+      .then((v) => setTickets(v.data))
+      .catch(() => navigate(`${HOME}`));
 
     setFetching(false);
-
-    setTickets(data);
   };
 
   if (fetching) {

@@ -1,3 +1,5 @@
+import { IPayment } from "./payment.interface";
+
 export interface ITicket {
   id: string;
   accommodation_name: string;
@@ -13,4 +15,5 @@ export interface ITicket {
   remaining_quantity: number;
   food_value: number;
   transport_value: number;
+  payment: IPayment[];
 }
