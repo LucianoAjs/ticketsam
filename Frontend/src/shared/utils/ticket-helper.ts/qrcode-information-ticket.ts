@@ -23,8 +23,8 @@ export const qrcodeInformationTicket = (
   ];
 
   if (!qrcodeRef) {
-    elements.filter((_v, i) => i !== 6 && i !== 7);
+    return elements.filter((_v, i) => i !== 7 && i !== 8);
+  } else {
+    return elements;
   }
-
-  return elements;
 };

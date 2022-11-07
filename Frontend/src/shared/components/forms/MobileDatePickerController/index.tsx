@@ -39,6 +39,7 @@ export function MobileDatePickerController({
               onBlur={onBlur}
               value={value || ""}
               {...register}
+              inputFormat="DD/MM/YYYY"
               error={!!error}
               renderInput={(params) => (
                 <TextField

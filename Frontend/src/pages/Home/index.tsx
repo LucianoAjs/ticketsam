@@ -14,7 +14,12 @@ export const Home = () => {
         {tickets &&
           tickets
             ?.filter((v) => v.remaining_quantity > 0)
-            .map((value: ITicket) => <Ticket ticket={value} />)}
+            .map((value: ITicket, index: number) => (
+              <Ticket key={`ticket-${index}`} ticket={value} />
+            ))}
+        {tickets?.filter((v) => v.remaining_quantity > 0).length === 0 && (
+          <h3>Passagens indisponíveis nessas datas.</h3>
+        )}
       </AlignColumn>
     </Container>
   );
