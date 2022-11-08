@@ -49,17 +49,13 @@ export const Login = () => {
   const loginAccount = useCallback(async () => {
     setFetching(true);
 
-    try {
-      const {
-        data: { access_token },
-      } = await ENDPOINT.LOGIN(getValues());
+    const {
+      data: { access_token },
+    } = await ENDPOINT.LOGIN(getValues());
 
-      setDataStorage(TOKEN, access_token);
+    setDataStorage(TOKEN, access_token);
 
-      navigate(HOME);
-    } catch (error) {
-      // TODO: Implement error sreen
-    }
+    navigate(HOME);
 
     setFetching(false);
   }, [getValues, navigate]);

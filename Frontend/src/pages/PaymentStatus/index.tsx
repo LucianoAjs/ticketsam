@@ -1,7 +1,6 @@
 import { useCallback, useEffect, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { ENDPOINT } from "shared/constants/endpoints";
-import { HOME } from "shared/constants/routes";
 import { IPayment } from "shared/interfaces/payment.interface";
 import { ITicket } from "shared/interfaces/ticket.interface";
 import { currentStatusPayment } from "shared/utils/common/status";
@@ -16,18 +15,17 @@ export const PaymentStatus = () => {
   const [ticket, setTicket] = useState<ITicket>();
   const [paymentStatus, setPaymentStatus] = useState<IPayment>();
 
-  const navigate = useNavigate();
   const getPaymentStatus = useCallback(async () => {
-    await ENDPOINT.GET_PAYMENT_STATUS(paymentId || "")
-      .then((v) => setPaymentStatus(v.data.payment))
-      .catch(() => navigate(HOME));
-  }, [navigate, paymentId]);
+    const {
+      data: { payment },
+    } = await ENDPOINT.GET_PAYMENT_STATUS(paymentId || "");
+    setPaymentStatus(payment);
+  }, [paymentId]);
 
   const getTicket = useCallback(async () => {
-    await ENDPOINT.GET_TICKET_BY_ID(ticketId || "")
-      .then((v) => setTicket(v.data))
-      .catch(() => navigate(HOME));
-  }, [navigate, ticketId]);
+    const { data } = await ENDPOINT.GET_TICKET_BY_ID(ticketId || "");
+    setTicket(data);
+  }, [ticketId]);
 
   useEffect(() => {
     getPaymentStatus();

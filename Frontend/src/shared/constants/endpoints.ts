@@ -29,6 +29,6 @@ export const ENDPOINT = {
     api.post(`/user_buyer/generate_qrcode`, { url }),
   GET_TICKET_BY_ID: (ticketId: string) =>
     api.get(`user_buyer/ticket/${ticketId}`),
-  GET_PAYMENT_STATUS: (paymentId: string) =>
+  GET_PAYMENT_STATUS: (paymentId: string): Promise<AxiosResponse<any>> =>
     api.get(`user_seller/payment/status/?paymentId=${paymentId}`),
 };

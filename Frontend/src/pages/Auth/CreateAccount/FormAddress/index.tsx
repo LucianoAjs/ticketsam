@@ -99,13 +99,9 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
       },
     });
 
-    try {
-      await createAccount();
+    await createAccount();
 
-      navigate(`/${AUTH}`);
-    } catch (error) {
-      // TODO: Implement error screen
-    }
+    navigate(`/${AUTH}`);
   };
 
   if (fetching) {
