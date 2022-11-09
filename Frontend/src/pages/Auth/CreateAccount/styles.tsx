@@ -3,7 +3,6 @@ import styled from "styled-components";
 export default styled.div`
   display: flex;
   flex-direction: column;
-  width: 100%;
   flex-grow: 1;
   gap: 2rem;
   padding: 6rem 12rem 6rem 12rem;

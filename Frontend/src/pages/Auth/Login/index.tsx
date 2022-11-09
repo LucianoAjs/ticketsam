@@ -8,12 +8,7 @@ import { InputFormController } from "shared/components/forms/InputFormController
 import Spin from "shared/components/Spin";
 import { TOKEN } from "shared/constants/common";
 import { ENDPOINT } from "shared/constants/endpoints";
-import {
-  AUTH,
-  CREATE_ACCOUNT,
-  HOME,
-  RECOVERY_PASSWORD,
-} from "shared/constants/routes";
+import { AUTH, CREATE_ACCOUNT, HOME } from "shared/constants/routes";
 import { ILoginForm } from "shared/interfaces/auth-interface";
 import { login } from "shared/schemas/login.schema";
 import { setDataStorage } from "shared/utils";
@@ -21,7 +16,6 @@ import {
   AlignCheckBox,
   AlignInput,
   AlignItems,
-  AlignRecPassword,
   HaveAccount,
   Main,
 } from "../styles";
@@ -102,12 +96,8 @@ export const Login = () => {
           text="Iniciar sessão"
         />
 
-        <AlignRecPassword>
-          <a href={`/${AUTH}/${RECOVERY_PASSWORD}`}>Esqueci minha senha</a>
-        </AlignRecPassword>
-
         <HaveAccount>
-          <h4>Nao tem uma conta?</h4>
+          <h5>Nao tem uma conta?</h5>
         </HaveAccount>
 
         <AlignCheckBox>

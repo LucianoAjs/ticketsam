@@ -51,6 +51,12 @@ export default createGlobalStyle`
     letter-spacing: 0.21px;
   }
 
+  a {
+    transition: color 0.25s ease-in-out;
+    text-decoration: none;
+    cursor: pointer;
+  }
+
   .MuiFormControl-root {
     width: 385px;
   }

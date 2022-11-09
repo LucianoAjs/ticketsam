@@ -1,5 +1,5 @@
 import { useCallback, useEffect, useRef, useState } from "react";
-import { useNavigate, useSearchParams } from "react-router-dom";
+import { useSearchParams } from "react-router-dom";
 import { NextButton } from "shared/components/buttons";
 import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
@@ -21,7 +21,6 @@ export const Feedback = () => {
   const [fetching, setFetching] = useState(false);
   const [dataPayment, setDataPayment] = useState<IPaymentResponseParams>();
   const [src, setSrc] = useState<string>();
-  const navigate = useNavigate();
 
   const printScreenByElement = () => {
     const paymentStatusResult = paymentStatus();

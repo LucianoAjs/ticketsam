@@ -11,18 +11,12 @@ export const Main = styled.div`
   flex-direction: column;
   justify-content: center;
   align-items: center;
-  width: 570px;
   align-self: center;
   flex-grow: 1;
 
   label {
     opacity: 1;
     color: ${({ theme }) => theme.text} !important;
-  }
-  button {
-    width: 475px;
-    border-radius: 15px !important;
-    height: 50px;
   }
 
   .color-slate-dark {
@@ -31,7 +25,6 @@ export const Main = styled.div`
 
   a {
     color: unset;
-    text-decoration: none;
   }
 
   img {
@@ -41,10 +34,6 @@ export const Main = styled.div`
 
   .unset-padding {
     padding: unset;
-  }
-
-  input {
-    height: 30px !important;
   }
 `;
 
@@ -56,10 +45,8 @@ export const AlignItems = styled.div`
   background-color: ${({ theme }) => theme.primary400};
   padding: 20px;
   align-items: center;
-  height: 820px;
   color: rgb(77, 77, 77);
   min-height: 500px;
-  width: 520px;
   border-radius: 9px;
 `;
 
@@ -118,7 +105,6 @@ export const AlignRecPassword = styled.div`
 `;
 
 export const HaveAccount = styled.div`
-  width: 386px;
   color: #3d85c4;
   font-size: 18px;
   display: flex;
@@ -132,8 +118,6 @@ export const ConfirmationIcon = styled.div`
   justify-content: center;
   border-radius: 50.5px;
   padding: 2rem;
-  width: 102px;
-  height: 102px;
   border: 3px solid ${({ theme }) => theme.gradient};
   margin-bottom: 1.2rem;
 `;
