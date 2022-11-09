@@ -117,4 +117,8 @@ export default createGlobalStyle`
     background: ${({ theme }) => theme.primary500} !important;
   }
 
+  .nav-link{
+    font-family: 'Roboto', sans-serif;
+    color: ${({ theme }) => theme.primary700} !important;
+  }
 `;

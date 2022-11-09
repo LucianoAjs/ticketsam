@@ -1,7 +1,10 @@
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import { AUTH } from "shared/constants/routes";
+import { AUTH, HOME } from "shared/constants/routes";
+import useAuth from "shared/hooks/useAuth";
 
 const Header = () => {
+  const { isLoggedin, logout } = useAuth();
+
   return (
     <Navbar className="bg-header" variant="dark">
       <Container fluid>
@@ -12,12 +15,20 @@ const Header = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href={`/`}>Home</Nav.Link>
+            <Nav.Link color="" href={HOME}>
+              Home
+            </Nav.Link>
           </Nav>
 
-          <Button variant="outline-info" href={`/${AUTH}`}>
-            Login
-          </Button>
+          {isLoggedin ? (
+            <Button variant="outline-danger" onClick={logout}>
+              Logout
+            </Button>
+          ) : (
+            <Button variant="outline-primary" href={`/${AUTH}`}>
+              Login
+            </Button>
+          )}
         </Navbar.Collapse>
       </Container>
     </Navbar>

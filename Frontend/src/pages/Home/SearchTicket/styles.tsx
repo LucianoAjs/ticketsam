@@ -56,6 +56,10 @@ export const AlignColumnDate = styled.div`
   svg {
     margin-top: 1rem;
   }
+
+  h6 {
+    opacity: unset;
+  }
 `;
 
 export const AlignGap = styled.div`

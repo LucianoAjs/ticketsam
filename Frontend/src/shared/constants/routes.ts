@@ -6,3 +6,7 @@ export const CREATE_ACCOUNT = "create_account";
 export const FEEDBACK = "feedback";
 export const PRODUCT_DETAIL = "product_detail";
 export const PAYMENT_STATUS = "payment_status";
+export const ADMIN = "admin";
+export const PROFILE = "profile";
+export const TICKET_MANAGER = "ticket_manager";
+export const BOAT_MANAGER = "boat_manager";

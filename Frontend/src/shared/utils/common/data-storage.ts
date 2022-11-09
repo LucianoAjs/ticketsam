@@ -5,3 +5,7 @@ export const getDataStorage = (key: string) => {
 export const setDataStorage = (key: string, data: any) => {
   sessionStorage.setItem(key, JSON.stringify(data));
 };
+
+export const clearDataStorage = (key: string) => {
+  sessionStorage.clear();
+};

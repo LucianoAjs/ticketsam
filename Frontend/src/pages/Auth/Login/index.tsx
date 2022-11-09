@@ -9,9 +9,10 @@ import Spin from "shared/components/Spin";
 import { TOKEN } from "shared/constants/common";
 import { ENDPOINT } from "shared/constants/endpoints";
 import {
+  ADMIN,
   AUTH,
   CREATE_ACCOUNT,
-  HOME,
+  PROFILE,
   RECOVERY_PASSWORD,
 } from "shared/constants/routes";
 import { ILoginForm } from "shared/interfaces/auth-interface";
@@ -55,7 +56,7 @@ export const Login = () => {
 
     setDataStorage(TOKEN, access_token);
 
-    navigate(HOME);
+    navigate(`/${ADMIN}/${PROFILE}`);
 
     setFetching(false);
   }, [getValues, navigate]);
