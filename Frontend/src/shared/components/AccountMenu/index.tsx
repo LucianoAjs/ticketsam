@@ -10,6 +10,13 @@ import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
 import * as React from "react";
+import { useNavigate } from "react-router-dom";
+import {
+  ADMIN,
+  BOAT_MANAGER,
+  PROFILE_MANAGER,
+  TICKET_MANAGER,
+} from "shared/constants/routes";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import useAuth from "shared/hooks/useAuth";
 import { stringAvatar } from "shared/utils/common/string-avatar";
@@ -20,6 +27,7 @@ export default function AccountMenu() {
     user: { firstName, lastName },
   } = useUserContext();
 
+  const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -80,17 +88,17 @@ export default function AccountMenu() {
         transformOrigin={{ horizontal: "right", vertical: "top" }}
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
-        <MenuItem>
+        <MenuItem onClick={() => navigate(`/${ADMIN}/${PROFILE_MANAGER}`)}>
           <Avatar /> Perfil
         </MenuItem>
         <Divider />
-        <MenuItem>
+        <MenuItem onClick={() => navigate(`/${ADMIN}/${BOAT_MANAGER}`)}>
           <ListItemIcon>
             <DirectionsBoatIcon fontSize="small" />
           </ListItemIcon>
           Gerenciamento de barcos
         </MenuItem>
-        <MenuItem>
+        <MenuItem onClick={() => navigate(`/${ADMIN}/${TICKET_MANAGER}`)}>
           <ListItemIcon>
             <ConfirmationNumberRoundedIcon fontSize="small" />
           </ListItemIcon>

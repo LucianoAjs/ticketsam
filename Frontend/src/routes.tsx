@@ -10,7 +10,7 @@ import {
   Home,
   Login,
   PaymentStatus,
-  Profile,
+  ProfileManager,
   TicketManager,
 } from "pages";
 
@@ -24,7 +24,7 @@ import {
   FEEDBACK,
   HOME,
   PAYMENT_STATUS,
-  PROFILE,
+  PROFILE_MANAGER,
   TICKET_MANAGER,
 } from "shared/constants/routes";
 
@@ -43,7 +43,7 @@ function MainRoutes() {
           <Route path={PAYMENT_STATUS} element={<PaymentStatus />} />
           <Route element={<AuthGuard redirectTo={`/${AUTH}`} />}>
             <Route path={ADMIN} element={<Admin />}>
-              <Route path={PROFILE} element={<Profile />} />
+              <Route path={PROFILE_MANAGER} element={<ProfileManager />} />
               <Route path={TICKET_MANAGER} element={<TicketManager />} />
               <Route path={BOAT_MANAGER} element={<BoatManager />} />
             </Route>

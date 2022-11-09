@@ -1,5 +1,5 @@
 import Container from "./styles";
 
-export const Profile = () => {
+export const ProfileManager = () => {
   return <Container>Profile</Container>;
 };
