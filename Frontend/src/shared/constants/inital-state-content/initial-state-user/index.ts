@@ -4,8 +4,8 @@ import { initStateAddress } from "./inital-state-nested/initial-state-address";
 const initialStateUser: IUser = {
   email: "",
   password: "",
-  firstName: "",
-  lastName: "",
+  firstName: "Luciano",
+  lastName: "Anjos",
   cpf: "",
   phoneNumber: 0,
   birthdate: "",

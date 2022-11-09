@@ -1,9 +1,12 @@
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
+import AccountMenu from "shared/components/AccountMenu";
+import { TOKEN } from "shared/constants/common";
 import { AUTH, HOME } from "shared/constants/routes";
-import useAuth from "shared/hooks/useAuth";
+
+import { getDataStorage } from "shared/utils";
 
 const Header = () => {
-  const { isLoggedin, logout } = useAuth();
+  const isLoggedin = getDataStorage(TOKEN);
 
   return (
     <Navbar className="bg-header" variant="dark">
@@ -15,15 +18,11 @@ const Header = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link color="" href={HOME}>
-              Home
-            </Nav.Link>
+            <Nav.Link href={HOME}>Home</Nav.Link>
           </Nav>
 
           {isLoggedin ? (
-            <Button variant="outline-danger" onClick={logout}>
-              Logout
-            </Button>
+            <AccountMenu />
           ) : (
             <Button variant="outline-primary" href={`/${AUTH}`}>
               Login

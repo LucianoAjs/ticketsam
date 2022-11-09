@@ -9,4 +9,6 @@ export const Admin = () => {
   );
 };
 
+export * from "pages/Admin/BoatManager";
 export * from "pages/Admin/Profile";
+export * from "pages/Admin/TicketManager";

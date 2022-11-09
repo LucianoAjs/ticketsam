@@ -3,7 +3,7 @@ import { initalContextPayload } from "shared/constants/inital-state-content/init
 import { userReducer } from "shared/contexts/UserContext/userReducer";
 import { IContext } from "shared/interfaces/context.interface";
 
-export const UserContext = createContext(initalContextPayload);
+const UserContext = createContext(initalContextPayload);
 
 export const UserProvider = ({ children }: { children: any }) => {
   const [state, dispatch] = useReducer(userReducer, initalContextPayload);

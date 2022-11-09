@@ -31,7 +31,6 @@ export default createGlobalStyle`
   h4 {
     font: 700 26px bold ;
     color: ${({ theme }) => theme.primary800};
-    opacity: 0.6;
   }
 
   h5 {

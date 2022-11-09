@@ -73,7 +73,7 @@ export const Login = () => {
     <Main>
       <AlignItems>
         <div>
-          <h1>UNKNOWN</h1>
+          <h2>UNKNOWN</h2>
           <br />
           <h5>Login</h5>
         </div>

@@ -14,10 +14,5 @@ export const CreateAccount = () => {
     <FormAddress previous={previous} />,
   ];
 
-  return (
-    <Container>
-      <h1>Primeiro, precisamos de algumas informacoes...</h1>
-      {items[step]}
-    </Container>
-  );
+  return <Container>{items[step]}</Container>;
 };

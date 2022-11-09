@@ -1,5 +1,5 @@
-/* eslint-disable react/jsx-no-comment-textnodes */
 import App from "App";
+
 import {
   Admin,
   Auth,
@@ -15,6 +15,7 @@ import {
 } from "pages";
 
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
+
 import {
   ADMIN,
   AUTH,
@@ -42,10 +43,9 @@ function MainRoutes() {
           <Route path={PAYMENT_STATUS} element={<PaymentStatus />} />
           <Route element={<AuthGuard redirectTo={`/${AUTH}`} />}>
             <Route path={ADMIN} element={<Admin />}>
-              <Route path={PROFILE} element={<Profile />}>
-                <Route path={TICKET_MANAGER} element={<TicketManager />} />
-                <Route path={BOAT_MANAGER} element={<BoatManager />} />
-              </Route>
+              <Route path={PROFILE} element={<Profile />} />
+              <Route path={TICKET_MANAGER} element={<TicketManager />} />
+              <Route path={BOAT_MANAGER} element={<BoatManager />} />
             </Route>
           </Route>
         </Route>
