@@ -69,8 +69,8 @@ export class UserController {
   @ApiTags('USER SELLER')
   @Post('user_seller')
   @ApiOperation({
-    summary: API_OPERATION.SUMMARY,
-    description: API_OPERATION.DESCRIPTION,
+    summary: API_OPERATION.CREATE_USER.SUMMARY,
+    description: API_OPERATION.CREATE_USER.DESCRIPTION,
   })
   @ApiResponse({
     status: 201,
@@ -92,6 +92,36 @@ export class UserController {
   })
   async createUser(@Body() body: UserDto): Promise<UserResponseDto> {
     return await this.userService.createUser(body);
+  }
+
+  @ApiTags('USER SELLER')
+  @Get('user_seller')
+  @ApiOperation({
+    summary: API_OPERATION.GET_USER_BY_ID.SUMMARY,
+    description: API_OPERATION.GET_USER_BY_ID.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: 201,
+    description: SUCCESS_OPERATION.DESC,
+    type: () => UserDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  async getUser(
+    @Req()
+    req,
+  ): Promise<UserDto> {
+    const jwt = req.headers['authorization'];
+    const { sub } = parseJwt(jwt);
+    return await this.userService.getUserById(sub);
   }
 
   @ApiTags('USER SELLER')

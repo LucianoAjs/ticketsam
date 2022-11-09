@@ -40,6 +40,15 @@ export class UserRepository {
     });
   }
 
+  async getUserById(userId: string): Promise<UserDto> {
+    return await this.prisma.user.findUnique({
+      where: { id: userId },
+      include: {
+        address: true,
+      },
+    });
+  }
+
   async createBoatByUserId(
     userId: string,
     statusId: string,

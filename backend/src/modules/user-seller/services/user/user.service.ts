@@ -44,4 +44,16 @@ export class UserService {
 
     return user;
   }
+
+  async getUserById(userId: string): Promise<UserDto> {
+    let user;
+
+    try {
+      user = await this.userRepository.getUserById(userId);
+    } catch (error) {
+      throw new PrismaException(error, this.usersLogger);
+    }
+
+    return user;
+  }
 }

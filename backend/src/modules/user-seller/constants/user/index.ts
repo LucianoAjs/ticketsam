@@ -2,8 +2,14 @@ import { ADDRESS } from '@/modules/user-seller/constants/user/nested/address.con
 
 export const USER = {
   API_OPERATION: {
-    SUMMARY: 'Create new user',
-    DESCRIPTION: 'This endpoint is for create a new user',
+    CREATE_USER: {
+      SUMMARY: 'Create new user',
+      DESCRIPTION: 'This endpoint is for create a new user',
+    },
+    GET_USER_BY_ID: {
+      SUMMARY: 'Get user information',
+      DESCRIPTION: 'This endpoint is for Get user information',
+    },
   },
   API_RESPONSE: {
     SUCCESS_OPERATION: {
