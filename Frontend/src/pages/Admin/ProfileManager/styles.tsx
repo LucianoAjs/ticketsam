@@ -10,7 +10,7 @@ export const CardStyled = styled.div`
   gap: 1rem;
   border-radius: 10px;
   max-width: 800px;
-  background: ${({ theme }) => theme.primary100} !important;
+  background: ${({ theme }) => theme.primary400} !important;
 `;
 
 export default styled.div`

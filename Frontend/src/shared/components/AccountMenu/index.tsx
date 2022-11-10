@@ -89,7 +89,7 @@ export default function AccountMenu() {
         anchorOrigin={{ horizontal: "right", vertical: "bottom" }}
       >
         <MenuItem onClick={() => navigate(`/${ADMIN}/${PROFILE_MANAGER}`)}>
-          <Avatar /> Perfil
+          <Avatar {...stringAvatar(`${firstName} ${lastName}`)} /> Perfil
         </MenuItem>
         <Divider />
         <MenuItem onClick={() => navigate(`/${ADMIN}/${BOAT_MANAGER}`)}>
