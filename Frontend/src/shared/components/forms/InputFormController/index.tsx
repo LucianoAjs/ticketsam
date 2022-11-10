@@ -1,12 +1,11 @@
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
-import { FormControlLabel, TextField } from "@mui/material";
+import { FormControl, FormControlLabel, TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { IMaskInput } from "react-imask";
 import { NumberFormatCustom } from "shared/components/fields/NumberFormatCustom";
 import { MaskCustom } from "shared/enums/mask-custom";
-import { AlignColumn } from "styles/app-styles";
 
 interface IFormInput {
   formControl: any;
@@ -55,8 +54,6 @@ export function InputFormController({
     </InputAdornment>
   );
 
-  const setClassMasPassword = inputType === "password" ? "mask-password" : "";
-
   const TextMaskCustom = React.forwardRef<HTMLElement, CustomProps>(
     function TextMaskCustom(props: any, ref) {
       const { onChange, ...other } = props;
@@ -93,9 +90,8 @@ export function InputFormController({
       name={formControlName}
       control={formControl}
       render={({ field: { onChange, onBlur, value, ref, name } }) => (
-        <AlignColumn>
+        <FormControl onChange={onChange} ref={ref} onBlur={onBlur} fullWidth>
           <FormControlLabel
-            className="width"
             label={label}
             name={name || ""}
             ref={ref}
@@ -106,8 +102,8 @@ export function InputFormController({
             labelPlacement="top"
             control={
               <TextField
+                fullWidth
                 id={label}
-                className={setClassMasPassword}
                 type={inputType}
                 {...register}
                 error={!!error}
@@ -132,7 +128,7 @@ export function InputFormController({
               />
             }
           />
-        </AlignColumn>
+        </FormControl>
       )}
     />
   );

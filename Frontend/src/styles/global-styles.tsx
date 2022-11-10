@@ -126,4 +126,8 @@ export default createGlobalStyle`
     font-family: 'Roboto', sans-serif;
     color: ${({ theme }) => theme.primary700} !important;
   }
+
+  button{
+   border-radius: 50px !important;
+  }
 `;

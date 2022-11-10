@@ -1,7 +1,7 @@
 import { useState } from "react";
+import Container from "../styles";
 import { FormAddress } from "./FormAddress";
 import { FormUser } from "./FormUser";
-import Container from "./styles";
 export const CreateAccount = () => {
   const [step, setStep] = useState(0);
 

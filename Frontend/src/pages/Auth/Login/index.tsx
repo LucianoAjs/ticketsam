@@ -12,13 +12,7 @@ import { AUTH, CREATE_ACCOUNT, HOME } from "shared/constants/routes";
 import { ILoginForm } from "shared/interfaces/auth-interface";
 import { login } from "shared/schemas/login.schema";
 import { setDataStorage } from "shared/utils";
-import {
-  AlignCheckBox,
-  AlignInput,
-  AlignItems,
-  HaveAccount,
-  Main,
-} from "../styles";
+import Container, { CardContainer, ContainerStyled } from "../styles";
 
 export const Login = () => {
   const initState = {
@@ -63,15 +57,11 @@ export const Login = () => {
   }
 
   return (
-    <Main>
-      <AlignItems>
-        <div>
-          <h2>UNKNOWN</h2>
-          <br />
-          <h5>Login</h5>
-        </div>
+    <Container>
+      <CardContainer>
+        <h5>Login</h5>
 
-        <AlignInput>
+        <ContainerStyled>
           <InputFormController
             formControl={control}
             formControlName={"email"}
@@ -88,7 +78,7 @@ export const Login = () => {
             register={register}
             inputType={"password"}
           />
-        </AlignInput>
+        </ContainerStyled>
 
         <NextButton
           disabled={!isValid}
@@ -96,16 +86,12 @@ export const Login = () => {
           text="Iniciar sessão"
         />
 
-        <HaveAccount>
-          <h5>Nao tem uma conta?</h5>
-        </HaveAccount>
+        <h5>Nao tem uma conta?</h5>
 
-        <AlignCheckBox>
-          <a href={`/${AUTH}/${CREATE_ACCOUNT}`}>
-            Clique aqui para criar um conta.
-          </a>
-        </AlignCheckBox>
-      </AlignItems>
-    </Main>
+        <a href={`/${AUTH}/${CREATE_ACCOUNT}`}>
+          Clique aqui para criar um conta.
+        </a>
+      </CardContainer>
+    </Container>
   );
 };

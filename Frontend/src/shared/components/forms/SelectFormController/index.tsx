@@ -44,7 +44,7 @@ export function SelectFormController({
       control={formControl}
       render={({ field: { onChange, onBlur, ref, value, name } }) => (
         <FormControlLabel
-          className="width"
+          sx={{ width: "100%" }}
           label={label}
           name={name}
           ref={ref}
@@ -54,6 +54,7 @@ export function SelectFormController({
           labelPlacement="top"
           control={
             <Select
+              sx={{ width: "100%" }}
               inputProps={{
                 MenuProps: {
                   MenuListProps: {
@@ -63,7 +64,6 @@ export function SelectFormController({
                   },
                 },
               }}
-              className="width"
               onChange={onChange}
               onBlur={onBlur}
               value={value || ""}

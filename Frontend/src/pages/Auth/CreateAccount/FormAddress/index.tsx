@@ -1,5 +1,6 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useEffect, useState } from "react";
+import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
 import { BackButton, NextButton } from "shared/components/buttons";
@@ -13,7 +14,8 @@ import useUserContext from "shared/contexts/UserContext/userContext";
 import { IAddress } from "shared/interfaces/address";
 import { addressValidationSchema } from "shared/schemas/address";
 import { convertDateFormatInUS } from "shared/utils/date/convert-date-br-to-usa";
-import { AlignButtons, AlignForm } from "styles/app-styles";
+import { AlignButtons } from "styles/app-styles";
+import { CardContainer, ContainerStyled } from "../../styles";
 
 export const FormAddress = ({ previous }: { previous: Function }) => {
   const { update, user } = useUserContext();
@@ -109,65 +111,92 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
   }
 
   return (
-    <>
-      <form>
-        <h2>Endereço residencial</h2>
-        <AlignForm>
-          <InputFormController
-            register
-            formControl={control}
-            formControlName="postalCode"
-            label="CEP"
-            error={errors?.postalCode}
-            mask="00.000-000"
-            placeholder="__.___-___"
-          />
-          <InputFormController
-            register
-            formControl={control}
-            formControlName="city"
-            label="Cidade"
-            error={errors?.city}
-          />
-          <SelectFormController
-            register
-            formControl={control}
-            formControlName="state"
-            label="Estado"
-            error={errors?.state}
-            defaultValues={BrazilStates}
-          />
-          <InputFormController
-            register
-            formControl={control}
-            formControlName="street"
-            label="Logradouro"
-            error={errors?.street}
-          />
-          <InputFormController
-            register
-            formControl={control}
-            formControlName="number"
-            label="Número"
-            error={errors?.number}
-          />
-          <InputFormController
-            register
-            formControl={control}
-            formControlName="complement"
-            label="Complemento"
-            error={errors?.complement}
-          />
-          <InputFormController
-            register
-            formControl={control}
-            formControlName="neighborhood"
-            label="Bairro"
-            error={errors?.neighborhood}
-          />
-        </AlignForm>
-      </form>
+    <CardContainer>
+      <h2>Endereço residencial</h2>
+      <ContainerStyled>
+        <Container fluid>
+          <Row className="justify-content-md-center">
+            <Col xs="auto" lg="6">
+              <Row xs="auto">
+                <Col xs="12" sx="6" md="6" lg="12">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="postalCode"
+                    label="CEP"
+                    error={errors?.postalCode}
+                    mask="00.000-000"
+                    placeholder="__.___-___"
+                  />
+                </Col>
+                <Col xs="12" sx="6" md="6" lg="12">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="city"
+                    label="Cidade"
+                    error={errors?.city}
+                  />
+                </Col>
 
+                <Col xs="12">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="street"
+                    label="Logradouro"
+                    error={errors?.street}
+                  />
+                </Col>
+              </Row>
+            </Col>
+
+            <Col xs="auto" lg="6">
+              <Row xs="auto">
+                <Col xs="12" sx="6" md="6" lg="12">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="complement"
+                    label="Complemento"
+                    error={errors?.complement}
+                  />
+                </Col>
+                <Col xs="12" sx="6" md="6" lg="12">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="number"
+                    label="Número"
+                    error={errors?.number}
+                  />
+                </Col>
+                <Col xs="12">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="neighborhood"
+                    label="Bairro"
+                    error={errors?.neighborhood}
+                  />
+                </Col>
+              </Row>
+            </Col>
+            <Col xs="11" sm="11" md="6">
+              <Row xs="auto" lg="12">
+                <SelectFormController
+                  register
+                  formControl={control}
+                  formControlName="state"
+                  label="Estado"
+                  error={errors?.state}
+                  defaultValues={BrazilStates}
+                />
+              </Row>
+            </Col>
+          </Row>
+        </Container>
+      </ContainerStyled>
       <AlignButtons>
         <BackButton key="back-button" text="Voltar" handleClick={previous} />
         <NextButton
@@ -177,6 +206,6 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
           handleClick={onSubmit}
         />
       </AlignButtons>
-    </>
+    </CardContainer>
   );
 };

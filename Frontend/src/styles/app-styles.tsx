@@ -30,8 +30,10 @@ export const AlignForm = styled.div`
 export const AlignButtons = styled.div`
   display: flex;
   flex-direction: row;
-  justify-content: space-between;
-  margin-top: auto;
+  flex-wrap: wrap;
+  gap: 1rem;
+  justify-content: space-around;
+  width: 100%;
 `;
 
 export const AlignColumn = styled.div`
