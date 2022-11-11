@@ -4,7 +4,7 @@ import {
   AxiosRequestConfig,
   AxiosResponse,
 } from "axios";
-import { HOME } from "shared/constants/routes";
+import { FEEDBACK, HOME, PAYMENT } from "shared/constants/routes";
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
   return config;
@@ -19,7 +19,14 @@ const onResponse = (response: AxiosResponse): AxiosResponse => {
 };
 
 const onResponseError = (error: AxiosError): Promise<AxiosError> => {
-  window.location.replace(HOME);
+  // This is necessary in the development environment because we use React.StrictMode because of this,
+  // with each new page it recreates the component twice, thus executing the endpoint twice, giving an error,
+  // expected. That way you don't need to redirect the user.
+
+  if (window.location.pathname !== `${PAYMENT}/${FEEDBACK}`) {
+    window.location.replace(HOME);
+  }
+
   return Promise.reject(error);
 };
 

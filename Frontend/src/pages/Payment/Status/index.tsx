@@ -7,7 +7,7 @@ import { currentStatusPayment } from "shared/utils/common/status";
 import { qrcodeInformationTicket } from "shared/utils/ticket-helper.ts/qrcode-information-ticket";
 import Container, { CardStyles } from "./styles";
 
-export const PaymentStatus = () => {
+export const Status = () => {
   const [searchParams] = useSearchParams();
   const paymentId = searchParams.get("paymentId");
   const ticketId = searchParams.get("ticketId");

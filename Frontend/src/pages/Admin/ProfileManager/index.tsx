@@ -229,7 +229,7 @@ export const ProfileManager = () => {
                     variant="outlined"
                     startIcon={<ClearIcon />}
                   >
-                    Cancel
+                    Cancelar
                   </Button>
                 </Col>
                 <Col>
@@ -251,7 +251,7 @@ export const ProfileManager = () => {
                 variant="contained"
                 endIcon={<EditIcon />}
               >
-                Edit
+                Editar
               </Button>
             </Col>
           )}

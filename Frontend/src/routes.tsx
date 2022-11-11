@@ -9,8 +9,9 @@ import {
   Feedback,
   Home,
   Login,
-  PaymentStatus,
+  Payment,
   ProfileManager,
+  Status,
   TicketManager,
 } from "pages";
 
@@ -23,8 +24,9 @@ import {
   CREATE_ACCOUNT,
   FEEDBACK,
   HOME,
-  PAYMENT_STATUS,
+  PAYMENT,
   PROFILE_MANAGER,
+  STATUS,
   TICKET_MANAGER,
 } from "shared/constants/routes";
 
@@ -39,8 +41,11 @@ function MainRoutes() {
 
         <Route path={HOME} element={<App />}>
           <Route index element={<Home />} />
-          <Route path={FEEDBACK} element={<Feedback />} />
-          <Route path={PAYMENT_STATUS} element={<PaymentStatus />} />
+          <Route path={PAYMENT} element={<Payment />}>
+            <Route path={FEEDBACK} element={<Feedback />} />
+            <Route path={STATUS} element={<Status />} />
+          </Route>
+
           <Route element={<AuthGuard redirectTo={`/${AUTH}`} />}>
             <Route path={ADMIN} element={<Admin />}>
               <Route path={PROFILE_MANAGER} element={<ProfileManager />} />
