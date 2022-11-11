@@ -35,6 +35,7 @@ export const AlignRow = styled.div`
   flex-wrap: wrap;
   gap: 1rem;
   text-align: center;
+
   span {
     align-self: center;
   }
