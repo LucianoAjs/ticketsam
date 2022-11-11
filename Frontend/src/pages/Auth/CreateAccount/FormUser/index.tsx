@@ -11,6 +11,7 @@ import useUserContext from "shared/contexts/UserContext/userContext";
 import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
+import { convertDate } from "shared/utils/date/convert-date";
 import { AlignButtons } from "styles/app-styles";
 import { CardContainer, ContainerStyled } from "../../styles";
 
@@ -39,6 +40,9 @@ export const FormUser = ({ next }: { next: Function }) => {
 
   const onSubmit = () => {
     const data = getValues();
+
+    const birthdate = convertDate(String(user.birthdate));
+    data.birthdate = birthdate;
     update({
       user: data,
     });

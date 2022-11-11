@@ -72,6 +72,7 @@ export const ProfileManager = () => {
   };
 
   const onSubmit = async () => {
+    setDataEdit(false);
     const data = getValues();
     update({
       user: data,
@@ -89,7 +90,6 @@ export const ProfileManager = () => {
     delete rest.address?.userId;
 
     await updateUserInformation(rest);
-    setDataEdit(false);
   };
 
   return (
@@ -228,17 +228,17 @@ export const ProfileManager = () => {
                     error={errors?.address?.neighborhood}
                   />
                 </Col>
+                <Col xs="12" sx="4" md="4" lg="4">
+                  <SelectFormController
+                    register
+                    formControl={control}
+                    formControlName="address.state"
+                    label="Estado"
+                    error={errors?.address?.state}
+                    defaultValues={BrazilStates}
+                  />
+                </Col>
               </Row>
-            </Col>
-            <Col xs="12" sm="12" md="6">
-              <SelectFormController
-                register
-                formControl={control}
-                formControlName="address.state"
-                label="Estado"
-                error={errors?.address?.state}
-                defaultValues={BrazilStates}
-              />
             </Col>
           </Row>
         </Container>
