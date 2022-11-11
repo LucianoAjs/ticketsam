@@ -7,7 +7,7 @@ CREATE TABLE `User` (
     `firstName` VARCHAR(255) NULL,
     `lastName` VARCHAR(255) NULL,
     `cpf` VARCHAR(255) NULL,
-    `phoneNumber` INTEGER NULL,
+    `phoneNumber` VARCHAR(255) NULL,
     `gender` VARCHAR(255) NULL,
     `DocumentType` VARCHAR(255) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),

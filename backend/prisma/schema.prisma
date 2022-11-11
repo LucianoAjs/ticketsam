@@ -18,7 +18,7 @@ model User {
   firstName    String?   @db.VarChar(255)
   lastName     String?   @db.VarChar(255)
   cpf          String?   @unique @db.VarChar(255)
-  phoneNumber  Int?      @db.Int
+  phoneNumber  String?   @db.VarChar(255)
   gender       String?   @db.VarChar(255)
   DocumentType String?   @db.VarChar(255)
   createdAt    DateTime  @default(now())

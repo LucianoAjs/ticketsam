@@ -5,6 +5,7 @@ import { UserResponseDto } from '@/modules/user-seller/dto/user/user-response.dt
 import { PrismaException } from '@/shared/errors/prisma.exception';
 import { HttpStatus, Injectable } from '@nestjs/common';
 import * as bcrypt from 'bcrypt';
+import { UpdateUserDto } from '../../dto/user/update-user.dto';
 
 @Injectable()
 export class UserService {
@@ -19,10 +20,28 @@ export class UserService {
     const hashedPassword = await bcrypt.hash(body.password, SALT);
 
     try {
-      user = await this.userRepository.upsertUser({
+      user = await this.userRepository.createUser({
         ...body,
         password: hashedPassword,
       });
+    } catch (error) {
+      throw new PrismaException(error, this.usersLogger);
+    }
+
+    return {
+      statusCode: HttpStatus.CREATED,
+      description: `User ${user?.id} has been updated`,
+    };
+  }
+
+  async updateUser(
+    userId: string,
+    body: UpdateUserDto,
+  ): Promise<UserResponseDto> {
+    let user;
+
+    try {
+      user = await this.userRepository.updatetUser(userId, body);
     } catch (error) {
       throw new PrismaException(error, this.usersLogger);
     }

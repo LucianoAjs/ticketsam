@@ -11,7 +11,7 @@ describe('UserService', () => {
   let userRepository: UserRepository;
 
   const mockUserRepository = {
-    upsertUser: jest.fn(),
+    createUser: jest.fn(),
   };
 
   beforeEach(async () => {
@@ -35,7 +35,7 @@ describe('UserService', () => {
           UserMock.mockUserResponse();
 
         jest
-          .spyOn(userRepository, 'upsertUser')
+          .spyOn(userRepository, 'createUser')
           .mockResolvedValueOnce(updateUserBodyDtoMock);
 
         const updateUserResult = await service.createUser(

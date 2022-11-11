@@ -6,6 +6,10 @@ export const USER = {
       SUMMARY: 'Create new user',
       DESCRIPTION: 'This endpoint is for create a new user',
     },
+    UPDATE_USER: {
+      SUMMARY: 'Update user',
+      DESCRIPTION: 'This endpoint is for update a user',
+    },
     GET_USER_BY_ID: {
       SUMMARY: 'Get user information',
       DESCRIPTION: 'This endpoint is for Get user information',

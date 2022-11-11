@@ -14,9 +14,7 @@ const {
   API_PROPERTY: {
     USER: {
       BIRTHDATE,
-      CPF,
       EMAIL,
-      PASSWORD,
       FIRST_NAME,
       GENDER,
       LAST_NAME,
@@ -26,9 +24,7 @@ const {
   },
 } = USER;
 
-export class UserDto {
-  id?: string;
-
+export class UpdateUserDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
@@ -38,16 +34,6 @@ export class UserDto {
     type: String,
   })
   email: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty({
-    description: PASSWORD.DESC,
-    example: PASSWORD.VALUE,
-    pattern: String(PASSWORD.REGEX),
-    type: String,
-  })
-  password: string;
 
   @IsOptional()
   @IsString()
@@ -68,16 +54,6 @@ export class UserDto {
     required: false,
   })
   lastName?: string;
-
-  @IsNotEmpty()
-  @IsString()
-  @ApiProperty({
-    description: CPF.DESC,
-    example: CPF.VALUE,
-    pattern: '^d{11}$',
-    type: String,
-  })
-  cpf: string;
 
   @IsOptional()
   @IsString()
@@ -129,8 +105,4 @@ export class UserDto {
     required: false,
   })
   address?: AddressDto;
-
-  createdAt?: Date;
-
-  updatedAt?: Date;
 }

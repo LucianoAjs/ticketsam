@@ -10,7 +10,7 @@ export class UserMock {
       firstName: 'luciano',
       lastName: 'anjos',
       cpf: '04808850440',
-      phoneNumber: 982506489,
+      phoneNumber: '92982506489',
       password: 'ADMIN@123',
       birthdate: new Date('06/04/2000'),
       gender: 'M',

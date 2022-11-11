@@ -29,6 +29,7 @@ import {
   Get,
   Param,
   Post,
+  Put,
   Query,
   Req,
   UploadedFiles,
@@ -43,6 +44,7 @@ import {
   ApiResponse,
   ApiTags,
 } from '@nestjs/swagger';
+import { UpdateUserDto } from './dto/user/update-user.dto';
 
 const {
   API_OPERATION,
@@ -92,6 +94,40 @@ export class UserController {
   })
   async createUser(@Body() body: UserDto): Promise<UserResponseDto> {
     return await this.userService.createUser(body);
+  }
+
+  @ApiTags('USER SELLER')
+  @Put('user_seller')
+  @ApiOperation({
+    summary: API_OPERATION.UPDATE_USER.SUMMARY,
+    description: API_OPERATION.UPDATE_USER.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: 201,
+    description: SUCCESS_OPERATION.DESC,
+    type: () => UserResponseDto,
+  })
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  @ApiBody({
+    type: () => UpdateUserDto,
+  })
+  async updateUser(
+    @Body() body: UpdateUserDto,
+    @Req()
+    req,
+  ): Promise<UserResponseDto> {
+    const jwt = req.headers['authorization'];
+    const { sub } = parseJwt(jwt);
+    return await this.userService.updateUser(sub, body);
   }
 
   @ApiTags('USER SELLER')

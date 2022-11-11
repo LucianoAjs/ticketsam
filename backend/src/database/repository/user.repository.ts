@@ -6,26 +6,36 @@ import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket
 import { CreateTicketDto } from '@/modules/user-seller/dto/create-ticket.dto';
 import { UserDto } from '@/modules/user-seller/dto/user';
 import { AddressDto } from '@/modules/user-seller/dto/user/nested/address.dto';
+import { UpdateUserDto } from '@/modules/user-seller/dto/user/update-user.dto';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
 
-  async upsertUser(user: UserDto): Promise<UserDto> {
+  async createUser(user: UserDto): Promise<UserDto> {
     const address: AddressDto = user?.address;
-    return await this.prisma.user.upsert({
-      where: { cpf: user.cpf },
-      update: {
-        ...user,
-        address: {
-          update: { ...address },
-        },
-      },
-      create: {
+    return await this.prisma.user.create({
+      data: {
         ...user,
         address: {
           create: { ...address },
+        },
+      },
+      include: {
+        address: true,
+      },
+    });
+  }
+
+  async updatetUser(userId: string, user: UpdateUserDto): Promise<UserDto> {
+    const address: AddressDto = user?.address;
+    return await this.prisma.user.update({
+      where: { id: userId },
+      data: {
+        ...user,
+        address: {
+          update: { ...address },
         },
       },
       include: {
