@@ -16,7 +16,7 @@ import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
 import { compact } from "shared/utils";
 import { convertDate } from "shared/utils/date/convert-date";
-import CardContainer, { CardStyled } from "./styles";
+import CardContainer, { AlignRow, CardStyled } from "./styles";
 export const ProfileManager = () => {
   const { update, user } = useUserContext();
 
@@ -94,7 +94,49 @@ export const ProfileManager = () => {
 
   return (
     <CardContainer>
-      <h2>Meu Perfil</h2>
+      <Container fluid>
+        <AlignRow>
+          <h2>Meu Perfil</h2>
+          <Row className="align-items-center">
+            {dataEdit ? (
+              <Col xs="12">
+                <Row className="align-items-center">
+                  <Col>
+                    <Button
+                      onClick={() => setDataEdit(false)}
+                      variant="outlined"
+                      startIcon={<ClearIcon />}
+                    >
+                      Cancelar
+                    </Button>
+                  </Col>
+                  <Col>
+                    <Button
+                      disabled={!isValid || !isDirty}
+                      onClick={() => onSubmit()}
+                      variant="contained"
+                      endIcon={<SaveAsIcon />}
+                    >
+                      Salvar Alterações
+                    </Button>
+                  </Col>
+                </Row>
+              </Col>
+            ) : (
+              <Col>
+                <Button
+                  onClick={() => setDataEdit(true)}
+                  variant="contained"
+                  endIcon={<EditIcon />}
+                >
+                  Editar
+                </Button>
+              </Col>
+            )}
+          </Row>
+        </AlignRow>
+      </Container>
+
       <CardStyled style={{ pointerEvents: dataEdit ? "unset" : "none" }}>
         <Container fluid>
           <h2>Dados do usuário</h2>
@@ -167,6 +209,7 @@ export const ProfileManager = () => {
             </Col>
 
             <h2>Endereço residencial</h2>
+
             <Col xs="auto" lg="12">
               <Row xs="auto" lg="12">
                 <Col xs="12" sx="4" md="4" lg="4">
@@ -243,50 +286,6 @@ export const ProfileManager = () => {
           </Row>
         </Container>
       </CardStyled>
-      <Container fluid>
-        <Row>
-          {dataEdit ? (
-            <Col xs="12">
-              <Row>
-                <Col
-                  xs={{ span: 4, offset: 1 }}
-                  sx
-                  md
-                  lg={{ span: 3, offset: 5 }}
-                >
-                  <Button
-                    onClick={() => setDataEdit(false)}
-                    variant="outlined"
-                    startIcon={<ClearIcon />}
-                  >
-                    Cancelar
-                  </Button>
-                </Col>
-                <Col>
-                  <Button
-                    disabled={!isValid || !isDirty}
-                    onClick={() => onSubmit()}
-                    variant="contained"
-                    endIcon={<SaveAsIcon />}
-                  >
-                    Salvar Alterações
-                  </Button>
-                </Col>
-              </Row>
-            </Col>
-          ) : (
-            <Col xs={{ offset: 4 }} sx md lg={{ offset: 10 }}>
-              <Button
-                onClick={() => setDataEdit(true)}
-                variant="contained"
-                endIcon={<EditIcon />}
-              >
-                Editar
-              </Button>
-            </Col>
-          )}
-        </Row>
-      </Container>
     </CardContainer>
   );
 };

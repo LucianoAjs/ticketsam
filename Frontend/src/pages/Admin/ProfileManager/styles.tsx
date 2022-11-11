@@ -28,3 +28,14 @@ export default styled.div`
     }
   }
 `;
+
+export const AlignRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+  text-align: center;
+  span {
+    align-self: center;
+  }
+`;
