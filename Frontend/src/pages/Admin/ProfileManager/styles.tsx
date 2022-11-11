@@ -28,3 +28,13 @@ export default styled.div`
     }
   }
 `;
+
+export const AlignRow = styled.div`
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+
+  span {
+    align-self: center;
+  }
+`;
