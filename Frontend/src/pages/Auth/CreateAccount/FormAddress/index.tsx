@@ -134,14 +134,23 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
                     error={errors?.city}
                   />
                 </Col>
-
-                <Col xs="12">
+                <Col xs="12" sx="6" md="6" lg="12">
                   <InputFormController
                     register
                     formControl={control}
                     formControlName="street"
                     label="Logradouro"
                     error={errors?.street}
+                  />
+                </Col>
+                <Col xs="12" sx="6" md="6" lg="12">
+                  <SelectFormController
+                    register
+                    formControl={control}
+                    formControlName="state"
+                    label="Estado"
+                    error={errors?.state}
+                    defaultValues={BrazilStates}
                   />
                 </Col>
               </Row>
@@ -174,16 +183,6 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
                     formControlName="neighborhood"
                     label="Bairro"
                     error={errors?.neighborhood}
-                  />
-                </Col>
-                <Col xs="12" sx="6" md="6" lg="12">
-                  <SelectFormController
-                    register
-                    formControl={control}
-                    formControlName="state"
-                    label="Estado"
-                    error={errors?.state}
-                    defaultValues={BrazilStates}
                   />
                 </Col>
               </Row>
