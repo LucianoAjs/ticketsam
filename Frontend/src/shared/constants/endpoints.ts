@@ -11,7 +11,8 @@ import { IViaCepResponse } from "shared/interfaces/via-cep-response..interface";
 import { queryToEncodedString } from "shared/utils";
 
 export const ENDPOINT = {
-  CREATE_ACCOUNT: (user: IUser) => api.post("/user_seller", user),
+  CREATE_USER: (user: Partial<IUser>) => api.post("/user_seller", user),
+  UPDATE_USER: (user: Partial<IUser>) => api.put("/user_seller", user),
   LOGIN: (user: ILoginForm): Promise<AxiosResponse<{ access_token: string }>> =>
     api.post("/auth/login", user),
   SEND_PAYMENT_STATUS: (data: IPaymentResponseParams) =>
@@ -31,4 +32,6 @@ export const ENDPOINT = {
     api.get(`user_buyer/ticket/${ticketId}`),
   GET_PAYMENT_STATUS: (paymentId: string): Promise<AxiosResponse<any>> =>
     api.get(`user_seller/payment/status/?paymentId=${paymentId}`),
+  GET_USER_INFORMATION: (): Promise<AxiosResponse<IUser>> =>
+    api.get("user_seller"),
 };

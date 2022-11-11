@@ -6,4 +6,5 @@ export interface IAddress {
   number: string;
   neighborhood: string;
   street: string;
+  userId?: string;
 }

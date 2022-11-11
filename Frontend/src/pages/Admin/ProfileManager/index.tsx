@@ -8,10 +8,13 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { InputFormController } from "shared/components/forms/InputFormController";
 import { SelectFormController } from "shared/components/forms/SelectFormController";
+import { BrazilStates } from "shared/constants/brazil-states";
+import { ENDPOINT } from "shared/constants/endpoints";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
+import { convertDateFormatInUS } from "shared/utils/date/convert-date-br-to-usa";
 import CardContainer, { CardStyled } from "./styles";
 export const ProfileManager = () => {
   const { update, user } = useUserContext();
@@ -29,7 +32,7 @@ export const ProfileManager = () => {
     register,
     control,
     getValues,
-    formState: { isValid, errors },
+    formState: { isValid, isDirty, errors },
   } = useForm<Partial<IUser>>({
     mode: "onBlur",
     reValidateMode: "onBlur",
@@ -37,21 +40,34 @@ export const ProfileManager = () => {
     resolver: yupResolver(userValidationSchema),
   });
 
+  const updateUserInformation = async (dataUser: Partial<IUser>) => {
+    await ENDPOINT.UPDATE_USER(dataUser);
+  };
+
   const onSubmit = () => {
     const data = getValues();
     update({
       user: data,
     });
+
+    const birthdate = convertDateFormatInUS(String(user.birthdate));
+    data.birthdate = birthdate;
+
+    const { password, cpf, ...rest } = data;
+
+    updateUserInformation(rest);
+    setDataEdit(false);
   };
   return (
     <CardContainer>
       <h2>Meu Perfil</h2>
       <CardStyled style={{ pointerEvents: dataEdit ? "unset" : "none" }}>
         <Container fluid>
+          <h2>Dados do usuário</h2>
           <Row className="justify-content-md-center">
-            <Col xs="auto" lg="6">
-              <Row xs="auto">
-                <Col xs="12" sx="6" md="6" lg="12">
+            <Col xs="auto" lg="12">
+              <Row xs="auto" lg="12">
+                <Col xs="12" sx="4" md="4" lg="4">
                   <InputFormController
                     formControl={control}
                     formControlName="firstName"
@@ -60,7 +76,7 @@ export const ProfileManager = () => {
                     error={errors.firstName}
                   />
                 </Col>
-                <Col xs="12" sx="6" md="6" lg="12">
+                <Col xs="12" sx="4" md="4" lg="4">
                   <InputFormController
                     formControl={control}
                     formControlName="lastName"
@@ -69,7 +85,7 @@ export const ProfileManager = () => {
                     error={errors.lastName}
                   />
                 </Col>
-                <Col xs="12">
+                <Col xs="12" sx="4" md="4" lg="4">
                   <InputFormController
                     register
                     formControl={control}
@@ -79,21 +95,8 @@ export const ProfileManager = () => {
                   />
                 </Col>
               </Row>
-            </Col>
-
-            <Col xs="auto" lg="6">
-              <Row xs="auto">
-                <Col xs="12" sx="6" md="6" lg="12">
-                  <InputFormController
-                    register
-                    formControl={control}
-                    formControlName="password"
-                    label="Senha"
-                    error={errors.password}
-                    inputType={"password"}
-                  />
-                </Col>
-                <Col xs="12" sx="6" md="6" lg="12">
+              <Row xs="auto" lg="12">
+                <Col xs="12" sx="6" md="6" lg="6">
                   <InputFormController
                     register
                     formControl={control}
@@ -104,7 +107,7 @@ export const ProfileManager = () => {
                     placeholder="(__)_____-____"
                   />
                 </Col>
-                <Col xs="12">
+                <Col xs="12" sx="6" md="6" lg="6">
                   <InputFormController
                     register
                     formControl={control}
@@ -117,7 +120,6 @@ export const ProfileManager = () => {
                 </Col>
               </Row>
             </Col>
-
             <Col xs="11" sm="11" md="6">
               <Row xs="auto" lg="12">
                 <SelectFormController
@@ -128,6 +130,83 @@ export const ProfileManager = () => {
                   error={errors.gender}
                   defaultValues={Gender}
                   enumType={true}
+                />
+              </Row>
+            </Col>
+
+            <h2>Endereço residencial</h2>
+            <Col xs="auto" lg="12">
+              <Row xs="auto" lg="12">
+                <Col xs="12" sx="4" md="4" lg="4">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="address.postalCode"
+                    label="CEP"
+                    error={errors?.address?.postalCode}
+                    mask="00.000-000"
+                    placeholder="__.___-___"
+                  />
+                </Col>
+                <Col xs="12" sx="4" md="4" lg="4">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="address.city"
+                    label="Cidade"
+                    error={errors?.address?.city}
+                  />
+                </Col>
+
+                <Col xs="12" sx="4" md="4" lg="4">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="address.street"
+                    label="Logradouro"
+                    error={errors?.address?.street}
+                  />
+                </Col>
+              </Row>
+              <Row xs="auto" lg="12">
+                <Col xs="12" sx="4" md="4" lg="4">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="address.complement"
+                    label="Complemento"
+                    error={errors?.address?.complement}
+                  />
+                </Col>
+                <Col xs="12" sx="4" md="4" lg="4">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="address.number"
+                    label="Número"
+                    error={errors?.address?.number}
+                  />
+                </Col>
+                <Col xs="12" sx="4" md="4" lg="4">
+                  <InputFormController
+                    register
+                    formControl={control}
+                    formControlName="address.neighborhood"
+                    label="Bairro"
+                    error={errors?.address?.neighborhood}
+                  />
+                </Col>
+              </Row>
+            </Col>
+            <Col xs="11" sm="11" md="6">
+              <Row xs="auto" lg="12">
+                <SelectFormController
+                  register
+                  formControl={control}
+                  formControlName="address.state"
+                  label="Estado"
+                  error={errors?.address?.state}
+                  defaultValues={BrazilStates}
                 />
               </Row>
             </Col>
@@ -155,8 +234,8 @@ export const ProfileManager = () => {
                 </Col>
                 <Col>
                   <Button
-                    disabled={!isValid}
-                    onClick={() => setDataEdit(false)}
+                    disabled={!isValid || !isDirty}
+                    onClick={() => onSubmit()}
                     variant="contained"
                     endIcon={<SaveAsIcon />}
                   >

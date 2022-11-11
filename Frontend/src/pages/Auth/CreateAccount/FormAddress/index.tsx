@@ -20,7 +20,7 @@ import { CardContainer, ContainerStyled } from "../../styles";
 export const FormAddress = ({ previous }: { previous: Function }) => {
   const { update, user } = useUserContext();
 
-  const [initialValues, setInitialValues] = useState<IAddress>(user.address);
+  const [initialValues, setInitialValues] = useState<IAddress>(user?.address);
 
   const navigate = useNavigate();
 
@@ -82,14 +82,10 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
     setFetching(true);
 
     const birthdate = convertDateFormatInUS(String(user.birthdate));
-    const phoneNumber = Number(
-      String(user.phoneNumber).substring(4, 14).replace("-", "")
-    );
 
     user.birthdate = birthdate;
-    user.phoneNumber = phoneNumber;
 
-    await ENDPOINT.CREATE_ACCOUNT(user);
+    await ENDPOINT.CREATE_USER(user);
 
     setFetching(false);
   }, [user]);

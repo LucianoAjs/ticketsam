@@ -3,13 +3,12 @@ import styled from "styled-components";
 export const CardStyled = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
   align-items: center;
   flex-wrap: wrap;
   padding: 2rem;
   gap: 1rem;
   border-radius: 10px;
-  max-width: 800px;
+  max-width: 1000px;
   background: ${({ theme }) => theme.primary400} !important;
 `;
 

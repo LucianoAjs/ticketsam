@@ -7,7 +7,7 @@ const initialStateUser: IUser = {
   firstName: "Luciano",
   lastName: "Anjos",
   cpf: "",
-  phoneNumber: 0,
+  phoneNumber: "",
   birthdate: "",
   gender: "",
   address: initStateAddress,

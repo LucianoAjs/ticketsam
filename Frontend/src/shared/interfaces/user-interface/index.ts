@@ -1,12 +1,12 @@
 import { IAddress } from "shared/interfaces/user-interface/nested/address.interface";
 
 export interface IUser {
-  email: string;
+  email?: string;
   password: string;
-  firstName?: string;
-  lastName?: string;
-  cpf: string;
-  phoneNumber: number;
+  firstName: string;
+  lastName: string;
+  cpf?: string;
+  phoneNumber: string;
   birthdate: string | Date;
   gender?: string;
   address: IAddress;
