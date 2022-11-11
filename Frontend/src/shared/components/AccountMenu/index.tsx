@@ -27,6 +27,8 @@ export default function AccountMenu() {
     user: { firstName, lastName },
   } = useUserContext();
 
+  const hiddenAvatar = !firstName;
+
   const navigate = useNavigate();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
   const open = Boolean(anchorEl);
@@ -49,7 +51,11 @@ export default function AccountMenu() {
             aria-haspopup="true"
             aria-expanded={open ? "true" : undefined}
           >
-            <Avatar {...stringAvatar(`${firstName} ${lastName}`)} />
+            {hiddenAvatar ? (
+              <Avatar />
+            ) : (
+              <Avatar {...stringAvatar(`${firstName} ${lastName}`)} />
+            )}
           </IconButton>
         </Tooltip>
       </Box>
