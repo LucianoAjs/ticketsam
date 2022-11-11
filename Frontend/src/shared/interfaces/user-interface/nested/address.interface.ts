@@ -1,4 +1,5 @@
 export interface IAddress {
+  id?: string;
   postalCode: string;
   complement?: string;
   state: string;
@@ -7,4 +8,6 @@ export interface IAddress {
   neighborhood: string;
   street: string;
   userId?: string;
+  updatedAt?: string;
+  createdAt?: string;
 }

@@ -15,7 +15,7 @@ import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
 import { compact } from "shared/utils";
-import { convertDateFormatInUS } from "shared/utils/date/convert-date-br-to-usa";
+import { convertDate } from "shared/utils/date/convert-date";
 import CardContainer, { CardStyled } from "./styles";
 export const ProfileManager = () => {
   const { update, user } = useUserContext();
@@ -39,7 +39,11 @@ export const ProfileManager = () => {
   const setDataForm = useCallback(
     (data: IUser) => {
       Object.keys(data).forEach((key: any, index: number) => {
-        setValue(key, Object.values(data)[index]);
+        const property = Object.values(data)[index];
+        if (new Date(property)) {
+          setValue(key, new Date(property).toLocaleDateString());
+        }
+        setValue(key, property);
       });
     },
     [setValue]
@@ -47,6 +51,7 @@ export const ProfileManager = () => {
 
   const getDataUserInformation = useCallback(async () => {
     const { data } = await ENDPOINT.GET_USER_INFORMATION();
+    data.birthdate = new Date(data.birthdate).toLocaleDateString();
 
     await update({ user: data });
 
@@ -66,18 +71,24 @@ export const ProfileManager = () => {
     await ENDPOINT.UPDATE_USER(dataUser);
   };
 
-  const onSubmit = () => {
+  const onSubmit = async () => {
     const data = getValues();
     update({
       user: data,
     });
 
-    const birthdate = convertDateFormatInUS(String(user.birthdate));
+    const birthdate = convertDate(String(user.birthdate));
     data.birthdate = birthdate;
 
-    const { password, cpf, ...rest } = data;
+    const { password, cpf, DocumentType, createdAt, updatedAt, id, ...rest } =
+      data;
 
-    updateUserInformation(rest);
+    delete rest.address?.createdAt;
+    delete rest.address?.id;
+    delete rest.address?.updatedAt;
+    delete rest.address?.userId;
+
+    await updateUserInformation(rest);
     setDataEdit(false);
   };
 

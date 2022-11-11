@@ -13,7 +13,7 @@ import { AUTH } from "shared/constants/routes";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import { IAddress } from "shared/interfaces/address";
 import { addressValidationSchema } from "shared/schemas/address";
-import { convertDateFormatInUS } from "shared/utils/date/convert-date-br-to-usa";
+import { convertDate } from "shared/utils/date/convert-date";
 import { AlignButtons } from "styles/app-styles";
 import { CardContainer, ContainerStyled } from "../../styles";
 
@@ -81,7 +81,7 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
   const createAccount = useCallback(async () => {
     setFetching(true);
 
-    const birthdate = convertDateFormatInUS(String(user.birthdate));
+    const birthdate = convertDate(String(user.birthdate));
 
     user.birthdate = birthdate;
 
