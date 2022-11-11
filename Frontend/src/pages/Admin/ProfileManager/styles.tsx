@@ -5,10 +5,13 @@ export const CardStyled = styled.div`
   flex-direction: column;
   align-items: center;
   flex-wrap: wrap;
-  padding: 2rem;
+  padding: 1rem;
   gap: 1rem;
   border-radius: 10px;
-  max-width: 1000px;
+
+  @media (min-width: 599px) {
+    max-width: 1000px;
+  }
   background: ${({ theme }) => theme.primary400} !important;
 `;
 

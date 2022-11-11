@@ -65,6 +65,7 @@ export default createGlobalStyle`
     color: ${({ theme }) => theme.primary800};
     font-size: 55px;
     font-weight: 700;
+    margin: unset !important;
   }
 
   input {

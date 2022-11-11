@@ -24,7 +24,10 @@ export const AlignForm = styled.div`
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
   border-radius: 9px;
-  max-width: 1000px;
+
+  @media (min-width: 599px) {
+    max-width: 1000px;
+  }
 `;
 
 export const AlignButtons = styled.div`

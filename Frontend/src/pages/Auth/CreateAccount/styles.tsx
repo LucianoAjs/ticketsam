@@ -25,7 +25,10 @@ export const CardContainer = styled.div`
   padding: 1rem;
   gap: 1rem;
   border-radius: 10px;
-  max-width: 800px;
+
+  @media (min-width: 599px) {
+    max-width: 800px;
+  }
   background: ${({ theme }) => theme.primary400} !important;
 `;
 

@@ -1,4 +1,4 @@
-import { FormControlLabel } from "@mui/material";
+import { FormControl, FormControlLabel } from "@mui/material";
 import MenuItem from "@mui/material/MenuItem";
 import Select from "@mui/material/Select";
 
@@ -43,37 +43,38 @@ export function SelectFormController({
       name={formControlName}
       control={formControl}
       render={({ field: { onChange, onBlur, ref, value, name } }) => (
-        <FormControlLabel
-          sx={{ width: "100%" }}
-          label={label}
-          name={name}
-          ref={ref}
-          onChange={onChange}
-          onBlur={onBlur}
-          value={value}
-          labelPlacement="top"
-          control={
-            <Select
-              sx={{ width: "100%" }}
-              inputProps={{
-                MenuProps: {
-                  MenuListProps: {
-                    sx: {
-                      backgroundColor: `${theme.primary50}`,
+        <FormControl onChange={onChange} ref={ref} onBlur={onBlur} fullWidth>
+          <FormControlLabel
+            label={label}
+            name={name}
+            ref={ref}
+            onChange={onChange}
+            onBlur={onBlur}
+            value={value}
+            labelPlacement="top"
+            control={
+              <Select
+                fullWidth
+                inputProps={{
+                  MenuProps: {
+                    MenuListProps: {
+                      sx: {
+                        backgroundColor: `${theme.primary50}`,
+                      },
                     },
                   },
-                },
-              }}
-              onChange={onChange}
-              onBlur={onBlur}
-              value={value || ""}
-              {...register}
-              error={!!error}
-            >
-              {getDefaultValuesOfSelectionByProps()}
-            </Select>
-          }
-        />
+                }}
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value || ""}
+                {...register}
+                error={!!error}
+              >
+                {getDefaultValuesOfSelectionByProps()}
+              </Select>
+            }
+          />
+        </FormControl>
       )}
     />
   );

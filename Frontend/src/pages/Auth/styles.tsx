@@ -22,10 +22,13 @@ export const CardContainer = styled.div`
   justify-content: center;
   align-items: center;
   flex-wrap: wrap;
-  padding: 1rem;
+  padding: 2rem;
   gap: 1rem;
   border-radius: 10px;
-  max-width: 800px;
+
+  @media (min-width: 599px) {
+    max-width: 800px;
+  }
   background: ${({ theme }) => theme.primary400} !important;
 `;
 

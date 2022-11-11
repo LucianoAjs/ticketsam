@@ -167,7 +167,7 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
                     error={errors?.number}
                   />
                 </Col>
-                <Col xs="12">
+                <Col xs="12" sx="6" md="6" lg="12">
                   <InputFormController
                     register
                     formControl={control}
@@ -176,18 +176,16 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
                     error={errors?.neighborhood}
                   />
                 </Col>
-              </Row>
-            </Col>
-            <Col xs="11" sm="11" md="6">
-              <Row xs="auto" lg="12">
-                <SelectFormController
-                  register
-                  formControl={control}
-                  formControlName="state"
-                  label="Estado"
-                  error={errors?.state}
-                  defaultValues={BrazilStates}
-                />
+                <Col xs="12" sx="6" md="6" lg="12">
+                  <SelectFormController
+                    register
+                    formControl={control}
+                    formControlName="state"
+                    label="Estado"
+                    error={errors?.state}
+                    defaultValues={BrazilStates}
+                  />
+                </Col>
               </Row>
             </Col>
           </Row>

@@ -128,7 +128,7 @@ export const FormUser = ({ next }: { next: Function }) => {
                     placeholder="DD/MM/AAAA"
                   />
                 </Col>
-                <Col xs="11" sx="6" md="11" lg="11">
+                <Col xs="12" sx="6" md="12" lg="12">
                   <SelectFormController
                     formControl={control}
                     formControlName="gender"

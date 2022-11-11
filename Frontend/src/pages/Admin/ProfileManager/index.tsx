@@ -130,7 +130,7 @@ export const ProfileManager = () => {
                 </Col>
               </Row>
               <Row xs="auto" lg="12">
-                <Col xs="12" sx="6" md="6" lg="6">
+                <Col xs="12" sx="4" md="4" lg="4">
                   <InputFormController
                     register
                     formControl={control}
@@ -141,7 +141,7 @@ export const ProfileManager = () => {
                     placeholder="(__)_____-____"
                   />
                 </Col>
-                <Col xs="12" sx="6" md="6" lg="6">
+                <Col xs="12" sx="4" md="4" lg="4">
                   <InputFormController
                     register
                     formControl={control}
@@ -152,19 +152,17 @@ export const ProfileManager = () => {
                     placeholder="DD/MM/AAAA"
                   />
                 </Col>
-              </Row>
-            </Col>
-            <Col xs="11" sm="11" md="6">
-              <Row xs="auto" lg="12">
-                <SelectFormController
-                  formControl={control}
-                  formControlName="gender"
-                  label="Gênero"
-                  register={register}
-                  error={errors.gender}
-                  defaultValues={Gender}
-                  enumType={true}
-                />
+                <Col xs="12" sx="4" md="4" lg="4">
+                  <SelectFormController
+                    formControl={control}
+                    formControlName="gender"
+                    label="Gênero"
+                    register={register}
+                    error={errors.gender}
+                    defaultValues={Gender}
+                    enumType={true}
+                  />
+                </Col>
               </Row>
             </Col>
 
@@ -232,17 +230,15 @@ export const ProfileManager = () => {
                 </Col>
               </Row>
             </Col>
-            <Col xs="11" sm="11" md="6">
-              <Row xs="auto" lg="12">
-                <SelectFormController
-                  register
-                  formControl={control}
-                  formControlName="address.state"
-                  label="Estado"
-                  error={errors?.address?.state}
-                  defaultValues={BrazilStates}
-                />
-              </Row>
+            <Col xs="12" sm="12" md="6">
+              <SelectFormController
+                register
+                formControl={control}
+                formControlName="address.state"
+                label="Estado"
+                error={errors?.address?.state}
+                defaultValues={BrazilStates}
+              />
             </Col>
           </Row>
         </Container>
