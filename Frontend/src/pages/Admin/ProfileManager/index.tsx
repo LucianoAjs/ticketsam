@@ -3,7 +3,7 @@ import ClearIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import { Button } from "@mui/material";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { InputFormController } from "shared/components/forms/InputFormController";
@@ -14,6 +14,7 @@ import useUserContext from "shared/contexts/UserContext/userContext";
 import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
+import { compact } from "shared/utils";
 import { convertDateFormatInUS } from "shared/utils/date/convert-date-br-to-usa";
 import CardContainer, { CardStyled } from "./styles";
 export const ProfileManager = () => {
@@ -22,16 +23,11 @@ export const ProfileManager = () => {
   const [initialValues, setInitialValues] = useState(user);
   const [dataEdit, setDataEdit] = useState(false);
 
-  useEffect(() => {
-    if (user) {
-      setInitialValues(user);
-    }
-  }, [user]);
-
   const {
     register,
     control,
     getValues,
+    setValue,
     formState: { isValid, isDirty, errors },
   } = useForm<Partial<IUser>>({
     mode: "onBlur",
@@ -39,6 +35,32 @@ export const ProfileManager = () => {
     defaultValues: initialValues,
     resolver: yupResolver(userValidationSchema),
   });
+
+  const setDataForm = useCallback(
+    (data: IUser) => {
+      Object.keys(data).forEach((key: any, index: number) => {
+        setValue(key, Object.values(data)[index]);
+      });
+    },
+    [setValue]
+  );
+
+  const getDataUserInformation = useCallback(async () => {
+    const { data } = await ENDPOINT.GET_USER_INFORMATION();
+
+    await update({ user: data });
+
+    setInitialValues(data);
+    setDataForm(data);
+  }, [setDataForm, update]);
+
+  useEffect(() => {
+    if (Object.values(compact(user)).length > 0) {
+      setInitialValues(user);
+    } else {
+      getDataUserInformation();
+    }
+  }, [getDataUserInformation, user]);
 
   const updateUserInformation = async (dataUser: Partial<IUser>) => {
     await ENDPOINT.UPDATE_USER(dataUser);
@@ -58,6 +80,7 @@ export const ProfileManager = () => {
     updateUserInformation(rest);
     setDataEdit(false);
   };
+
   return (
     <CardContainer>
       <h2>Meu Perfil</h2>
