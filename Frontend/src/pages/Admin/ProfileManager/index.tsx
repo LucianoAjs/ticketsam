@@ -19,6 +19,7 @@ import { convertDate } from "shared/utils/date/convert-date";
 import { convertDateFormatInBR } from "shared/utils/date/convert-date-br-to-usa";
 import { convertDateFormatBR } from "shared/utils/date/date-format";
 import CardContainer, { AlignRow, CardStyled } from "./styles";
+
 export const ProfileManager = () => {
   const { update, user } = useUserContext();
 

@@ -8,9 +8,9 @@ const UserContext = createContext(initalContextPayload);
 export const UserProvider = ({ children }: { children: any }) => {
   const [state, dispatch] = useReducer(userReducer, initalContextPayload);
 
-  const update = (payload: IContext) => {
+  const update = (payload: IContext, type = "UPDATE") => {
     dispatch({
-      type: "UPDATE",
+      type,
       payload,
     });
   };

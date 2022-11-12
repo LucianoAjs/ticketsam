@@ -1,22 +1,43 @@
-import { BoatDto } from '@/modules/user-seller/dto/boat/nested/boat.dto';
-import { StatusDto } from '@/modules/user-seller/dto/boat/nested/status.dto';
+import { VALIDATE_BOAT } from '@/modules/user-seller/constants/boat';
 import { ApiProperty } from '@nestjs/swagger';
-import { CreateTicketDto } from '../create-ticket.dto';
+
+const {
+  API_PROPERTY: {
+    BOAT: { IMO, FLAG, NAME, SUBSCRIPTION },
+  },
+} = VALIDATE_BOAT;
 
 export class BoatResponseDto {
   @ApiProperty({
-    type: BoatDto,
+    description: IMO.DESC,
+    example: IMO.VALUE,
+    type: Number,
   })
-  boat: BoatDto;
+  IMO: number;
 
   @ApiProperty({
-    type: StatusDto,
+    description: NAME.DESC,
+    example: NAME.VALUE,
+    type: String,
   })
-  status: StatusDto;
+  name: string;
 
   @ApiProperty({
-    type: CreateTicketDto,
-    isArray: true,
+    description: SUBSCRIPTION.DESC,
+    example: SUBSCRIPTION.VALUE,
+    type: Number,
   })
-  ticket: CreateTicketDto;
+  subscription: number;
+
+  @ApiProperty({
+    description: FLAG.DESC,
+    example: FLAG.VALUE,
+    type: String,
+  })
+  flag: string;
+
+  @ApiProperty({
+    type: String,
+  })
+  status: string;
 }

@@ -1,6 +1,7 @@
 import { api } from "api";
 import { AxiosResponse } from "axios";
 import { ILoginForm } from "shared/interfaces/auth-interface";
+import { IBoat } from "shared/interfaces/boat.interface";
 import { ICreatePreferenceResponse } from "shared/interfaces/create-preference-response.interface";
 import { IGetTicketFilter } from "shared/interfaces/get-ticket-filter.interface";
 import { IPaymentResponseParams } from "shared/interfaces/payment-response-params.interface";
@@ -34,4 +35,5 @@ export const ENDPOINT = {
     api.get(`user_seller/payment/status/?paymentId=${paymentId}`),
   GET_USER_INFORMATION: (): Promise<AxiosResponse<IUser>> =>
     api.get("user_seller"),
+  GET_BOAT: (): Promise<AxiosResponse<IBoat[]>> => api.get("/user_seller/boat"),
 };

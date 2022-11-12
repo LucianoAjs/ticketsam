@@ -11,6 +11,10 @@ export const userReducer = (state: IContext, action: IAction) => {
 
   if (type === "UPDATE") {
     return _.merge(state, payload);
+  }
+  if (type === "UPDATE_BOAT") {
+    state.boat = payload.boat;
+    return _.merge(state, payload);
   } else {
     throw new Error(`No case for type ${type} found in unknownReducer.`);
   }

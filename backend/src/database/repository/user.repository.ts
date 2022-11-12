@@ -1,6 +1,7 @@
 import { PrismaService } from '@/database/prisma.service';
 import { GetTicketQueryDto } from '@/modules/user-buyer/dto/get-ticket-query.dto';
 import { ValidateBoatDto } from '@/modules/user-seller/dto/boat';
+import { BoatResponseDto } from '@/modules/user-seller/dto/boat/boat-response.dto';
 import { DocumentDto } from '@/modules/user-seller/dto/boat/nested/document.dto';
 import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
 import { CreateTicketDto } from '@/modules/user-seller/dto/create-ticket.dto';
@@ -84,10 +85,20 @@ export class UserRepository {
     });
   }
 
-  async getBoatStatusByUserId(userId: string): Promise<any> {
-    return await this.prisma.boat.findMany({
+  async getBoatStatusByUserId(userId: string): Promise<BoatResponseDto[]> {
+    const data = await this.prisma.boat.findMany({
       where: { userId },
-      include: { status: true, ticket: true },
+      include: { status: true },
+    });
+
+    return data.map((v) => {
+      return {
+        IMO: v.IMO,
+        subscription: v.subscription,
+        flag: v.flag,
+        name: v.name,
+        status: v.status.status,
+      };
     });
   }
 
