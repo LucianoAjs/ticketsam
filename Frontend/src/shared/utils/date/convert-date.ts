@@ -1,11 +1,9 @@
-import dateFormat from "dateformat";
-
 export const convertDate = (dateBR: string) => {
   const splitDate = dateBR.split("/");
 
-  const day = splitDate[0];
-  const moth = splitDate[1];
-  const year = splitDate[2];
+  const year = splitDate[0];
+  const day = splitDate[2];
+  const month = splitDate[1];
 
-  return dateFormat(new Date(`${year}-${moth}-${day}`), "yyyy-mm-dd");
+  return `${year}-${month}-${day}`;
 };

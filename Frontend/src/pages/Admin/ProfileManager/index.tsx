@@ -16,6 +16,8 @@ import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
 import { compact } from "shared/utils";
 import { convertDate } from "shared/utils/date/convert-date";
+import { convertDateFormatInBR } from "shared/utils/date/convert-date-br-to-usa";
+import { convertDateFormatBR } from "shared/utils/date/date-format";
 import CardContainer, { AlignRow, CardStyled } from "./styles";
 export const ProfileManager = () => {
   const { update, user } = useUserContext();
@@ -51,7 +53,7 @@ export const ProfileManager = () => {
 
   const getDataUserInformation = useCallback(async () => {
     const { data } = await ENDPOINT.GET_USER_INFORMATION();
-    data.birthdate = new Date(data.birthdate).toLocaleDateString();
+    data.birthdate = convertDateFormatBR(new Date(data.birthdate));
 
     await update({ user: data });
 
@@ -74,12 +76,13 @@ export const ProfileManager = () => {
   const onSubmit = async () => {
     setDataEdit(false);
     const data = getValues();
+    data.birthdate = convertDateFormatInBR(data.birthdate || "");
+
     update({
       user: data,
     });
 
-    const birthdate = convertDate(String(user.birthdate));
-    data.birthdate = birthdate;
+    data.birthdate = convertDate(data.birthdate || "");
 
     const { password, cpf, DocumentType, createdAt, updatedAt, id, ...rest } =
       data;

@@ -131,4 +131,10 @@ export default createGlobalStyle`
   button{
    border-radius: 50px !important;
   }
+
+  .MuiCalendarOrClockPicker-mobileKeyboardInputView {
+    input{
+      color: black !important;
+    }
+  }
 `;
