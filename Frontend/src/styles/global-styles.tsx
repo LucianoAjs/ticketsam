@@ -46,7 +46,6 @@ export default createGlobalStyle`
     font: 400 14px/20px bold ;
     letter-spacing: 1px;
     color: ${({ theme }) => theme.text} ;
-    opacity: 0.5;
   }
 
   p{
