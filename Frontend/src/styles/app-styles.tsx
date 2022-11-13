@@ -57,3 +57,14 @@ export const Text4 = styled.h6`
   font: 400 14px/28px bold !important;
   color: ${({ theme }) => theme.primary700} !important;
 `;
+
+export const Text5 = styled.h5`
+  font: 700 16px/28px bold !important;
+  color: ${({ theme }) => theme.primary700} !important;
+  opacity: unset;
+`;
+
+export const Text6 = styled.h5`
+  font: 400 16px/28px bold !important;
+  color: ${({ theme }) => theme.primary700} !important;
+`;

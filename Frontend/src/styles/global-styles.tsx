@@ -95,6 +95,7 @@ export default createGlobalStyle`
 
   svg {
     color: ${({ theme }) => theme.primary300} !important;
+    cursor: pointer;
   }
 
   .bg-header {
@@ -141,4 +142,10 @@ export default createGlobalStyle`
       color: black !important;
     }
   }
+
+  .h1, .h2, .h3, .h4, .h5, .h6, h1, h2, h3, h4, h5, h6 {
+    margin: unset !important;
+  }
+
+  
 `;

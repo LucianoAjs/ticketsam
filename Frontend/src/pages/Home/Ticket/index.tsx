@@ -24,6 +24,7 @@ export const Ticket = ({ ticket }: { ticket: ITicket }) => {
     dt_output,
     home_city,
     transport_value,
+    food_value,
   } = ticket;
 
   const [fetching, setFetching] = useState(false);
@@ -33,7 +34,7 @@ export const Ticket = ({ ticket }: { ticket: ITicket }) => {
 
     const product = {
       title: "Bilhete",
-      unit_price: transport_value,
+      unit_price: transport_value + food_value,
       quantity: 1,
     };
 
@@ -73,7 +74,7 @@ export const Ticket = ({ ticket }: { ticket: ITicket }) => {
             </AlignRow>
             <AlignColumn>
               <Text4>Valor por Adulto</Text4>
-              <Text1>{formatCurrencyPtBr(transport_value)}</Text1>
+              <Text1>{formatCurrencyPtBr(transport_value + food_value)}</Text1>
               <Text4>(Alimentação + Transporte)</Text4>
             </AlignColumn>
           </AlignRow>
