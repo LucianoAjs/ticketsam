@@ -19,7 +19,11 @@ export const DOCUMENT = {
     DOCUMENT_BACK: 1,
     SELFIE: 2,
   },
-  FRONT: { DESC: 'Document front.', VALUE: 'binary' },
-  BACK: { DESC: 'Document back.', VALUE: 'binary' },
-  SELFIE: { DESC: 'Document selfie.', VALUE: 'binary' },
+  EXTENSION: { DESC: 'Document extension.', VALUE: 'png' },
+  DATA_URL: {
+    DESC: 'Document url.',
+    VALUE:
+      'https://images.s3.amazonaws.com/documentFront/4545454545454545454545-documentFront.png',
+  },
+  DOCUMENT_TYPE: { DESC: 'Document type.', VALUE: 'document_front' },
 };

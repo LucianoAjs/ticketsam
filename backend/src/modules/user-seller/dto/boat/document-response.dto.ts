@@ -13,4 +13,10 @@ export class DocumentResponseDto {
     type: String,
   })
   description: string;
+
+  @ApiProperty({
+    example: DOCUMENT.DATA_URL.VALUE,
+    type: String,
+  })
+  documentUri: string;
 }

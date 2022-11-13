@@ -46,16 +46,29 @@ model Address {
 }
 
 model Document {
-  id                String   @id @default(uuid())
-  userId            String?  @unique @db.VarChar(255)
-  DocumentFrontUri  String?  @db.VarChar(255)
-  DocumentBackUri   String?  @db.VarChar(255)
-  DocumentSelfieUri String?  @db.VarChar(255)
-  createdAt         DateTime @default(now())
-  updatedAt         DateTime @updatedAt
-  user              User?    @relation(fields: [userId], references: [id], map: "Document_userId_fkey")
+  id                String          @id @default(uuid())
+  userId            String?         @unique @db.VarChar(255)
+  DocumentFrontUri  String?         @db.VarChar(255)
+  DocumentBackUri   String?         @db.VarChar(255)
+  DocumentSelfieUri String?         @db.VarChar(255)
+  createdAt         DateTime        @default(now())
+  updatedAt         DateTime        @updatedAt
+  user              User?           @relation(fields: [userId], references: [id], map: "Document_userId_fkey")
+  DocumentStatus    DocumentStatus?
 
   @@index([userId], map: "Document_userId_fkey")
+}
+
+model DocumentStatus {
+  id         String   @id @default(uuid())
+  documentId String?  @unique @db.VarChar(255)
+  status     String?  @db.VarChar(255)
+  createdAt  DateTime @default(now())
+  updatedAt  DateTime @updatedAt
+
+  document Document? @relation(fields: [documentId], references: [id], map: "Status_documentId_fkey")
+
+  @@index([documentId], map: "Status_documentId_fkey")
 }
 
 model Boat {

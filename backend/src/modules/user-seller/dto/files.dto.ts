@@ -1,36 +1,35 @@
 import { DOCUMENT } from '@/modules/user-seller/constants/document.constant';
 import { ApiProperty } from '@nestjs/swagger';
-import { IsNotEmpty, IsString } from 'class-validator';
+import { IsEnum, IsNotEmpty, IsString } from 'class-validator';
 import 'multer';
+import { DocumentType } from '../enums/document-type.enum';
 
-const { BACK, FRONT, SELFIE } = DOCUMENT;
+const { EXTENSION, DATA_URL, DOCUMENT_TYPE } = DOCUMENT;
 
 export class FilesDto {
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
-    description: BACK.DESC,
-    example: BACK.VALUE,
+    description: EXTENSION.DESC,
+    example: EXTENSION.VALUE,
     type: String,
-    format: 'binary',
   })
-  documentBack: Express.Multer.File[];
+  extension: string;
 
   @IsNotEmpty()
   @IsString()
   @ApiProperty({
-    description: FRONT.DESC,
-    example: FRONT.VALUE,
+    description: DATA_URL.DESC,
+    example: DATA_URL.VALUE,
     type: String,
-    format: 'binary',
   })
-  documentFront: Express.Multer.File[];
+  dataUrl: string;
 
+  @IsNotEmpty()
+  @IsEnum(DocumentType)
   @ApiProperty({
-    description: SELFIE.DESC,
-    example: SELFIE.VALUE,
-    type: String,
-    format: 'binary',
+    description: DOCUMENT_TYPE.DESC,
+    example: DOCUMENT_TYPE.VALUE,
   })
-  selfie: Express.Multer.File[];
+  documentType: string;
 }

@@ -32,14 +32,10 @@ import {
   Put,
   Query,
   Req,
-  UploadedFiles,
-  UseInterceptors,
 } from '@nestjs/common';
-import { FileFieldsInterceptor } from '@nestjs/platform-express';
 import {
   ApiBearerAuth,
   ApiBody,
-  ApiConsumes,
   ApiOperation,
   ApiResponse,
   ApiTags,
@@ -162,13 +158,6 @@ export class UserController {
 
   @ApiTags('USER SELLER')
   @Post('user_seller/upload_documents')
-  @UseInterceptors(
-    FileFieldsInterceptor([
-      { name: DOCUMENT_FRONT, maxCount: 1 },
-      { name: DOCUMENT_BACK, maxCount: 1 },
-      { name: DOCUMEN_SELFIE, maxCount: 1 },
-    ]),
-  )
   @ApiOperation({
     summary: DOCUMENT.API_OPERATION.SUMMARY,
     description: DOCUMENT.API_OPERATION.DESCRIPTION,
@@ -191,12 +180,7 @@ export class UserController {
   @ApiBody({
     type: () => FilesDto,
   })
-  @ApiConsumes('multipart/form-data')
-  async uploadUserDocuments(
-    @UploadedFiles()
-    @Req()
-    req,
-  ): Promise<DocumentResponseDto> {
+  async uploadUserDocuments(@Req() req): Promise<DocumentResponseDto> {
     const body: FilesDto = req.body;
 
     const jwt = req.headers['authorization'];

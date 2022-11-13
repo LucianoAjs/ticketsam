@@ -1,5 +1,4 @@
 import { UsersLoggerService } from '@/logger/logger.service';
-import { DOCUMENT } from '@/modules/user-seller/constants/document.constant';
 import { FilesDto } from '@/modules/user-seller/dto/files.dto';
 import {
   PutObjectCommand,
@@ -14,8 +13,6 @@ type S3Params = {
   Key: string;
   Body: Buffer;
 };
-
-const { DOCUMENT_BACK, DOCUMENT_FRONT, DOCUMEN_SELFIE, INDEX } = DOCUMENT;
 
 @Injectable()
 export class S3AdapterService extends S3Client {
@@ -36,51 +33,40 @@ export class S3AdapterService extends S3Client {
     userId: string,
     files: FilesDto,
   ): Promise<PutObjectCommandOutput | void> {
-    const firstIndex = 0;
+    const { dataUrl, documentType, extension } = files;
+    const BASE64_DATA = 1;
 
     try {
-      const filesArray = Object.values(files);
-
-      await Promise.all(
-        filesArray.map(async (file: Express.Multer.File[]) => {
-          const params: S3Params = this.getParams(
-            userId,
-            file[firstIndex].fieldname,
-            file[firstIndex].buffer,
-          );
-
-          return await this.send(new PutObjectCommand(params));
-        }),
+      const fileBuffer: Buffer = Buffer.from(
+        dataUrl.split(',')[BASE64_DATA],
+        'base64',
       );
+
+      const params: S3Params = this.getParams(
+        documentType,
+        this.buildS3Url(userId, documentType, extension),
+        fileBuffer,
+      );
+
+      return await this.send(new PutObjectCommand(params));
     } catch (error) {
       this.usersLogger.error(error);
       throw new BadRequestException();
     }
   }
 
-  buildS3Url(userId: string, files: FilesDto): Map<string, string> {
-    const filesArray: string[] = Object.keys(files);
-
-    const objectUrls: string[] = filesArray.map((fileName: string) => {
-      return (
-        this.configService.get('S3_BASE_URL') +
-        `${fileName}/${userId}-${fileName}.png`
-      );
-    });
-
-    const s3UrlMap = new Map<string, string>([
-      [DOCUMENT_FRONT, objectUrls[INDEX.DOCUMENT_FRONT]],
-      [DOCUMENT_BACK, objectUrls[INDEX.DOCUMENT_BACK]],
-      [DOCUMEN_SELFIE, objectUrls[INDEX.SELFIE]],
-    ]);
-
-    return s3UrlMap;
+  buildS3Url(userId: string, documentType: string, extension: string): string {
+    return `${userId}-${documentType}.${extension}`;
   }
 
-  private getParams(userId: string, fieldName: string, file: Buffer): S3Params {
+  private getParams(
+    folderName: string,
+    fieldName: string,
+    file: Buffer,
+  ): S3Params {
     return {
       Bucket: this.configService.get('S3_BUCKET_NAME'),
-      Key: `${fieldName}/${userId}-${fieldName}.png`,
+      Key: `${folderName}/${fieldName}`,
       Body: file,
     };
   }

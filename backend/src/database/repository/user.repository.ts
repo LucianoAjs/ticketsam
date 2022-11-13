@@ -95,6 +95,7 @@ export class UserRepository {
   async upsertDocumentByUserId(
     userId: string,
     document: DocumentDto,
+    documentStatusId: string,
   ): Promise<any> {
     return await this.prisma.document.upsert({
       where: { id: userId },
@@ -103,6 +104,15 @@ export class UserRepository {
       },
       create: {
         ...document,
+        DocumentStatus: { connect: { id: documentStatusId } },
+      },
+    });
+  }
+
+  async creatDocumentStatus(status: string): Promise<any> {
+    return await this.prisma.documentStatus.create({
+      data: {
+        status,
       },
     });
   }
