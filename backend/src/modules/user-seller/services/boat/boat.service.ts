@@ -29,7 +29,7 @@ export class BoatService {
   async getBoatStatusByUserId(userId: string): Promise<BoatResponseDto[]> {
     let boat;
     try {
-      boat = await this.userRepository.getBoatStatusByUserId(userId);
+      boat = await this.userRepository.getBoatByUserId(userId);
     } catch (error) {
       throw new PrismaException(error, this.usersLogger);
     }

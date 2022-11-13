@@ -15,5 +15,5 @@ export interface ITicket {
   remaining_quantity: number;
   food_value: number;
   transport_value: number;
-  payment: IPayment[];
+  payment?: IPayment[];
 }

@@ -11,6 +11,10 @@ export default createGlobalStyle`
     box-sizing: border-box;
     background: ${({ theme }) => theme.primary200};
     color: ${({ theme }) => theme.text};
+
+    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
   }
 
   h1 {

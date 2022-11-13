@@ -8,6 +8,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { InputFormController } from "shared/components/forms/InputFormController";
 import { SelectFormController } from "shared/components/forms/SelectFormController";
+import Spin from "shared/components/Spin";
 import { BrazilStates } from "shared/constants/brazil-states";
 import { ENDPOINT } from "shared/constants/endpoints";
 import useUserContext from "shared/contexts/UserContext/userContext";
@@ -15,14 +16,13 @@ import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
 import { compact } from "shared/utils";
-import { convertDate } from "shared/utils/date/convert-date";
-import { convertDateFormatInBR } from "shared/utils/date/convert-date-br-to-usa";
-import { convertDateFormatBR } from "shared/utils/date/date-format";
-import CardContainer, { AlignRow, CardStyled } from "./styles";
+import { convertDateFormatBrToUs } from "shared/utils/date/convert-date-br-to-us";
+import { convertDateFormatUsToBr } from "shared/utils/date/convert-date-us-to-br";
 
+import CardContainer, { AlignRow, CardStyled } from "./styles";
 export const ProfileManager = () => {
   const { update, user } = useUserContext();
-
+  const [fetching, setFeching] = useState(false);
   const [initialValues, setInitialValues] = useState(user);
   const [dataEdit, setDataEdit] = useState(false);
 
@@ -40,9 +40,9 @@ export const ProfileManager = () => {
   });
 
   const setDataForm = useCallback(
-    (data: IUser) => {
-      Object.keys(data).forEach((key: any, index: number) => {
-        const property = Object.values(data)[index];
+    (o: object) => {
+      Object.keys(o).forEach((key: any, index: number) => {
+        const property = Object.values(o)[index];
         if (new Date(property)) {
           setValue(key, new Date(property).toLocaleDateString());
         }
@@ -53,13 +53,16 @@ export const ProfileManager = () => {
   );
 
   const getDataUserInformation = useCallback(async () => {
+    setFeching(true);
     const { data } = await ENDPOINT.GET_USER_INFORMATION();
-    data.birthdate = convertDateFormatBR(new Date(data.birthdate));
+
+    data.birthdate = convertDateFormatUsToBr(data.birthdate);
 
     await update({ user: data });
 
     setInitialValues(data);
     setDataForm(data);
+    setFeching(false);
   }, [setDataForm, update]);
 
   useEffect(() => {
@@ -75,15 +78,15 @@ export const ProfileManager = () => {
   };
 
   const onSubmit = async () => {
+    setFeching(true);
     setDataEdit(false);
     const data = getValues();
-    data.birthdate = convertDateFormatInBR(data.birthdate || "");
 
     update({
       user: data,
     });
 
-    data.birthdate = convertDate(data.birthdate || "");
+    data.birthdate = convertDateFormatBrToUs(data.birthdate || "");
 
     const { password, cpf, DocumentType, createdAt, updatedAt, id, ...rest } =
       data;
@@ -94,7 +97,12 @@ export const ProfileManager = () => {
     delete rest.address?.userId;
 
     await updateUserInformation(rest);
+    setFeching(false);
   };
+
+  if (fetching) {
+    return <Spin />;
+  }
 
   return (
     <CardContainer>

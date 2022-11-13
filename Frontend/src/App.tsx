@@ -3,7 +3,7 @@ import { Footer } from "shared/components/Footer";
 import Header from "shared/components/Header";
 import { HOME } from "shared/constants/routes";
 import { getLastFragmentPath } from "shared/utils/common/get-last-fragment-path";
-import Container, { Content } from "styles/app-styles";
+import Container from "styles/app-styles";
 
 function App() {
   const { pathname } = useLocation();
@@ -15,7 +15,7 @@ function App() {
   return (
     <Container>
       <Header />
-      <Content children={<Outlet />} />
+      <Outlet />
       {showHeaderAndFooter && <Footer />}
     </Container>
   );

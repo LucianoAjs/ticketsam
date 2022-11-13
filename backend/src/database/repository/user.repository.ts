@@ -85,20 +85,10 @@ export class UserRepository {
     });
   }
 
-  async getBoatStatusByUserId(userId: string): Promise<BoatResponseDto[]> {
-    const data = await this.prisma.boat.findMany({
+  async getBoatByUserId(userId: string): Promise<BoatResponseDto[]> {
+    return await this.prisma.boat.findMany({
       where: { userId },
-      include: { status: true },
-    });
-
-    return data.map((v) => {
-      return {
-        IMO: v.IMO,
-        subscription: v.subscription,
-        flag: v.flag,
-        name: v.name,
-        status: v.status.status,
-      };
+      include: { status: true, ticket: true },
     });
   }
 

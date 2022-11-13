@@ -9,24 +9,22 @@ import Paper from "shared/components/Paper";
 import { ENDPOINT } from "shared/constants/endpoints";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import { IBoat } from "shared/interfaces/boat.interface";
-import { compact } from "shared/utils";
 import Layout, { AlignRow } from "./styles";
 
 export const BoatManager = () => {
   const { update, boat } = useUserContext();
-  const [boats, setBoats] = useState<IBoat[]>();
+  const [boats, setBoats] = useState<IBoat[]>(boat);
 
   const getDataBoat = useCallback(async () => {
     const { data } = await ENDPOINT.GET_BOAT();
+
     await update({ boat: data }, "UPDATE_BOAT");
 
     setBoats(data);
   }, [update]);
 
   useEffect(() => {
-    if (Object.values(compact(boat)).length === 0) {
-      getDataBoat();
-    }
+    getDataBoat();
   }, [getDataBoat, boat]);
 
   return (
@@ -57,6 +55,7 @@ export const BoatManager = () => {
               <Th>Inscrição</Th>
             </Tr>
           </Thead>
+
           {boats?.map((v, index) => (
             <Tbody>
               <Tr>
@@ -64,7 +63,7 @@ export const BoatManager = () => {
                 <Td>{v.name}</Td>
                 <Td>{v.IMO}</Td>
                 <Td>{v.flag}</Td>
-                <Td>{v.status}</Td>
+                <Td>{v.status.status}</Td>
                 <Td>{v.subscription}</Td>
               </Tr>
             </Tbody>

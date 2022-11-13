@@ -6,10 +6,6 @@ export default styled.div`
   height: 100vh;
 `;
 
-export const Content = styled.div`
-  flex: 1;
-`;
-
 export const AlignForm = styled.div`
   display: flex;
   flex-direction: row;
@@ -20,9 +16,6 @@ export const AlignForm = styled.div`
   background-color: ${({ theme }) => theme.primary400};
   padding: 30px;
   color: rgb(77, 77, 77);
-  font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
   border-radius: 9px;
 
   @media (min-width: 599px) {

@@ -6,6 +6,7 @@ import { ENDPOINT } from "shared/constants/endpoints";
 import { HOME } from "shared/constants/routes";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import { clearDataStorage, getDataStorage } from "shared/utils";
+import { convertDateFormatUsToBr } from "shared/utils/date/convert-date-us-to-br";
 
 export default function useAuth() {
   const [isLoggedin, setIsLoggedin] = useState<boolean>(false);
@@ -16,6 +17,8 @@ export default function useAuth() {
 
   const getDataUserInformation = useCallback(async () => {
     const { data } = await ENDPOINT.GET_USER_INFORMATION();
+
+    data.birthdate = convertDateFormatUsToBr(data.birthdate);
     update({ user: data });
   }, [update]);
 

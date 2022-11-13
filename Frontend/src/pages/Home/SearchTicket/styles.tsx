@@ -13,7 +13,6 @@ export const CardStyled = styled(Card)`
 export default styled.div`
   display: flex;
   flex-direction: column;
-  flex-grow: 1;
   gap: 2rem;
 
   .width {

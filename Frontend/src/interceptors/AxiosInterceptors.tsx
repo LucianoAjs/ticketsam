@@ -4,7 +4,6 @@ import {
   AxiosRequestConfig,
   AxiosResponse,
 } from "axios";
-import { FEEDBACK, HOME, PAYMENT } from "shared/constants/routes";
 
 const onRequest = (config: AxiosRequestConfig): AxiosRequestConfig => {
   return config;
@@ -23,9 +22,9 @@ const onResponseError = (error: AxiosError): Promise<AxiosError> => {
   // with each new page it recreates the component twice, thus executing the endpoint twice, giving an error,
   // expected. That way you don't need to redirect the user.
 
-  if (window.location.pathname !== `${PAYMENT}/${FEEDBACK}`) {
-    window.location.replace(HOME);
-  }
+  // if (window.location.pathname !== `${PAYMENT}/${FEEDBACK}`) {
+  //   window.location.replace(HOME);
+  // }
 
   return Promise.reject(error);
 };

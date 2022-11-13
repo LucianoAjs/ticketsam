@@ -1,4 +1,7 @@
 import { VALIDATE_BOAT } from '@/modules/user-seller/constants/boat';
+
+import { StatusDto } from '@/modules/user-seller/dto/boat/nested/status.dto';
+import { CreateTicketResponseDto } from '@/modules/user-seller/dto/create-ticket-response.dto';
 import { ApiProperty } from '@nestjs/swagger';
 
 const {
@@ -37,7 +40,13 @@ export class BoatResponseDto {
   flag: string;
 
   @ApiProperty({
-    type: String,
+    type: StatusDto,
   })
-  status: string;
+  status: StatusDto;
+
+  @ApiProperty({
+    type: CreateTicketResponseDto,
+    isArray: true,
+  })
+  ticket: CreateTicketResponseDto[];
 }
