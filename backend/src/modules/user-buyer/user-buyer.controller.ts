@@ -147,7 +147,7 @@ export class UserBuyerController {
   }
 
   @ApiTags('USER BUYER')
-  @Get('user_buyer/ticket/place_names')
+  @Get('user_buyer/states')
   @ApiOperation({
     summary: GET_ALL_PLACES_AVAILABLE.API_OPERATION.SUMMARY,
     description: GET_ALL_PLACES_AVAILABLE.API_OPERATION.DESCRIPTION,
@@ -168,7 +168,7 @@ export class UserBuyerController {
     description: INTERNAL_SERVER_ERROR,
     type: () => InternalServerErrorException,
   })
-  async getAllBoatNames(): Promise<string[]> {
+  async getAllStates(): Promise<string[]> {
     return await this.ticketService.getAllPlaceNames();
   }
 }

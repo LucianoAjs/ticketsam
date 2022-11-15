@@ -45,4 +45,6 @@ export const ENDPOINT = {
     data: ICreateTicket
   ): Promise<AxiosResponse<ITicket>> =>
     api.post(`/user_seller/boat/${boatId}/ticket`, data),
+  GET_PLACE_NAMES: (): Promise<AxiosResponse<string[]>> =>
+    api.get("/user_buyer/states"),
 };

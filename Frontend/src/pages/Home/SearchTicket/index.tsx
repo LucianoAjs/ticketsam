@@ -19,7 +19,7 @@ import Container, {
 
 import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { SvgIcon } from "@mui/material";
-import { useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 
 import { MobileDatePickerController } from "shared/components/forms/MobileDatePickerController";
 import Spin from "shared/components/Spin";
@@ -27,16 +27,26 @@ import { ENDPOINT } from "shared/constants/endpoints";
 import { convertDateFormat } from "shared/utils/date/date-format";
 
 export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
+  const [states, setStates] = useState<string[]>([]);
+
   const initialValues = {
     destination_city: "",
     home_city: "",
-    dt_arrival: new Date("11-06-2022"),
-    dt_output: new Date("10-31-2022"),
+    dt_arrival: new Date(""),
+    dt_output: new Date(""),
   };
 
   const [fetching, setFetching] = useState(false);
 
-  const cidades = ["Manaus", "Coari", "Tabatinga"];
+  const getAllState = useCallback(async () => {
+    const { data } = await ENDPOINT.GET_PLACE_NAMES();
+
+    setStates(data);
+  }, []);
+
+  useEffect(() => {
+    getAllState();
+  }, [getAllState]);
 
   const {
     control,
@@ -77,7 +87,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
               formControl={control}
               formControlName={"home_city"}
               label={"Origem"}
-              defaultValues={cidades}
+              defaultValues={states}
               error={errors.home_city}
             />
             <SelectFormController
@@ -85,7 +95,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
               formControl={control}
               formControlName={"destination_city"}
               label={"Destino"}
-              defaultValues={cidades}
+              defaultValues={states}
               error={errors.destination_city}
             />
           </AlignColumn>
