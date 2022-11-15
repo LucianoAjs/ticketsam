@@ -1,4 +1,4 @@
-import { FormControlLabel, TextField } from "@mui/material";
+import { FormControl, FormControlLabel, TextField } from "@mui/material";
 import { MobileDatePicker } from "@mui/x-date-pickers";
 import { Controller } from "react-hook-form";
 
@@ -22,35 +22,37 @@ export function MobileDatePickerController({
       name={formControlName}
       control={formControl}
       render={({ field: { onChange, onBlur, ref, value, name } }) => (
-        <FormControlLabel
-          className="width"
-          label={label}
-          name={name}
-          ref={ref}
-          onChange={onChange}
-          onBlur={onBlur}
-          value={value || ""}
-          labelPlacement="top"
-          control={
-            <MobileDatePicker
-              className="width"
-              ref={ref}
-              onChange={onChange}
-              onBlur={onBlur}
-              value={value || ""}
-              {...register}
-              inputFormat="DD/MM/YYYY"
-              error={!!error}
-              renderInput={(params) => (
-                <TextField
-                  {...params}
-                  error={!!error}
-                  helperText={error && error.message}
-                />
-              )}
-            />
-          }
-        />
+        <FormControl onChange={onChange} ref={ref} onBlur={onBlur} fullWidth>
+          <FormControlLabel
+            label={label}
+            name={name}
+            ref={ref}
+            onChange={onChange}
+            onBlur={onBlur}
+            value={value || ""}
+            labelPlacement="top"
+            control={
+              <MobileDatePicker
+                fullWidth
+                ref={ref}
+                onChange={onChange}
+                onBlur={onBlur}
+                value={value || ""}
+                {...register}
+                inputFormat="DD/MM/YYYY"
+                error={!!error}
+                renderInput={(params) => (
+                  <TextField
+                    fullWidth
+                    {...params}
+                    error={!!error}
+                    helperText={error && error.message}
+                  />
+                )}
+              />
+            }
+          />
+        </FormControl>
       )}
     />
   );

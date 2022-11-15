@@ -6,6 +6,7 @@ import { Col, Container, Row } from "react-bootstrap";
 import { Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { CustomTable } from "shared/components/CustomTable/styles";
+import OpenDialog from "shared/components/OpenDialog";
 import Paper from "shared/components/Paper";
 import { ENDPOINT } from "shared/constants/endpoints";
 import useUserContext from "shared/contexts/UserContext/userContext";
@@ -13,6 +14,7 @@ import { IBoat } from "shared/interfaces/boat.interface";
 import { ITicket } from "shared/interfaces/ticket.interface";
 import { compact } from "shared/utils";
 import { formatCurrencyPtBr } from "shared/utils/common/format-currency-pt-br";
+import { CreateTicket } from "./CreateTicket";
 import Layout, { AlignRow } from "./styles";
 import { TicketMenuIActions } from "./TicketMenuIActions";
 
@@ -21,7 +23,7 @@ export const TicketManager = () => {
   const [boats, setBoats] = useState<IBoat[]>(boat);
   const [ticket, setTicket] = useState<ITicket>();
   const [openActions, setOpenActions] = useState(false);
-
+  const [openDialog, setOpenDialog] = useState(false);
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -47,6 +49,12 @@ export const TicketManager = () => {
 
   return (
     <>
+      <OpenDialog
+        fullScrenn={true}
+        setOpen={setOpenDialog}
+        open={openDialog}
+        children={<CreateTicket setOpen={setOpenDialog} />}
+      />
       <TicketMenuIActions
         open={openActions}
         setOpen={setOpenActions}
@@ -60,7 +68,11 @@ export const TicketManager = () => {
             <Row className="align-items-center">
               <Col>
                 <Row>
-                  <Button variant="contained" endIcon={<AddIcon />}>
+                  <Button
+                    variant="contained"
+                    endIcon={<AddIcon />}
+                    onClick={() => setOpenDialog(true)}
+                  >
                     Adicionar
                   </Button>
                 </Row>
@@ -84,8 +96,8 @@ export const TicketManager = () => {
 
             {boats?.map((v) => {
               return v.ticket?.map((v, index) => (
-                <Tbody>
-                  <Tr>
+                <Tbody key={index}>
+                  <Tr key={index}>
                     <Td>{index + 1}</Td>
                     <Td>{new Date(v.dt_arrival)?.toLocaleDateString()}</Td>
                     <Td>{new Date(v.dt_output)?.toLocaleDateString()}</Td>
@@ -95,7 +107,7 @@ export const TicketManager = () => {
                       {formatCurrencyPtBr(v.food_value + v.transport_value)}
                     </Td>
 
-                    <Td>
+                    <Td key={index}>
                       <MoreVertIcon
                         onClick={(e: any) => {
                           setTicket(v);

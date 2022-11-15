@@ -26,7 +26,9 @@ export default function OpenDialog({
       PaperProps={{
         style: {
           backgroundColor: `${theme.primary200}`,
-          boxShadow: "none",
+          alignItems: "center",
+          padding: "2rem",
+          gap: "2rem",
         },
       }}
     >

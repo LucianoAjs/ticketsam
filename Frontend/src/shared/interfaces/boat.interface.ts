@@ -1,6 +1,7 @@
 import { ITicket } from "./ticket.interface";
 
 export interface IBoat {
+  id?: string;
   cnpj: string;
   IMO: number;
   name: string;

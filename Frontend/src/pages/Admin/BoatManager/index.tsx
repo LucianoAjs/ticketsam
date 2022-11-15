@@ -72,8 +72,8 @@ export const BoatManager = () => {
             </Thead>
 
             {boats?.map((v, index) => (
-              <Tbody>
-                <Tr>
+              <Tbody key={index}>
+                <Tr key={index}>
                   <Td>{index + 1}</Td>
                   <Td>{v.name}</Td>
                   <Td>{v.IMO}</Td>
