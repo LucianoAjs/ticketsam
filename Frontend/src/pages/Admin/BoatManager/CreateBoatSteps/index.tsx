@@ -1,8 +1,8 @@
 import { useState } from "react";
-import { CreateBoatForm } from "../CreateBoatForm";
-import { Selfie } from "../Selfie";
-import { UploadDocument } from "../UploadDocument";
+import { CreateBoatForm } from "./CreateBoatForm";
+import { Selfie } from "./Selfie";
 import Container from "./styles";
+import { UploadDocument } from "./UploadDocument";
 export const CreateBoatSteps = ({ setOpen }: { setOpen: Function }) => {
   const [step, setStep] = useState(0);
 

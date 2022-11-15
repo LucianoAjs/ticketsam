@@ -1,7 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
-import { AlignButtons } from "pages/Admin/BoatManager/Selfie/styles";
+import { AlignButtons } from "pages/Admin/BoatManager/CreateBoatSteps/Selfie/styles";
 import { ContainerStyled } from "pages/Auth/styles";
 import { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";

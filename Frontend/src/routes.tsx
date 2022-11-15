@@ -6,6 +6,7 @@ import {
   AuthGuard,
   BoatManager,
   CreateAccount,
+  Dashboard,
   Feedback,
   Home,
   Login,
@@ -22,6 +23,7 @@ import {
   AUTH,
   BOAT_MANAGER,
   CREATE_ACCOUNT,
+  DASHBOARD,
   FEEDBACK,
   HOME,
   PAYMENT,
@@ -51,6 +53,7 @@ function MainRoutes() {
               <Route path={PROFILE_MANAGER} element={<ProfileManager />} />
               <Route path={TICKET_MANAGER} element={<TicketManager />} />
               <Route path={BOAT_MANAGER} element={<BoatManager />} />
+              <Route path={DASHBOARD} element={<Dashboard />} />
             </Route>
           </Route>
         </Route>

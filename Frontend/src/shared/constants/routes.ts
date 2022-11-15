@@ -11,3 +11,4 @@ export const PROFILE_MANAGER = "profile_manager";
 export const TICKET_MANAGER = "ticket_manager";
 export const BOAT_MANAGER = "boat_manager";
 export const PAYMENT = "payment";
+export const DASHBOARD = "dashboard";

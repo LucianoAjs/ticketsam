@@ -1,4 +1,5 @@
 import ConfirmationNumberRoundedIcon from "@mui/icons-material/ConfirmationNumberRounded";
+import DashboardIcon from "@mui/icons-material/Dashboard";
 import { default as DirectionsBoatIcon } from "@mui/icons-material/DirectionsBoat";
 import Logout from "@mui/icons-material/Logout";
 import Avatar from "@mui/material/Avatar";
@@ -14,6 +15,7 @@ import { useNavigate } from "react-router-dom";
 import {
   ADMIN,
   BOAT_MANAGER,
+  DASHBOARD,
   PROFILE_MANAGER,
   TICKET_MANAGER,
 } from "shared/constants/routes";
@@ -98,6 +100,12 @@ export default function AccountMenu() {
           <Avatar {...stringAvatar(`${firstName} ${lastName}`)} /> Perfil
         </MenuItem>
         <Divider />
+        <MenuItem onClick={() => navigate(`/${ADMIN}/${DASHBOARD}`)}>
+          <ListItemIcon>
+            <DashboardIcon fontSize="small" />
+          </ListItemIcon>
+          Dashboard
+        </MenuItem>
         <MenuItem onClick={() => navigate(`/${ADMIN}/${BOAT_MANAGER}`)}>
           <ListItemIcon>
             <DirectionsBoatIcon fontSize="small" />
