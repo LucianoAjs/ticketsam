@@ -9,6 +9,7 @@ export const CardContainer = styled.div`
   padding: 2rem;
   gap: 1rem;
   border-radius: 10px;
+  flex-grow: 1;
 
   @media (min-width: 599px) {
     max-height: 650px;

@@ -1,10 +1,8 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { ContainerStyled } from "pages/Auth/CreateAccount/styles";
-
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { useNavigate } from "react-router-dom";
 import { BackButton, NextButton } from "shared/components/buttons";
 import { InputFormController } from "shared/components/forms/InputFormController";
 import { SelectFormController } from "shared/components/forms/SelectFormController";
@@ -26,8 +24,6 @@ export const CreateBoatForm = ({
 }) => {
   const [initialValues] = useState<IBoat>(initialStateCreateBoat);
 
-  const navigate = useNavigate();
-
   const [fetching, setFetching] = useState(false);
 
   const {
@@ -45,7 +41,7 @@ export const CreateBoatForm = ({
     setFetching(true);
     const { IMO, cnpj, flag, name, subscription } = getValues();
 
-    await ENDPOINT.CREAT_BOAT({
+    await ENDPOINT.CREATE_BOAT({
       cnpj,
       boat: {
         flag,
@@ -57,6 +53,7 @@ export const CreateBoatForm = ({
 
     setFetching(false);
     setOpen(false);
+    window.location.reload();
   };
 
   if (fetching) {

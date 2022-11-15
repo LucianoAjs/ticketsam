@@ -1,7 +1,13 @@
 import { CREATE_TICKET } from '@/modules/user-seller/constants/create-ticket.contant';
 import { ApiProperty } from '@nestjs/swagger';
 import { Type } from 'class-transformer';
-import { IsDate, IsNotEmpty, IsNumber, IsString } from 'class-validator';
+import {
+  IsDate,
+  IsNotEmpty,
+  IsNumber,
+  IsOptional,
+  IsString,
+} from 'class-validator';
 
 const { API_PROPERTY } = CREATE_TICKET;
 
@@ -71,12 +77,13 @@ export class CreateTicketDto {
   })
   dt_output: Date;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @ApiProperty({
     description: API_PROPERTY.BOAT_NAME.DESC,
     example: API_PROPERTY.BOAT_NAME.VALUE,
     type: String,
+    required: false,
   })
   boat_name: string;
 
@@ -89,12 +96,13 @@ export class CreateTicketDto {
   })
   boat_phone: string;
 
-  @IsNotEmpty()
+  @IsOptional()
   @IsString()
   @ApiProperty({
     description: API_PROPERTY.IMAGE_URL.DESC,
     example: API_PROPERTY.IMAGE_URL.VALUE,
     type: String,
+    required: false,
   })
   image_url: string;
 

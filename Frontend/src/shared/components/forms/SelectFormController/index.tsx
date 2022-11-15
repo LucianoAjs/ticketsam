@@ -31,8 +31,8 @@ export function SelectFormController({
             <div className="select">{key}</div>
           </MenuItem>
         ))
-      : defaultValues.map((value: any) => (
-          <MenuItem className="select" key={value} value={value}>
+      : defaultValues.map((value: any, index: number) => (
+          <MenuItem className="select" key={index} value={value}>
             <div className="select">{value}</div>
           </MenuItem>
         ));
