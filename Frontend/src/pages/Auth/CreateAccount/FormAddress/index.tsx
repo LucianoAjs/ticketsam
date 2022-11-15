@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import SearchIcon from "@mui/icons-material/Search";
 import { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
@@ -16,7 +17,6 @@ import { addressValidationSchema } from "shared/schemas/address";
 import { convertDateFormatBrToUs } from "shared/utils/date/convert-date-br-to-us";
 import { AlignButtons } from "styles/app-styles";
 import { CardContainer, ContainerStyled } from "../../styles";
-
 export const FormAddress = ({ previous }: { previous: Function }) => {
   const { update, user } = useUserContext();
 
@@ -36,8 +36,6 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
     control,
     getValues,
     watch,
-    getFieldState,
-    resetField,
     setValue,
     formState: { isValid, errors },
   } = useForm<IAddress>({
@@ -47,16 +45,8 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
     resolver: yupResolver(addressValidationSchema),
   });
 
-  // TODO: Implement get CEP
   const getDataCep = useCallback(async () => {
-    const postalCode = watch("postalCode");
-    const fieldState = getFieldState("postalCode");
-
-    if (!postalCode || !fieldState.isTouched) {
-      return;
-    }
-
-    setFetching(true);
+    const postalCode = getValues().postalCode;
 
     const data = await ENDPOINT.GET_CEP_DATA(
       postalCode.replace(".", "").replace("-", "")
@@ -64,19 +54,16 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
 
     if (data) {
       const {
-        data: { bairro, cep, complemento, localidade, logradouro, uf },
+        data: { bairro, complemento, localidade, logradouro, uf },
       } = data;
 
-      setValue("postalCode", cep);
       setValue("state", uf);
       setValue("city", localidade);
       setValue("street", logradouro);
       setValue("complement", complemento);
       setValue("neighborhood", bairro);
     }
-    setFetching(false);
-    resetField("postalCode");
-  }, [getFieldState, resetField, setValue, watch]);
+  }, [getValues, setValue]);
 
   const createAccount = useCallback(async () => {
     setFetching(true);
@@ -114,17 +101,26 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
           <Row className="justify-content-md-center">
             <Col xs="auto" lg="6">
               <Row xs="auto">
-                <Col xs="12" sx="6" md="6" lg="12">
-                  <InputFormController
-                    register
-                    formControl={control}
-                    formControlName="postalCode"
-                    label="CEP"
-                    error={errors?.postalCode}
-                    mask="00.000-000"
-                    placeholder="__.___-___"
-                  />
+                <Col xs="12">
+                  <Row xs="12">
+                    <Col xs="10">
+                      <InputFormController
+                        register
+                        formControl={control}
+                        formControlName="postalCode"
+                        label="CEP"
+                        error={errors?.postalCode}
+                        mask="00.000-000"
+                        placeholder="__.___-___"
+                        inputImg=""
+                      />
+                    </Col>
+                    <Col xs="1" sx="2" style={{ alignSelf: "center" }}>
+                      <SearchIcon fontSize="medium" onClick={getDataCep} />
+                    </Col>
+                  </Row>
                 </Col>
+
                 <Col xs="12" sx="6" md="6" lg="12">
                   <InputFormController
                     register
