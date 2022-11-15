@@ -99,8 +99,8 @@ export const TicketManager = () => {
                 <Tbody key={index}>
                   <Tr key={index}>
                     <Td>{index + 1}</Td>
-                    <Td>{new Date(v.dt_arrival)?.toLocaleDateString()}</Td>
                     <Td>{new Date(v.dt_output)?.toLocaleDateString()}</Td>
+                    <Td>{new Date(v.dt_arrival)?.toLocaleDateString()}</Td>
                     <Td>{v.home_city}</Td>
                     <Td>{v.destination_city}</Td>
                     <Td>

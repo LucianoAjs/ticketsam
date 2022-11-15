@@ -1,9 +1,14 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
+  @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&display=swap');
+
   * {
     margin: 0;
     padding: 0;
+    font-family: 'Comfortaa', cursive, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
+    "Segoe UI Symbol";
   }
 
   html,body {
@@ -11,10 +16,6 @@ export default createGlobalStyle`
     box-sizing: border-box;
     background: ${({ theme }) => theme.primary200};
     color: ${({ theme }) => theme.text};
-
-    font-family: "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
-    Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
-    "Segoe UI Symbol";
   }
 
   h1 {
@@ -23,7 +24,7 @@ export default createGlobalStyle`
   }
 
   h2 {
-    font: 700 clamp(1.5em, 1.5em + 1.5vw, 2em)/52px bold ;
+    font: 700 clamp(1.5em, 1.5em + 1.5vw, 2em)/52px bold;
     color: ${({ theme }) => theme.text} ;
   }
 
@@ -146,5 +147,7 @@ export default createGlobalStyle`
     margin: unset !important;
   }
 
-  
+  *{
+    font-family: 'Comfortaa', cursive !important;
+  }
 `;

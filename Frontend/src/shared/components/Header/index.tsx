@@ -1,8 +1,8 @@
+import logo from "assets/icons/logo.png";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
 import AccountMenu from "shared/components/AccountMenu";
 import { TOKEN } from "shared/constants/common";
 import { AUTH, HOME } from "shared/constants/routes";
-
 import { getDataStorage } from "shared/utils";
 
 const Header = () => {
@@ -18,7 +18,9 @@ const Header = () => {
             style={{ maxHeight: "100px" }}
             navbarScroll
           >
-            <Nav.Link href={HOME}>Home</Nav.Link>
+            <Nav.Link href={HOME}>
+              <img width={100} src={logo} alt="logo" />
+            </Nav.Link>
           </Nav>
 
           {isLoggedin ? (

@@ -15,6 +15,7 @@ import { CURRENCY_FORMATTER } from "shared/constants/common";
 import { ENDPOINT } from "shared/constants/endpoints";
 import { initialStateCreateTicket } from "shared/constants/inital-state-content/initial-state-create-ticket";
 import useUserContext from "shared/contexts/UserContext/userContext";
+import { BoatStatus } from "shared/enums/boat-status.enum";
 import { MaskCustom } from "shared/enums/mask-custom";
 import { IBoat } from "shared/interfaces/boat.interface";
 import { ICreateTicket } from "shared/interfaces/create-ticket.interface";
@@ -69,7 +70,11 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
   const onSubmit = async () => {
     setFetching(true);
 
-    const chooseBoat = boats.find((v) => v.name === getValues().boat_name);
+    const chooseBoat = boats.find(
+      (v) =>
+        v.name === getValues().boat_name &&
+        v.status.status === BoatStatus.APPROVED
+    );
     const dt_arrival = convertDateFormat(new Date(getValues().dt_arrival));
     const dt_output = convertDateFormat(new Date(getValues().dt_output));
 
@@ -96,7 +101,7 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
   }
   return (
     <CardContainer>
-      <h2>Dados do barco</h2>
+      <h2>Dados do bilhete</h2>
       <ContainerStyled>
         <Container fluid>
           <Row className="justify-content-md-center">

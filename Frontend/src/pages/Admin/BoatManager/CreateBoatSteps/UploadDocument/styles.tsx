@@ -20,8 +20,8 @@ export default styled.div`
 
   @media (max-width: 599px) {
     img {
-      width: 50%;
-      padding: 1.5rem 1.5rem;
+      width: 60%;
+      padding: 0.5rem;
       border-radius: 9px;
       border: 6px dashed ${({ theme }) => theme.primary100};
       opacity: 1;
