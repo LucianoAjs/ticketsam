@@ -8,6 +8,7 @@ import { CreateTicketDto } from '@/modules/user-seller/dto/create-ticket.dto';
 import { UserDto } from '@/modules/user-seller/dto/user';
 import { AddressDto } from '@/modules/user-seller/dto/user/nested/address.dto';
 import { UpdateUserDto } from '@/modules/user-seller/dto/user/update-user.dto';
+import { mergeAndGetUnique } from '@/shared/utils/common';
 import { Injectable } from '@nestjs/common';
 
 @Injectable()
@@ -219,5 +220,19 @@ export class UserRepository {
       where: { id: ticketId },
       include: { payment: true },
     });
+  }
+
+  async getAllPlaces(): Promise<string[]> {
+    const tickets = await this.prisma.ticket.findMany({
+      select: {
+        destination_city: true,
+        home_city: true,
+      },
+    });
+
+    const destinationCitys = tickets.map((ticket) => ticket.destination_city);
+    const home_citys = tickets.map((ticket) => ticket.home_city);
+
+    return mergeAndGetUnique(destinationCitys, home_citys);
   }
 }

@@ -17,6 +17,7 @@ import { InternalServerErrorException } from '@/shared/errors/internal-server-er
 import { UnauthorizedException } from '@/shared/errors/unauthorized.exception';
 import { Body, Controller, Get, Param, Post, Query } from '@nestjs/common';
 import { ApiBody, ApiOperation, ApiResponse, ApiTags } from '@nestjs/swagger';
+import { GET_ALL_PLACES_AVAILABLE } from './constants/get-all-places-available.constant';
 import { GET_TICKET_BY_ID } from './constants/get-ticket-by-id.constant';
 
 const {
@@ -143,5 +144,31 @@ export class UserBuyerController {
     @Body() body: GenerateQRcodeDto,
   ): Promise<GenerateQRcodeResponseDto> {
     return this.generateQRcodeService.generateQrcode(body);
+  }
+
+  @ApiTags('USER BUYER')
+  @Get('user_buyer/ticket/place_names')
+  @ApiOperation({
+    summary: GET_ALL_PLACES_AVAILABLE.API_OPERATION.SUMMARY,
+    description: GET_ALL_PLACES_AVAILABLE.API_OPERATION.DESCRIPTION,
+  })
+  @ApiResponse({
+    status: 201,
+    description: GET_ALL_PLACES_AVAILABLE.API_PROPERTY.PLACE_NAMES.DESC,
+    isArray: true,
+    type: () => [],
+  })
+  @ApiResponse({
+    status: 401,
+    description: UNAUTHORIZED_OPERATION,
+    type: () => UnauthorizedException,
+  })
+  @ApiResponse({
+    status: 500,
+    description: INTERNAL_SERVER_ERROR,
+    type: () => InternalServerErrorException,
+  })
+  async getAllBoatNames(): Promise<string[]> {
+    return await this.ticketService.getAllPlaceNames();
   }
 }

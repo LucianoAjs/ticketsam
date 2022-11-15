@@ -85,4 +85,16 @@ export class TicketService {
 
     return { sandbox_init_point };
   }
+
+  async getAllPlaceNames(): Promise<string[]> {
+    let placeNames: string[];
+
+    try {
+      placeNames = await this.userRepository.getAllPlaces();
+    } catch (error) {
+      throw new PrismaException(error, this.usersLogger);
+    }
+
+    return placeNames;
+  }
 }
