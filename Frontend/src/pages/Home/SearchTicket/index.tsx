@@ -32,8 +32,8 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
   const initialValues = {
     destination_city: "",
     home_city: "",
-    dt_arrival: new Date(""),
-    dt_output: new Date(""),
+    dt_arrival: new Date(),
+    dt_output: new Date(),
   };
 
   const [fetching, setFetching] = useState(false);

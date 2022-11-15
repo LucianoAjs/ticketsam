@@ -8,6 +8,10 @@ export const CardStyled = styled(Card)`
   padding: 2rem;
   border-radius: 10px;
   background: ${({ theme }) => theme.primary400} !important;
+
+  svg {
+    margin: unset;
+  }
 `;
 
 export default styled.div`
