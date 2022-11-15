@@ -94,7 +94,6 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
   if (fetching) {
     return <Spin />;
   }
-
   return (
     <CardContainer>
       <h2>Dados do barco</h2>
