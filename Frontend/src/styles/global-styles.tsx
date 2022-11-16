@@ -150,4 +150,12 @@ export default createGlobalStyle`
   *{
     font-family: 'Comfortaa', cursive !important;
   }
+
+  .error {
+    background-color: red;
+  }
+
+  .success {
+    background-color: green;
+  }
 `;

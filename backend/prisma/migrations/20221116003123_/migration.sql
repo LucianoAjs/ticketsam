@@ -121,6 +121,21 @@ CREATE TABLE `Ticket` (
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
 
 -- CreateTable
+CREATE TABLE `TicketStatus` (
+    `id` VARCHAR(191) NOT NULL,
+    `ticketId` VARCHAR(255) NULL,
+    `boatId` VARCHAR(255) NULL,
+    `status` VARCHAR(255) NULL,
+    `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
+    `updatedAt` DATETIME(3) NOT NULL,
+
+    UNIQUE INDEX `TicketStatus_ticketId_key`(`ticketId`),
+    UNIQUE INDEX `TicketStatus_boatId_key`(`boatId`),
+    INDEX `TicketStatus_ticketId_fkey`(`ticketId`),
+    PRIMARY KEY (`id`)
+) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;
+
+-- CreateTable
 CREATE TABLE `Payment` (
     `id` VARCHAR(191) NOT NULL,
     `ticketId` VARCHAR(255) NULL,
@@ -151,6 +166,9 @@ ALTER TABLE `Status` ADD CONSTRAINT `Status_boatId_fkey` FOREIGN KEY (`boatId`) 
 
 -- AddForeignKey
 ALTER TABLE `Ticket` ADD CONSTRAINT `Ticket_boatId_fkey` FOREIGN KEY (`boatId`) REFERENCES `Boat`(`id`) ON DELETE NO ACTION ON UPDATE NO ACTION;
+
+-- AddForeignKey
+ALTER TABLE `TicketStatus` ADD CONSTRAINT `TicketStatus_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;
 
 -- AddForeignKey
 ALTER TABLE `Payment` ADD CONSTRAINT `Payment_ticketId_fkey` FOREIGN KEY (`ticketId`) REFERENCES `Ticket`(`id`) ON DELETE SET NULL ON UPDATE CASCADE;

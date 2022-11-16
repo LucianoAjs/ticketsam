@@ -66,15 +66,23 @@ export class TicketService {
 
       if (ticketFound) {
         const { id, payment } = ticketFound;
-        const paymentFound = payment.find((pay) => pay.paymentId === paymentId);
 
-        if (paymentFound && paymentFound.status === PaymentStatus.APPROVED) {
-          await this.userRepository.upsertTicketStatusByTicketId(
-            id,
-            TicketStatus.INVALID,
+        if (ticketFound?.TicketStatus?.status === TicketStatus.VALID) {
+          const paymentFound = payment.find(
+            (pay) => pay.paymentId === paymentId,
           );
+
+          if (paymentFound && paymentFound.status === PaymentStatus.APPROVED) {
+            await this.userRepository.upsertTicketStatusByTicketId(
+              id,
+              TicketStatus.INVALID,
+            );
+          } else {
+            this.usersLogger.error('Payment not found or pending');
+            throw new BadRequestException();
+          }
         } else {
-          this.usersLogger.error('Payment not found or pending');
+          this.usersLogger.error('Ticket alredy used');
           throw new BadRequestException();
         }
       } else {

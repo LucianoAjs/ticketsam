@@ -47,4 +47,11 @@ export const ENDPOINT = {
     api.post(`/user_seller/boat/${boatId}/ticket`, data),
   GET_PLACE_NAMES: (): Promise<AxiosResponse<string[]>> =>
     api.get("/user_buyer/states"),
+  VALIDATE_TICKET: (ticketId: string, paymentId: string) =>
+    api.post(
+      `/user_seller/ticket/validate${queryToEncodedString({
+        ticketId,
+        paymentId,
+      })}`
+    ),
 };

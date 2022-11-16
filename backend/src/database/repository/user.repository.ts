@@ -60,6 +60,7 @@ export class UserRepository {
           include: {
             ticket: {
               include: {
+                TicketStatus: true,
                 payment: true,
               },
             },

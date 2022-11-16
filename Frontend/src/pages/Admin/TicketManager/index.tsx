@@ -1,4 +1,5 @@
 import AddIcon from "@mui/icons-material/Add";
+import CheckIcon from "@mui/icons-material/Check";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Button } from "@mui/material";
 import React, { useCallback, useEffect, useState } from "react";
@@ -17,6 +18,7 @@ import { formatCurrencyPtBr } from "shared/utils/common/format-currency-pt-br";
 import { CreateTicket } from "./CreateTicket";
 import Layout, { AlignRow } from "./styles";
 import { TicketMenuIActions } from "./TicketMenuIActions";
+import { ValidateQrcode } from "./ValidateQrcode";
 
 export const TicketManager = () => {
   const { update, boat } = useUserContext();
@@ -24,6 +26,7 @@ export const TicketManager = () => {
   const [ticket, setTicket] = useState<ITicket>();
   const [openActions, setOpenActions] = useState(false);
   const [openDialog, setOpenDialog] = useState(false);
+  const [showComponent, setShowComponent] = useState<string>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
@@ -47,13 +50,26 @@ export const TicketManager = () => {
     getDataBoat();
   }, [getDataBoat, boat]);
 
+  const openDialogWithChildren = (component: string) => {
+    const createTicketComponent = <CreateTicket setOpen={setOpenDialog} />;
+    const validateTicketComponent = <ValidateQrcode setOpen={setOpenDialog} />;
+
+    if (component === "CREATE_TICKET") {
+      return createTicketComponent;
+    } else if (component === "VALIDATE_TICKET") {
+      return validateTicketComponent;
+    }
+
+    return <></>;
+  };
+
   return (
     <>
       <OpenDialog
         fullScrenn={true}
         setOpen={setOpenDialog}
         open={openDialog}
-        children={<CreateTicket setOpen={setOpenDialog} />}
+        children={openDialogWithChildren(showComponent || "")}
       />
       <TicketMenuIActions
         open={openActions}
@@ -65,15 +81,32 @@ export const TicketManager = () => {
         <Container fluid>
           <AlignRow>
             <h2>Gerenciamento de bilhetes</h2>
-            <Row className="align-items-center">
+            <Row className="align-items-center gap">
               <Col>
                 <Row>
                   <Button
                     variant="contained"
                     endIcon={<AddIcon />}
-                    onClick={() => setOpenDialog(true)}
+                    onClick={() => {
+                      setShowComponent("CREATE_TICKET");
+                      setOpenDialog(true);
+                    }}
                   >
                     Adicionar
+                  </Button>
+                </Row>
+              </Col>
+              <Col>
+                <Row>
+                  <Button
+                    variant="contained"
+                    endIcon={<CheckIcon />}
+                    onClick={() => {
+                      setShowComponent("VALIDATE_TICKET");
+                      setOpenDialog(true);
+                    }}
+                  >
+                    Validar bilhete
                   </Button>
                 </Row>
               </Col>

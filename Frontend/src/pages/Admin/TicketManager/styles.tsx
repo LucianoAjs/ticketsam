@@ -36,4 +36,8 @@ export const AlignRow = styled.div`
     gap: unset;
     justify-content: center;
   }
+
+  .gap {
+    gap: 1rem;
+  }
 `;
