@@ -3,6 +3,7 @@ import { UsersLoggerService } from '@/logger/logger.service';
 import { PaymentBodyDto } from '@/modules/user-buyer/dto/payment-body.dto';
 import { PaymentResponseDto } from '@/modules/user-buyer/dto/payment-response.dto';
 import { PaymentStatus } from '@/modules/user-buyer/enums/payment-status.enum';
+import { TicketStatus } from '@/modules/user-seller/enums/ticket-status.enum';
 import { PrismaException } from '@/shared/errors/prisma.exception';
 import { Injectable } from '@nestjs/common';
 
@@ -25,6 +26,15 @@ export class PaymentWebhookService {
     if (status === PaymentStatus.APPROVED) {
       try {
         await this.userRepository.updateTicketQtdByTicketId(external_reference);
+      } catch (error) {
+        throw new PrismaException(error, this.usersLogger);
+      }
+
+      try {
+        await this.userRepository.upsertTicketStatusByTicketId(
+          external_reference,
+          TicketStatus.VALID,
+        );
       } catch (error) {
         throw new PrismaException(error, this.usersLogger);
       }

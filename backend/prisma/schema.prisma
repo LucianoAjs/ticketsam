@@ -101,27 +101,40 @@ model Status {
 }
 
 model Ticket {
-  id                 String    @id @default(uuid())
-  boatId             String?   @db.VarChar(255)
-  accommodation_name String?   @db.VarChar(255)
-  destination_city   String?   @db.VarChar(255)
-  home_city          String?   @db.VarChar(255)
-  dt_arrival         DateTime? @db.DateTime()
-  dt_modification    DateTime? @db.DateTime()
-  dt_record          DateTime? @db.DateTime()
-  dt_output          DateTime? @db.DateTime()
-  boat_name          String?   @db.VarChar(255)
-  boat_phone         String?   @db.VarChar(255)
-  image_url          String?   @db.VarChar(255)
-  remaining_quantity Int?      @db.Int
-  food_value         Int?      @db.Int
-  transport_value    Int?      @db.Int
-  createdAt          DateTime  @default(now())
-  updatedAt          DateTime  @updatedAt
-  boat               Boat?     @relation(fields: [boatId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Ticket_boatId_fkey")
+  id                 String        @id @default(uuid())
+  boatId             String?       @db.VarChar(255)
+  accommodation_name String?       @db.VarChar(255)
+  destination_city   String?       @db.VarChar(255)
+  home_city          String?       @db.VarChar(255)
+  dt_arrival         DateTime?     @db.DateTime()
+  dt_modification    DateTime?     @db.DateTime()
+  dt_record          DateTime?     @db.DateTime()
+  dt_output          DateTime?     @db.DateTime()
+  boat_name          String?       @db.VarChar(255)
+  boat_phone         String?       @db.VarChar(255)
+  image_url          String?       @db.VarChar(255)
+  remaining_quantity Int?          @db.Int
+  food_value         Int?          @db.Int
+  transport_value    Int?          @db.Int
+  createdAt          DateTime      @default(now())
+  updatedAt          DateTime      @updatedAt
+  boat               Boat?         @relation(fields: [boatId], references: [id], onDelete: NoAction, onUpdate: NoAction, map: "Ticket_boatId_fkey")
   payment            Payment[]
+  TicketStatus       TicketStatus?
 
   @@index([boatId], map: "Ticket_boatId_fkey")
+}
+
+model TicketStatus {
+  id        String   @id @default(uuid())
+  ticketId  String?  @unique @db.VarChar(255)
+  status    String?  @db.VarChar(255)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  ticket Ticket? @relation(fields: [ticketId], references: [id], map: "TicketStatus_ticketId_fkey")
+
+  @@index([ticketId], map: "TicketStatus_ticketId_fkey")
 }
 
 model Payment {

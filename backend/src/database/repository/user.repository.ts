@@ -10,7 +10,7 @@ import { AddressDto } from '@/modules/user-seller/dto/user/nested/address.dto';
 import { UpdateUserDto } from '@/modules/user-seller/dto/user/update-user.dto';
 import { mergeAndGetUnique } from '@/shared/utils/common';
 import { Injectable } from '@nestjs/common';
-
+import { Prisma } from '@prisma/client';
 @Injectable()
 export class UserRepository {
   constructor(private readonly prisma: PrismaService) {}
@@ -52,11 +52,19 @@ export class UserRepository {
     });
   }
 
-  async getUserById(userId: string): Promise<UserDto> {
+  async getUserById(userId: string): Promise<UserWithBoats> {
     return await this.prisma.user.findUnique({
       where: { id: userId },
       include: {
-        address: true,
+        boat: {
+          include: {
+            ticket: {
+              include: {
+                payment: true,
+              },
+            },
+          },
+        },
       },
     });
   }
@@ -115,6 +123,19 @@ export class UserRepository {
       data: {
         status,
       },
+    });
+  }
+
+  async upsertTicketStatusByTicketId(
+    ticketId: string,
+    status: string,
+  ): Promise<any> {
+    return await this.prisma.ticketStatus.upsert({
+      where: { ticketId },
+      update: {
+        status,
+      },
+      create: { status, ticket: { connect: { id: ticketId } } },
     });
   }
 
@@ -236,3 +257,19 @@ export class UserRepository {
     return mergeAndGetUnique(destinationCitys, home_citys);
   }
 }
+
+const userWithBoats = Prisma.validator<Prisma.UserArgs>()({
+  include: {
+    boat: {
+      include: {
+        ticket: {
+          include: {
+            payment: true,
+          },
+        },
+      },
+    },
+  },
+});
+
+type UserWithBoats = Prisma.UserGetPayload<typeof userWithBoats>;
