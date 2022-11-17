@@ -55,7 +55,7 @@ export const ProfileManager = () => {
   const getDataUserInformation = useCallback(async () => {
     setFeching(true);
     const { data } = await ENDPOINT.GET_USER_INFORMATION();
-
+    delete data.boat;
     data.birthdate = convertDateFormatUsToBr(data.birthdate);
 
     await update({ user: data });
@@ -74,6 +74,7 @@ export const ProfileManager = () => {
   }, [getDataUserInformation, user]);
 
   const updateUserInformation = async (dataUser: Partial<IUser>) => {
+    delete dataUser.boat;
     await ENDPOINT.UPDATE_USER(dataUser);
   };
 

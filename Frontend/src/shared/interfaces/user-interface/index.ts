@@ -1,4 +1,5 @@
 import { IAddress } from "shared/interfaces/user-interface/nested/address.interface";
+import { IBoat } from "../boat.interface";
 
 export interface IUser {
   id?: string;
@@ -12,6 +13,7 @@ export interface IUser {
   gender?: string;
   address: IAddress;
   DocumentType?: string;
+  boat?: IBoat[];
   updatedAt?: string;
   createdAt?: string;
 }
