@@ -66,6 +66,7 @@ export class UserRepository {
             },
           },
         },
+        address: true,
       },
     });
   }
@@ -270,6 +271,7 @@ const userWithBoats = Prisma.validator<Prisma.UserArgs>()({
         },
       },
     },
+    address: true,
   },
 });
 
