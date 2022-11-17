@@ -10,3 +10,11 @@ export default styled.div`
   width: 100%;
   gap: 2rem;
 `;
+
+export const ScannerStyles = styled.div`
+  width: 480px;
+
+  @media (max-width: 599px) {
+    width: 80%;
+  }
+`;

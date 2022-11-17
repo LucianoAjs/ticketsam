@@ -152,10 +152,10 @@ export default createGlobalStyle`
   }
 
   .error {
-    background-color: red;
+    color: red !important;
   }
 
   .success {
-    background-color: green;
+    color: green !important;
   }
 `;

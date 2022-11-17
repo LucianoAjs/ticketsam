@@ -25,7 +25,7 @@ export const QRcodeScanner = ({ setData }: IProps) => {
       delay={300}
       onError={handleError}
       onScan={handleScan}
-      style={{ height: 240, width: 320, marginBottom: "4rem" }}
+      style={{ width: "100%" }}
       facingMode="environment"
     />
   );

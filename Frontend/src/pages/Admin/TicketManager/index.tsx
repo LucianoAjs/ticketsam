@@ -18,7 +18,7 @@ import { formatCurrencyPtBr } from "shared/utils/common/format-currency-pt-br";
 import { CreateTicket } from "./CreateTicket";
 import Layout, { AlignRow } from "./styles";
 import { TicketMenuIActions } from "./TicketMenuIActions";
-import { ValidateQrcode } from "./ValidateQrcode";
+import { ValidateTicket } from "./ValidateTicket";
 
 export const TicketManager = () => {
   const { update, boat } = useUserContext();
@@ -52,7 +52,7 @@ export const TicketManager = () => {
 
   const openDialogWithChildren = (component: string) => {
     const createTicketComponent = <CreateTicket setOpen={setOpenDialog} />;
-    const validateTicketComponent = <ValidateQrcode setOpen={setOpenDialog} />;
+    const validateTicketComponent = <ValidateTicket setOpen={setOpenDialog} />;
 
     if (component === "CREATE_TICKET") {
       return createTicketComponent;
