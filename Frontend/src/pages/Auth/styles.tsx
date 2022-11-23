@@ -6,8 +6,7 @@ export default styled.div`
   align-items: center;
   flex-grow: 1;
   gap: 2rem;
-  padding: 2rem;
-
+  padding: 1rem;
   color: black;
 
   h1 {

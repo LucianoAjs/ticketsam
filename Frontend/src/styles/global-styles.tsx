@@ -62,6 +62,7 @@ export default createGlobalStyle`
     transition: color 0.25s ease-in-out;
     text-decoration: none;
     cursor: pointer;
+    color: ${({ theme }) => theme.primary300};
   }
 
   .MuiFormControl-root {

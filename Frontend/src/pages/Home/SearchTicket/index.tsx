@@ -107,7 +107,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
                   register
                   formControl={control}
                   formControlName={"dt_output"}
-                  label={"Data inicial"}
+                  label={"Data de ida"}
                   error={errors.dt_output}
                 />
                 <SvgIcon component={KeyboardArrowRight} />
@@ -115,7 +115,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
                   register
                   formControl={control}
                   formControlName={"dt_arrival"}
-                  label={"Data final"}
+                  label={"Data de volta"}
                   error={errors.dt_arrival}
                 />
               </Align>

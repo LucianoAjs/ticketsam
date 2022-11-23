@@ -86,7 +86,7 @@ export const Login = () => {
           text="Iniciar sessão"
         />
 
-        <h5>Nao tem uma conta?</h5>
+        <h6>Nao tem uma conta?</h6>
 
         <a href={`/${AUTH}/${CREATE_ACCOUNT}`}>
           Clique aqui para criar um conta.

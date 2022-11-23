@@ -8,6 +8,7 @@ export const CardStyled = styled(Card)`
   padding: 2rem;
   border-radius: 10px;
   background: ${({ theme }) => theme.primary400} !important;
+  gap: 1rem;
 
   svg {
     margin: unset;
@@ -22,11 +23,6 @@ export default styled.div`
   .width {
     width: 100% !important;
     margin: unset;
-  }
-
-  button {
-    font: 400 20px bold !important;
-    padding: 1rem 1.5rem !important;
   }
 
   h2 {
@@ -86,6 +82,11 @@ export const Align = styled.div`
   @media (max-width: 599px) {
     width: 100%;
     flex-wrap: wrap;
+    gap: 1rem;
+
+    svg {
+      display: none;
+    }
   }
 `;
 

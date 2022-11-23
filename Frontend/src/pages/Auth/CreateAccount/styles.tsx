@@ -7,7 +7,6 @@ export default styled.div`
   flex-grow: 1;
   gap: 2rem;
   padding: 2rem;
-
   color: black;
 
   h1 {
