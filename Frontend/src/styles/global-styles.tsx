@@ -1,12 +1,15 @@
 import { createGlobalStyle } from "styled-components";
 
 export default createGlobalStyle`
-  @import url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&display=swap');
+  @font-face { 
+    font-family: 'Comfortaa', sans-serif;
+    src: url('https://fonts.googleapis.com/css2?family=Comfortaa:wght@300;500;700&display=swap')
+  };
 
   * {
     margin: 0;
     padding: 0;
-    font-family: 'Comfortaa', cursive, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
+    font-family: 'Comfortaa', sans-serif, "Open Sans", -apple-system, BlinkMacSystemFont, "Segoe UI",
     Roboto, Helvetica, Arial, sans-serif, "Apple Color Emoji", "Segoe UI Emoji",
     "Segoe UI Symbol";
   }
@@ -17,7 +20,7 @@ export default createGlobalStyle`
     background: ${({ theme }) => theme.primary200};
     color: ${({ theme }) => theme.text};
   }
-
+  
   h1 {
     font: 700 clamp(2em, 2em + 2vw, 4em)/clamp(1em, 1em + 1vw, 2em) bold;
     color: ${({ theme }) => theme.text} ;
@@ -148,7 +151,7 @@ export default createGlobalStyle`
   }
 
   *{
-    font-family: 'Comfortaa', cursive !important;
+    font-family: 'Comfortaa', sans-serif !important;
   }
 
   .error {
