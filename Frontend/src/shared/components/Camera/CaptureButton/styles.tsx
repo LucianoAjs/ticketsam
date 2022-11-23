@@ -12,4 +12,15 @@ export default styled.div`
     width: 30px;
     height: 60px;
   }
+
+  @media (max-width: 599px) {
+    margin-right: 3px;
+    padding: 1px;
+
+    button {
+      width: 5px;
+      height: 30px;
+      min-width: 30px;
+    }
+  }
 `;

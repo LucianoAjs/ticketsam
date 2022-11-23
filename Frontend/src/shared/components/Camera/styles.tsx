@@ -21,6 +21,7 @@ export const Align = styled.div`
   display: flex;
   flex-direction: column;
   align-items: center;
+  text-align: center;
 `;
 
 export const AlignRow = styled.div`
@@ -42,6 +43,11 @@ export const CameraStyles = styled.div`
   left: 50%;
   transform: translateX(-50%);
   position: fixed;
+
+  @media (max-width: 599px) {
+    width: 80%;
+    height: 70%;
+  }
 `;
 
 export const AlignVertical = styled.div`
@@ -65,9 +71,20 @@ export const AlignHorizontal = styled.div`
 `;
 
 export const CameraSwitch = styled.div`
-  margin-left: 1rem;
+  margin-left: 3px;
   height: 10%;
   cursor: pointer;
+
+  @media (max-width: 599px) {
+    margin-right: 3px;
+    padding: 1px;
+
+    svg {
+      width: 5px;
+      height: 30px;
+      min-width: 30px;
+    }
+  }
 `;
 
 export const CaptureButtonStyles = styled.div`
