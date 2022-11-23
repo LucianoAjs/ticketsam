@@ -27,13 +27,15 @@ services:
     image: unknown-backend
     command: npm run start:dev
     env_file: .env
+    ports:
+      - 3001:3001
     environment:
       - NODE_ENV=development
       - DATABASE_URL=${DATABASE_URL}
     volumes:
       - ./src:/app/src
     expose:
-      - 80
+      - 3001
 
 volumes:
   mysql_db_data_container:

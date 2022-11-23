@@ -26,7 +26,7 @@ export const ENDPOINT = {
   ): Promise<AxiosResponse<ICreatePreferenceResponse>> =>
     api.post(`/user_buyer/ticket/${ticketId}`, data),
   GET_CEP_DATA: (cep: string): Promise<AxiosResponse<IViaCepResponse>> =>
-    api.get(`http://viacep.com.br/ws/${cep}/json/`),
+    api.get(`https://viacep.com.br/ws/${cep}/json/`),
   GET_TICKET: (filter: IGetTicketFilter): Promise<AxiosResponse<ITicket[]>> =>
     api.get(`/user_buyer/ticket/${queryToEncodedString(filter)}`),
   GENERATE_QRCODE: (url: string) =>

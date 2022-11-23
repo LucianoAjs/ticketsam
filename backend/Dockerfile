@@ -4,21 +4,24 @@ FROM node:16.14.0-alpine AS base
 WORKDIR /usr/src/app
 
 COPY package*.json ./
+COPY prisma ./prisma/
 
 RUN npm install
 
 COPY . .
 
-EXPOSE 3000
+EXPOSE 3001
 
-# PRODUCTION
-FROM base AS production
+FROM base AS development
 
-ENV NODE_ENV=production
+ENV NODE_ENV=development
 
 COPY --from=base /usr/src/app/node_modules ./node_modules
 COPY --from=base /usr/src/app/dist ./dist
 
 RUN npm run build
 
-CMD ["node", "dist/src/main"]
+CMD ["node", "dist/main"]
+
+
+

@@ -124,13 +124,11 @@ CREATE TABLE `Ticket` (
 CREATE TABLE `TicketStatus` (
     `id` VARCHAR(191) NOT NULL,
     `ticketId` VARCHAR(255) NULL,
-    `boatId` VARCHAR(255) NULL,
     `status` VARCHAR(255) NULL,
     `createdAt` DATETIME(3) NOT NULL DEFAULT CURRENT_TIMESTAMP(3),
     `updatedAt` DATETIME(3) NOT NULL,
 
     UNIQUE INDEX `TicketStatus_ticketId_key`(`ticketId`),
-    UNIQUE INDEX `TicketStatus_boatId_key`(`boatId`),
     INDEX `TicketStatus_ticketId_fkey`(`ticketId`),
     PRIMARY KEY (`id`)
 ) DEFAULT CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci;

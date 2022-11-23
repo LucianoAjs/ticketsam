@@ -175,7 +175,7 @@ export class UserRepository {
     });
   }
 
-  async getPaymentStatus(paymentId: string): Promise<any> {
+  async getPaymentStatus(paymentId: string): Promise<PaymentWithTicket> {
     return await this.prisma.payment.findUnique({
       where: { paymentId },
       include: { ticket: true },
@@ -276,3 +276,11 @@ const userWithBoats = Prisma.validator<Prisma.UserArgs>()({
 });
 
 type UserWithBoats = Prisma.UserGetPayload<typeof userWithBoats>;
+
+const paymentWithTicket = Prisma.validator<Prisma.PaymentArgs>()({
+  include: {
+    ticket: true,
+  },
+});
+
+type PaymentWithTicket = Prisma.PaymentGetPayload<typeof paymentWithTicket>;
