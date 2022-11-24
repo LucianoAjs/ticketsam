@@ -23,7 +23,7 @@ export const CardContainer = styled.div`
     }
   }
 
-  background: ${({ theme }) => theme.primary400} !important;
+  background-image: ${({ theme }) => theme.backgroundGradient} !important;
 `;
 
 export const Align = styled.div`

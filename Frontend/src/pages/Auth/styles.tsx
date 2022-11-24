@@ -28,7 +28,7 @@ export const CardContainer = styled.div`
   @media (min-width: 599px) {
     max-width: 800px;
   }
-  background: ${({ theme }) => theme.primary400} !important;
+  background-image: ${({ theme }) => theme.backgroundGradient};
 `;
 
 export const ContainerStyled = styled.div`

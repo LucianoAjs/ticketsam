@@ -1,5 +1,6 @@
 import backgroundMobile from "assets/icons/background-mobile.png";
-import background from "assets/icons/praia-background.jpg";
+import backgroundTablet from "assets/icons/ponte-rio-negro.png";
+import backgroundDesktop from "assets/icons/rio-negro.png";
 import styled from "styled-components";
 
 export default styled.div`
@@ -10,7 +11,7 @@ export default styled.div`
 
   flex-grow: 1;
 
-  background-image: url(${background});
+  background-image: url(${backgroundDesktop});
   background-size: cover;
 
   h1 {
@@ -23,9 +24,18 @@ export default styled.div`
     color: ${({ theme }) => theme.primary700} !important;
   }
 
+  @media (max-width: 1024px) {
+    background-image: url(${backgroundTablet});
+    background-size: cover;
+  }
+
   @media (max-width: 599px) {
     background-image: url(${backgroundMobile});
     background-size: cover;
+
+    h3 {
+      color: black;
+    }
   }
 `;
 

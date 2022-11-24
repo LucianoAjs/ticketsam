@@ -7,7 +7,7 @@ export const CardStyled = styled(Card)`
   width: 100%;
   padding: 2rem;
   border-radius: 10px;
-  background: ${({ theme }) => theme.primary400} !important;
+  background-image: linear-gradient(-20deg, #4e4376 0%, #2b5876 100%);
   gap: 1rem;
 
   svg {

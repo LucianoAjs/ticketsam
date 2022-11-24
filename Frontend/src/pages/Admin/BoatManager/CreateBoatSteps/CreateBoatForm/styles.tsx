@@ -19,5 +19,5 @@ export const CardContainer = styled.div`
     max-height: 500px;
   }
 
-  background: ${({ theme }) => theme.primary400} !important;
+  background-image: ${({ theme }) => theme.backgroundGradient} !important;
 `;

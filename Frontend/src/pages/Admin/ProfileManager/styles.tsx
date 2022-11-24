@@ -12,7 +12,7 @@ export const CardStyled = styled.div`
   @media (min-width: 599px) {
     max-width: 1000px;
   }
-  background: ${({ theme }) => theme.primary400} !important;
+  background-image: ${({ theme }) => theme.backgroundGradient} !important;
 `;
 
 export default styled.div`

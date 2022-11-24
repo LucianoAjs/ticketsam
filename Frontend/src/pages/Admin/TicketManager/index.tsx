@@ -9,6 +9,7 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { CustomTable } from "shared/components/CustomTable/styles";
 import OpenDialog from "shared/components/OpenDialog";
 import Paper from "shared/components/Paper";
+import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import { IBoat } from "shared/interfaces/boat.interface";
@@ -28,6 +29,7 @@ export const TicketManager = () => {
   const [openDialog, setOpenDialog] = useState(false);
   const [showComponent, setShowComponent] = useState<string>();
   const [anchorEl, setAnchorEl] = React.useState<null | HTMLElement>(null);
+  const [fetching, setFetching] = useState(false);
 
   const handleClick = (event: React.MouseEvent<HTMLElement>) => {
     setAnchorEl(event.currentTarget);
@@ -35,6 +37,7 @@ export const TicketManager = () => {
   };
 
   const getDataBoat = useCallback(async () => {
+    setFetching(true);
     if (Object.values(compact(boat)).length === 0) {
       const { data } = await ENDPOINT.GET_BOAT();
 
@@ -44,6 +47,7 @@ export const TicketManager = () => {
     } else {
       setBoats(boat);
     }
+    setFetching(false);
   }, [boat, update]);
 
   useEffect(() => {
@@ -62,6 +66,10 @@ export const TicketManager = () => {
 
     return <></>;
   };
+
+  if (fetching) {
+    return <Spin />;
+  }
 
   return (
     <>

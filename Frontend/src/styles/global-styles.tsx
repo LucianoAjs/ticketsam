@@ -17,7 +17,7 @@ export default createGlobalStyle`
   html,body {
     height: 100vh;
     box-sizing: border-box;
-    background: ${({ theme }) => theme.primary200};
+    background-image: linear-gradient(to top, #a3bded 0%, #6991c7 100%);
     color: ${({ theme }) => theme.text};
   }
   
@@ -103,7 +103,7 @@ export default createGlobalStyle`
   }
 
   .bg-header {
-    background: ${({ theme }) => theme.primary100} !important;
+    background-image: ${({ theme }) => theme.backgroundGradientTwo} !important;
   }
 
   .select{

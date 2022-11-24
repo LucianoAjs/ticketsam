@@ -46,9 +46,12 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
   }, [boat, getDataBoat]);
 
   const setBoatNames = useCallback(() => {
-    const boatsValues = boats.map((boat) => {
-      return boat.name;
-    });
+    const boatsValues = boats
+      .filter((boat: IBoat) => boat.status.status === BoatStatus.APPROVED)
+      .map((boat: IBoat) => {
+        return boat.name;
+      });
+
     setBoatName(boatsValues);
   }, [boats]);
 

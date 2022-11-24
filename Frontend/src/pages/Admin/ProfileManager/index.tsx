@@ -152,7 +152,7 @@ export const ProfileManager = () => {
 
       <CardStyled style={{ pointerEvents: dataEdit ? "unset" : "none" }}>
         <Container fluid>
-          <h2>Dados do usuário</h2>
+          <h5>Dados do usuário</h5>
           <Row className="justify-content-md-center">
             <Col xs="auto" lg="12">
               <Row xs="auto" lg="12">
@@ -221,7 +221,7 @@ export const ProfileManager = () => {
               </Row>
             </Col>
 
-            <h2>Endereço residencial</h2>
+            <h5>Endereço residencial</h5>
 
             <Col xs="auto" lg="12">
               <Row xs="auto" lg="12">

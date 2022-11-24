@@ -7,9 +7,11 @@ import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
 import { CustomTable } from "shared/components/CustomTable/styles";
 import OpenDialog from "shared/components/OpenDialog";
 import Paper from "shared/components/Paper";
+import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import { IBoat } from "shared/interfaces/boat.interface";
+import { currentStatusPayment } from "shared/utils/common/status";
 import { CreateBoatSteps } from "./CreateBoatSteps";
 import Layout, { AlignRow } from "./styles";
 
@@ -17,18 +19,25 @@ export const BoatManager = () => {
   const { update, boat } = useUserContext();
   const [boats, setBoats] = useState<IBoat[]>(boat);
   const [openDialog, setOpenDialog] = useState(false);
+  const [fetching, setFetching] = useState(false);
 
   const getDataBoat = useCallback(async () => {
+    setFetching(true);
     const { data } = await ENDPOINT.GET_BOAT();
 
     await update({ boat: data }, "UPDATE_BOAT");
 
     setBoats(data);
+    setFetching(false);
   }, [update]);
 
   useEffect(() => {
     getDataBoat();
   }, [getDataBoat, boat]);
+
+  if (fetching) {
+    return <Spin />;
+  }
 
   return (
     <>
@@ -78,7 +87,7 @@ export const BoatManager = () => {
                   <Td>{v.name}</Td>
                   <Td>{v.IMO}</Td>
                   <Td>{v.flag}</Td>
-                  <Td>{v.status.status}</Td>
+                  <Td>{currentStatusPayment(v.status.status)}</Td>
                   <Td>{v.subscription}</Td>
                 </Tr>
               </Tbody>
