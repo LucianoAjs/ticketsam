@@ -42,9 +42,9 @@ export class MercadoPagoAdapterService {
       },
       auto_return: 'approved',
       external_reference: ticketId,
-      //notification_url: this.configService.get(
-      //  'MERCADO_PAGO_WEBHOOK_PAYMENT_NOTIFICATION_URL',
-      //),
+      notification_url: this.configService.get(
+        'MERCADO_PAGO_WEBHOOK_PAYMENT_NOTIFICATION_URL',
+      ),
     };
 
     const response = await MercadoPago.preferences.create(preference);

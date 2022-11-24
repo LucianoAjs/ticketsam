@@ -12,9 +12,9 @@ COPY . .
 
 EXPOSE 3001
 
-FROM base AS development
+FROM base AS production
 
-ENV NODE_ENV=development
+ENV NODE_ENV=production
 
 COPY --from=base /usr/src/app/node_modules ./node_modules
 COPY --from=base /usr/src/app/dist ./dist

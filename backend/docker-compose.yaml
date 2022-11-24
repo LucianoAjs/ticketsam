@@ -9,7 +9,7 @@ services:
       MYSQL_ROOT_PASSWORD: ${MYSQL_ROOT_PASSWORD}
       MYSQL_DATABASE: ${MYSQL_DATABASE}
     ports:
-      - 3306:3306
+      - ${MYSQL_HOST_PORT}:${MYSQL_PORT}
     volumes:
       - mysql_db_data_container:/var/lib/mysql
 
@@ -26,11 +26,11 @@ services:
       dockerfile: Dockerfile
     image: unknown-backend
     command: npm run start:dev
-    env_file: .env
+    env_file: ./env/production.env
     ports:
       - 3001:3001
     environment:
-      - NODE_ENV=development
+      - NODE_ENV=production
       - DATABASE_URL=${DATABASE_URL}
     volumes:
       - ./src:/app/src

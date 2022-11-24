@@ -13,7 +13,7 @@ import { ConfigModule } from '@nestjs/config';
   imports: [
     ConfigModule.forRoot({
       isGlobal: true,
-      envFilePath: '.env',
+      envFilePath: `env/${process.env.NODE_ENV}.env`,
     }),
     PrismaModule,
     HealthModule,
