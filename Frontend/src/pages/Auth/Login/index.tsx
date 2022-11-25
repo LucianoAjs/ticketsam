@@ -1,9 +1,9 @@
-import { NextButton } from "shared/components/buttons";
-
 import { yupResolver } from "@hookform/resolvers/yup";
 import { useCallback, useState } from "react";
+import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
+import { NextButton } from "shared/components/buttons";
 import { InputFormController } from "shared/components/forms/InputFormController";
 import Spin from "shared/components/Spin";
 import { TOKEN } from "shared/constants/common";
@@ -14,6 +14,8 @@ import { login } from "shared/schemas/login.schema";
 import { setDataStorage } from "shared/utils";
 import Container, { CardContainer, ContainerStyled } from "../styles";
 
+const RECAPTCHA_SITE_KEY = process.env.REACT_APP_RECAPTCHA_SITE_KEY;
+
 export const Login = () => {
   const initState = {
     email: "",
@@ -22,6 +24,7 @@ export const Login = () => {
 
   const [fetching, setFetching] = useState(false);
   const navigate = useNavigate();
+  const [captcha, setCaptcha] = useState(false);
 
   const {
     control,
@@ -52,6 +55,10 @@ export const Login = () => {
     loginAccount();
   };
 
+  function onChange(value: any) {
+    setCaptcha(RECAPTCHA_SITE_KEY ? value : true);
+  }
+
   if (fetching) {
     return <Spin />;
   }
@@ -78,10 +85,11 @@ export const Login = () => {
             register={register}
             inputType={"password"}
           />
+          <ReCAPTCHA sitekey={RECAPTCHA_SITE_KEY || ""} onChange={onChange} />
         </ContainerStyled>
 
         <NextButton
-          disabled={!isValid}
+          disabled={!isValid || !captcha}
           handleClick={onSubmit}
           text="Iniciar sessão"
         />
