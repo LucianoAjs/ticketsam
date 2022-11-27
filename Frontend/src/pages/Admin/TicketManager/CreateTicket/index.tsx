@@ -1,6 +1,7 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import ptBR from "dayjs/locale/pt-br";
 import { AlignButtons } from "pages/Admin/BoatManager/CreateBoatSteps/Selfie/styles";
 import { ContainerStyled } from "pages/Auth/styles";
 import { useCallback, useEffect, useState } from "react";
@@ -14,6 +15,7 @@ import Spin from "shared/components/Spin";
 import { CURRENCY_FORMATTER } from "shared/constants/common";
 import { ENDPOINT } from "shared/constants/endpoints";
 import { initialStateCreateTicket } from "shared/constants/inital-state-content/initial-state-create-ticket";
+import { LOCALE_TEXT } from "shared/constants/locale-text.constant";
 import useUserContext from "shared/contexts/UserContext/userContext";
 import { BoatStatus } from "shared/enums/boat-status.enum";
 import { MaskCustom } from "shared/enums/mask-custom";
@@ -21,7 +23,6 @@ import { IBoat } from "shared/interfaces/boat.interface";
 import { ICreateTicket } from "shared/interfaces/create-ticket.interface";
 import { createTicketValidationSchema } from "shared/schemas/create-ticket.schema";
 import { compact } from "shared/utils";
-import { convertDateFormat } from "shared/utils/date/date-format";
 import { CardContainer } from "./styles";
 
 export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
@@ -78,13 +79,9 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
         v.name === getValues().boat_name &&
         v.status.status === BoatStatus.APPROVED
     );
-    const dt_arrival = convertDateFormat(new Date(getValues().dt_arrival));
-    const dt_output = convertDateFormat(new Date(getValues().dt_output));
 
     await ENDPOINT.CREATE_TICKET(chooseBoat?.id || "", {
       ...getValues(),
-      dt_arrival,
-      dt_output,
       remaining_quantity: Number(getValues().remaining_quantity),
       transport_value:
         Number(String(getValues().transport_value).replace(/[^0-9.-]+/g, "")) /
@@ -150,13 +147,19 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
                   />
                 </Col>
 
-                <LocalizationProvider dateAdapter={AdapterDayjs}>
+                <LocalizationProvider
+                  dateAdapter={AdapterDayjs}
+                  locale={ptBR}
+                  adapterLocale={ptBR}
+                  localeText={{ ...LOCALE_TEXT }}
+                >
                   <Col xs="12" sx="6" md="6" lg="6">
                     <MobileDatePickerController
                       register
                       formControl={control}
                       formControlName={"dt_output"}
                       label={"Data saida"}
+                      minDate={new Date()}
                       error={errors.dt_output}
                     />
                   </Col>
@@ -166,6 +169,7 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
                       formControl={control}
                       formControlName={"dt_arrival"}
                       label={"Data chegada"}
+                      minDate={new Date(getValues().dt_output)}
                       error={errors.dt_arrival}
                     />
                   </Col>

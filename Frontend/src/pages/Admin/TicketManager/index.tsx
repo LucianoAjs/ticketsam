@@ -16,6 +16,7 @@ import { IBoat } from "shared/interfaces/boat.interface";
 import { ITicket } from "shared/interfaces/ticket.interface";
 import { compact } from "shared/utils";
 import { formatCurrencyPtBr } from "shared/utils/common/format-currency-pt-br";
+import { convertDateFormatUsToBr } from "shared/utils/date/convert-date-us-to-br";
 import { CreateTicket } from "./CreateTicket";
 import Layout, { AlignRow } from "./styles";
 import { TicketMenuIActions } from "./TicketMenuIActions";
@@ -140,8 +141,8 @@ export const TicketManager = () => {
                 <Tbody key={index}>
                   <Tr key={index}>
                     <Td>{index + 1}</Td>
-                    <Td>{new Date(v.dt_output)?.toLocaleDateString()}</Td>
-                    <Td>{new Date(v.dt_arrival)?.toLocaleDateString()}</Td>
+                    <Td>{convertDateFormatUsToBr(v.dt_output)}</Td>
+                    <Td>{convertDateFormatUsToBr(v.dt_arrival)}</Td>
                     <Td>{v.home_city}</Td>
                     <Td>{v.destination_city}</Td>
                     <Td>

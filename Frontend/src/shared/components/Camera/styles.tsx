@@ -53,7 +53,7 @@ export const CameraStyles = styled.div`
 export const AlignVertical = styled.div`
   display: flex;
   flex-direction: column;
-  justify-content: center;
+  justify-content: space-around;
   align-items: center;
   position: fixed;
   width: 100%;

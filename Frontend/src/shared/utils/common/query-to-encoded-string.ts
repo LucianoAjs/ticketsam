@@ -1,7 +1,4 @@
-import { compact } from "..";
-
 export function queryToEncodedString(query: any) {
-  compact(query);
   const array: string[] = [];
 
   if (typeof query !== "object" || !query) {

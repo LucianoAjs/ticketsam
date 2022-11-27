@@ -1,4 +1,5 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import ptBR from "dayjs/locale/pt-br";
 import { useForm } from "react-hook-form";
 import { SelectFormController } from "shared/components/forms/SelectFormController";
 import { IGetTicketFilter } from "shared/interfaces/get-ticket-filter.interface";
@@ -24,6 +25,7 @@ import { useCallback, useEffect, useState } from "react";
 import { MobileDatePickerController } from "shared/components/forms/MobileDatePickerController";
 import Spin from "shared/components/Spin";
 import { ENDPOINT } from "shared/constants/endpoints";
+import { LOCALE_TEXT } from "shared/constants/locale-text.constant";
 import { convertDateFormat } from "shared/utils/date/date-format";
 
 export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
@@ -51,6 +53,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
   const {
     control,
     getValues,
+    watch,
     formState: { isValid, errors },
   } = useForm<IGetTicketFilter>({
     mode: "onBlur",
@@ -95,19 +98,25 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
               formControl={control}
               formControlName={"destination_city"}
               label={"Destino"}
-              defaultValues={states}
+              defaultValues={states.filter((v) => watch().home_city !== v)}
               error={errors.destination_city}
             />
           </AlignColumn>
 
           <AlignColumnDate>
-            <LocalizationProvider dateAdapter={AdapterDayjs}>
+            <LocalizationProvider
+              locale={ptBR}
+              adapterLocale={ptBR}
+              dateAdapter={AdapterDayjs}
+              localeText={{ ...LOCALE_TEXT }}
+            >
               <Align>
                 <MobileDatePickerController
                   register
                   formControl={control}
                   formControlName={"dt_output"}
                   label={"Data de ida"}
+                  minDate={new Date()}
                   error={errors.dt_output}
                 />
                 <SvgIcon component={KeyboardArrowRight} />
@@ -116,6 +125,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
                   formControl={control}
                   formControlName={"dt_arrival"}
                   label={"Data de volta"}
+                  minDate={new Date(getValues().dt_output)}
                   error={errors.dt_arrival}
                 />
               </Align>

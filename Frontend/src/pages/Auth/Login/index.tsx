@@ -85,7 +85,11 @@ export const Login = () => {
             register={register}
             inputType={"password"}
           />
-          <ReCAPTCHA sitekey={RECAPTCHA_SITE_KEY || ""} onChange={onChange} />
+          <ReCAPTCHA
+            hl="pt-BR"
+            sitekey={RECAPTCHA_SITE_KEY || ""}
+            onChange={onChange}
+          />
         </ContainerStyled>
 
         <NextButton

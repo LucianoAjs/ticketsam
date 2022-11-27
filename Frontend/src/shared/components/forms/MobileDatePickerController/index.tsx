@@ -7,6 +7,8 @@ interface IFormInput {
   formControlName: string;
   label: string;
   register: any;
+  minDate?: Date;
+  maxDate?: Date;
   error?: any;
 }
 
@@ -15,6 +17,8 @@ export function MobileDatePickerController({
   formControlName,
   label,
   register,
+  minDate,
+  maxDate,
   error,
 }: IFormInput) {
   return (
@@ -33,6 +37,7 @@ export function MobileDatePickerController({
             labelPlacement="top"
             control={
               <MobileDatePicker
+                toolbarTitle="Selecione a data"
                 fullWidth
                 ref={ref}
                 onChange={onChange}
@@ -40,6 +45,8 @@ export function MobileDatePickerController({
                 value={value || ""}
                 {...register}
                 inputFormat="DD/MM/YYYY"
+                maxDate={maxDate}
+                minDate={minDate}
                 error={!!error}
                 renderInput={(params) => (
                   <TextField
