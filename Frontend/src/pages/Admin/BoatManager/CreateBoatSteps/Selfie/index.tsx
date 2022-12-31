@@ -1,11 +1,7 @@
 import selfiePic from "assets/icons/selfie.png";
+import { BackButton, CameraButton, NextButton } from "components/buttons";
+import { IData } from "components/Camera";
 import { useState } from "react";
-import {
-  BackButton,
-  CameraButton,
-  NextButton,
-} from "shared/components/buttons";
-import { IData } from "shared/components/Camera";
 
 import Container, {
   AlignButtons,

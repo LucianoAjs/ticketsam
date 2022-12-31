@@ -1,10 +1,10 @@
-import { api } from "api";
+import useUserContext from "contexts/UserContext/userContext";
 import { useCallback, useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { api } from "services/api";
+import { userSellerService } from "services/user.seller.service";
 import { TOKEN } from "shared/constants/common";
-import { ENDPOINT } from "shared/constants/endpoints";
 import { HOME } from "shared/constants/routes";
-import useUserContext from "shared/contexts/UserContext/userContext";
 import { clearDataStorage, getDataStorage } from "shared/utils";
 import { convertDateFormatUsToBr } from "shared/utils/date/convert-date-us-to-br";
 
@@ -16,7 +16,7 @@ export default function useAuth() {
   const navigate = useNavigate();
 
   const getDataUserInformation = useCallback(async () => {
-    const { data } = await ENDPOINT.GET_USER_INFORMATION();
+    const { data } = await userSellerService.USER.GET_USER_INFORMATION();
 
     data.birthdate = convertDateFormatUsToBr(data.birthdate);
     update({ user: data });

@@ -2,16 +2,16 @@ import AddIcon from "@mui/icons-material/Add";
 import CheckIcon from "@mui/icons-material/Check";
 import MoreVertIcon from "@mui/icons-material/MoreVert";
 import { Button } from "@mui/material";
+import { CustomTable } from "components/CustomTable/styles";
+import OpenDialog from "components/OpenDialog";
+import Paper from "components/Paper";
+import Spin from "components/Spin";
+import useUserContext from "contexts/UserContext/userContext";
 import React, { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { Tbody, Td, Th, Thead, Tr } from "react-super-responsive-table";
 import "react-super-responsive-table/dist/SuperResponsiveTableStyle.css";
-import { CustomTable } from "shared/components/CustomTable/styles";
-import OpenDialog from "shared/components/OpenDialog";
-import Paper from "shared/components/Paper";
-import Spin from "shared/components/Spin";
-import { ENDPOINT } from "shared/constants/endpoints";
-import useUserContext from "shared/contexts/UserContext/userContext";
+import { userSellerService } from "services/user.seller.service";
 import { IBoat } from "shared/interfaces/boat.interface";
 import { ITicket } from "shared/interfaces/ticket.interface";
 import { compact } from "shared/utils";
@@ -40,7 +40,7 @@ export const TicketManager = () => {
   const getDataBoat = useCallback(async () => {
     setFetching(true);
     if (Object.values(compact(boat)).length === 0) {
-      const { data } = await ENDPOINT.GET_BOAT();
+      const { data } = await userSellerService.BOAT.GET_BOAT();
 
       await update({ boat: data }, "UPDATE_BOAT");
 

@@ -1,6 +1,6 @@
 import logo from "assets/icons/logo.png";
+import AccountMenu from "components/AccountMenu";
 import { Button, Container, Nav, Navbar } from "react-bootstrap";
-import AccountMenu from "shared/components/AccountMenu";
 import { TOKEN } from "shared/constants/common";
 import { AUTH, HOME } from "shared/constants/routes";
 import { getDataStorage } from "shared/utils";

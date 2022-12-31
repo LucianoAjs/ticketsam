@@ -1,7 +1,7 @@
+import { UserProvider } from "contexts/UserContext/userContext";
 import React from "react";
 import ReactDOM from "react-dom/client";
 import MainRoutes from "routes";
-import { UserProvider } from "shared/contexts/UserContext/userContext";
 import { ThemeProvider } from "styled-components";
 import GlobalStyles from "styles/global-styles";
 import { theme } from "styles/theme";

@@ -1,22 +1,22 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
+import { BackButton, NextButton } from "components/buttons";
+import { InputFormController } from "components/forms/InputFormController";
+import { MobileDatePickerController } from "components/forms/MobileDatePickerController";
+import { SelectFormController } from "components/forms/SelectFormController";
+import Spin from "components/Spin";
+import useUserContext from "contexts/UserContext/userContext";
 import ptBR from "dayjs/locale/pt-br";
 import { AlignButtons } from "pages/Admin/BoatManager/CreateBoatSteps/Selfie/styles";
 import { ContainerStyled } from "pages/Auth/styles";
 import { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { BackButton, NextButton } from "shared/components/buttons";
-import { InputFormController } from "shared/components/forms/InputFormController";
-import { MobileDatePickerController } from "shared/components/forms/MobileDatePickerController";
-import { SelectFormController } from "shared/components/forms/SelectFormController";
-import Spin from "shared/components/Spin";
+import { userSellerService } from "services/user.seller.service";
 import { CURRENCY_FORMATTER } from "shared/constants/common";
-import { ENDPOINT } from "shared/constants/endpoints";
 import { initialStateCreateTicket } from "shared/constants/inital-state-content/initial-state-create-ticket";
 import { LOCALE_TEXT } from "shared/constants/locale-text.constant";
-import useUserContext from "shared/contexts/UserContext/userContext";
 import { BoatStatus } from "shared/enums/boat-status.enum";
 import { MaskCustom } from "shared/enums/mask-custom";
 import { IBoat } from "shared/interfaces/boat.interface";
@@ -33,7 +33,7 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
   const [fetching, setFetching] = useState(false);
 
   const getDataBoat = useCallback(async () => {
-    const { data } = await ENDPOINT.GET_BOAT();
+    const { data } = await userSellerService.BOAT.GET_BOAT();
 
     await update({ boat: data }, "UPDATE_BOAT");
 
@@ -80,7 +80,7 @@ export const CreateTicket = ({ setOpen }: { setOpen: Function }) => {
         v.status.status === BoatStatus.APPROVED
     );
 
-    await ENDPOINT.CREATE_TICKET(chooseBoat?.id || "", {
+    await userSellerService.TICKET.CREATE_TICKET(chooseBoat?.id || "", {
       ...getValues(),
       remaining_quantity: Number(getValues().remaining_quantity),
       transport_value:

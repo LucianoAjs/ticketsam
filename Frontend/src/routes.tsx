@@ -1,23 +1,16 @@
-import App from "App";
-
-import {
-  Admin,
-  Auth,
-  AuthGuard,
-  BoatManager,
-  CreateAccount,
-  Dashboard,
-  Feedback,
-  Home,
-  Login,
-  Payment,
-  ProfileManager,
-  Status,
-  TicketManager,
-} from "pages";
-
 import { BrowserRouter, Navigate, Route, Routes } from "react-router-dom";
 
+import App from "App";
+import {
+  Admin,
+  BoatManager,
+  Dashboard,
+  ProfileManager,
+  TicketManager,
+} from "pages/Admin";
+import { Auth, AuthGuard, CreateAccount, Login } from "pages/Auth";
+import { Home } from "pages/Home";
+import { Feedback, Payment, Status } from "pages/Payment";
 import {
   ADMIN,
   AUTH,

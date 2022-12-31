@@ -1,13 +1,9 @@
 import rgFront from "assets/icons/rg-front.png";
 import rgverse from "assets/icons/rg-verse.png";
+import { BackButton, CameraButton, NextButton } from "components/buttons";
 import { useState } from "react";
-import {
-  BackButton,
-  CameraButton,
-  NextButton,
-} from "shared/components/buttons";
 
-import { IData } from "shared/components/Camera";
+import { IData } from "components/Camera";
 import Container, {
   AlignButtons,
   AlignCamera,

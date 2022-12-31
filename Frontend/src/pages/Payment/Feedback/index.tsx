@@ -1,8 +1,9 @@
+import { NextButton } from "components/buttons";
+import Spin from "components/Spin";
 import { useCallback, useEffect, useRef, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { NextButton } from "shared/components/buttons";
-import Spin from "shared/components/Spin";
-import { ENDPOINT } from "shared/constants/endpoints";
+import { userBuyerService } from "services/user-buyer.service";
+
 import { paymentReponseParams } from "shared/constants/payment-response-params.constant";
 import { URL_PAYMENT_STATUS } from "shared/constants/url-payment-status";
 import { IPaymentResponseParams } from "shared/interfaces/payment-response-params.interface";
@@ -52,9 +53,9 @@ export const Feedback = () => {
     const paymentData = JSON.parse(JSON.stringify(paramsConcat));
     setDataPayment(paymentData);
 
-    await ENDPOINT.SEND_PAYMENT_STATUS(paymentData).catch(() => {});
+    await userBuyerService.SEND_PAYMENT_STATUS(paymentData).catch(() => {});
 
-    const { data } = await ENDPOINT.GET_TICKET_BY_ID(
+    const { data } = await userBuyerService.TICKET.GET_TICKET_BY_ID(
       paymentData.external_reference
     );
 
@@ -65,7 +66,7 @@ export const Feedback = () => {
       paymentData.external_reference
     );
 
-    const res = await ENDPOINT.GENERATE_QRCODE(url);
+    const res = await userBuyerService.GENERATE_QRCODE(url);
 
     const qrcode = decodeToUtf8(res.data.qrcode);
 

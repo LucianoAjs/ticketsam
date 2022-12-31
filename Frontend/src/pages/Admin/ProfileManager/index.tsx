@@ -3,15 +3,16 @@ import ClearIcon from "@mui/icons-material/Clear";
 import EditIcon from "@mui/icons-material/Edit";
 import SaveAsIcon from "@mui/icons-material/SaveAs";
 import { Button } from "@mui/material";
+import { InputFormController } from "components/forms/InputFormController";
+import { SelectFormController } from "components/forms/SelectFormController";
+import Spin from "components/Spin";
+import useUserContext from "contexts/UserContext/userContext";
 import { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { InputFormController } from "shared/components/forms/InputFormController";
-import { SelectFormController } from "shared/components/forms/SelectFormController";
-import Spin from "shared/components/Spin";
+import { userSellerService } from "services/user.seller.service";
 import { BrazilStates } from "shared/constants/brazil-states";
-import { ENDPOINT } from "shared/constants/endpoints";
-import useUserContext from "shared/contexts/UserContext/userContext";
+
 import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";
@@ -54,7 +55,7 @@ export const ProfileManager = () => {
 
   const getDataUserInformation = useCallback(async () => {
     setFeching(true);
-    const { data } = await ENDPOINT.GET_USER_INFORMATION();
+    const { data } = await userSellerService.USER.GET_USER_INFORMATION();
     delete data.boat;
     data.birthdate = convertDateFormatUsToBr(data.birthdate);
 
@@ -75,7 +76,7 @@ export const ProfileManager = () => {
 
   const updateUserInformation = async (dataUser: Partial<IUser>) => {
     delete dataUser.boat;
-    await ENDPOINT.UPDATE_USER(dataUser);
+    await userSellerService.USER.UPDATE_USER(dataUser);
   };
 
   const onSubmit = async () => {

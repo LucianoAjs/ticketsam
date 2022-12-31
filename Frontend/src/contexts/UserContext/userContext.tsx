@@ -1,6 +1,6 @@
+import { userReducer } from "contexts/UserContext/userReducer";
 import { createContext, useContext, useReducer } from "react";
 import { initalContextPayload } from "shared/constants/inital-state-content/initial-context-payload";
-import { userReducer } from "shared/contexts/UserContext/userReducer";
 import { IContext } from "shared/interfaces/context.interface";
 
 const UserContext = createContext(initalContextPayload);

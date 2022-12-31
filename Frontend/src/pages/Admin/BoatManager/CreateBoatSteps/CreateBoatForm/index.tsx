@@ -1,14 +1,15 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { BackButton, NextButton } from "components/buttons";
+import { InputFormController } from "components/forms/InputFormController";
+import { SelectFormController } from "components/forms/SelectFormController";
+import Spin from "components/Spin";
 import { ContainerStyled } from "pages/Auth/CreateAccount/styles";
 import { useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { BackButton, NextButton } from "shared/components/buttons";
-import { InputFormController } from "shared/components/forms/InputFormController";
-import { SelectFormController } from "shared/components/forms/SelectFormController";
-import Spin from "shared/components/Spin";
+import { userSellerService } from "services/user.seller.service";
 import { BrazilStates } from "shared/constants/brazil-states";
-import { ENDPOINT } from "shared/constants/endpoints";
+
 import { initialStateCreateBoat } from "shared/constants/inital-state-content/initial-state-create-boat";
 import { IBoat } from "shared/interfaces/boat.interface";
 import { boatValidationSchema } from "shared/schemas/boat";
@@ -41,7 +42,7 @@ export const CreateBoatForm = ({
     setFetching(true);
     const { IMO, cnpj, flag, name, subscription } = getValues();
 
-    await ENDPOINT.CREATE_BOAT({
+    await userSellerService.BOAT.CREATE_BOAT({
       cnpj,
       boat: {
         flag,

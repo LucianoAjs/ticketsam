@@ -1,6 +1,6 @@
+import Spin from "components/Spin";
+import useAuth from "hooks/useAuth";
 import { Navigate, Outlet } from "react-router-dom";
-import Spin from "shared/components/Spin";
-import useAuth from "shared/hooks/useAuth";
 
 interface AuthGuardProps {
   redirectTo: string;

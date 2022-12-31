@@ -1,13 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { NextButton } from "components/buttons";
+import { InputFormController } from "components/forms/InputFormController";
+import Spin from "components/Spin";
 import { useCallback, useState } from "react";
 import ReCAPTCHA from "react-google-recaptcha";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { NextButton } from "shared/components/buttons";
-import { InputFormController } from "shared/components/forms/InputFormController";
-import Spin from "shared/components/Spin";
+import { userSellerService } from "services/user.seller.service";
 import { TOKEN } from "shared/constants/common";
-import { ENDPOINT } from "shared/constants/endpoints";
+
 import { AUTH, CREATE_ACCOUNT, HOME } from "shared/constants/routes";
 import { ILoginForm } from "shared/interfaces/auth-interface";
 import { login } from "shared/schemas/login.schema";
@@ -42,7 +43,7 @@ export const Login = () => {
 
     const {
       data: { access_token },
-    } = await ENDPOINT.LOGIN(getValues());
+    } = await userSellerService.AUTH.LOGIN(getValues());
 
     setDataStorage(TOKEN, access_token);
 

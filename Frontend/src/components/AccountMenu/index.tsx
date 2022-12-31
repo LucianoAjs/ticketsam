@@ -10,6 +10,8 @@ import ListItemIcon from "@mui/material/ListItemIcon";
 import Menu from "@mui/material/Menu";
 import MenuItem from "@mui/material/MenuItem";
 import Tooltip from "@mui/material/Tooltip";
+import useUserContext from "contexts/UserContext/userContext";
+import useAuth from "hooks/useAuth";
 import * as React from "react";
 import { useNavigate } from "react-router-dom";
 import {
@@ -19,8 +21,6 @@ import {
   PROFILE_MANAGER,
   TICKET_MANAGER,
 } from "shared/constants/routes";
-import useUserContext from "shared/contexts/UserContext/userContext";
-import useAuth from "shared/hooks/useAuth";
 import { stringAvatar } from "shared/utils/common/string-avatar";
 
 export default function AccountMenu() {

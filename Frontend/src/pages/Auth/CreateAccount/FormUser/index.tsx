@@ -1,13 +1,13 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { NextButton } from "components/buttons";
+import { BackButton } from "components/buttons/BackButton";
+import { InputFormController } from "components/forms/InputFormController";
+import { SelectFormController } from "components/forms/SelectFormController";
+import useUserContext from "contexts/UserContext/userContext";
 import { useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
-import { NextButton } from "shared/components/buttons";
-import { BackButton } from "shared/components/buttons/BackButton";
-import { InputFormController } from "shared/components/forms/InputFormController";
-import { SelectFormController } from "shared/components/forms/SelectFormController";
 import { AUTH } from "shared/constants/routes";
-import useUserContext from "shared/contexts/UserContext/userContext";
 import { Gender } from "shared/enums/gender.enum";
 import { IUser } from "shared/interfaces/user-interface";
 import { userValidationSchema } from "shared/schemas/user.schema";

@@ -1,17 +1,19 @@
 import { yupResolver } from "@hookform/resolvers/yup";
 import SearchIcon from "@mui/icons-material/Search";
+import { BackButton, NextButton } from "components/buttons";
+import { InputFormController } from "components/forms/InputFormController";
+import { SelectFormController } from "components/forms/SelectFormController";
+import Spin from "components/Spin";
+import useUserContext from "contexts/UserContext/userContext";
 import { useCallback, useEffect, useState } from "react";
 import { Col, Container, Row } from "react-bootstrap";
 import { useForm } from "react-hook-form";
 import { useNavigate } from "react-router-dom";
-import { BackButton, NextButton } from "shared/components/buttons";
-import { InputFormController } from "shared/components/forms/InputFormController";
-import { SelectFormController } from "shared/components/forms/SelectFormController";
-import Spin from "shared/components/Spin";
+import { userSellerService } from "services/user.seller.service";
+import { utilsService } from "services/utils.service";
 import { BrazilStates } from "shared/constants/brazil-states";
-import { ENDPOINT } from "shared/constants/endpoints";
+
 import { AUTH } from "shared/constants/routes";
-import useUserContext from "shared/contexts/UserContext/userContext";
 import { IAddress } from "shared/interfaces/address";
 import { addressValidationSchema } from "shared/schemas/address";
 import { convertDateFormatBrToUs } from "shared/utils/date/convert-date-br-to-us";
@@ -48,7 +50,7 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
   const getDataCep = useCallback(async () => {
     const postalCode = getValues().postalCode;
 
-    const data = await ENDPOINT.GET_CEP_DATA(
+    const data = await utilsService.GET_CEP_DATA(
       postalCode.replace(".", "").replace("-", "")
     );
 
@@ -72,7 +74,7 @@ export const FormAddress = ({ previous }: { previous: Function }) => {
 
     user.birthdate = birthdate;
 
-    await ENDPOINT.CREATE_USER(user);
+    await userSellerService.USER.CREATE_USER(user);
 
     setFetching(false);
   }, [user]);

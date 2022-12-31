@@ -1,7 +1,8 @@
+import { NextButton } from "components/buttons";
+import Spin from "components/Spin";
 import { useState } from "react";
-import { NextButton } from "shared/components/buttons";
-import Spin from "shared/components/Spin";
-import { ENDPOINT } from "shared/constants/endpoints";
+import { userBuyerService } from "services/user-buyer.service";
+
 import { ITicket } from "shared/interfaces/ticket.interface";
 import { formatCurrencyPtBr } from "shared/utils/common/format-currency-pt-br";
 import { openUrl } from "shared/utils/common/open-url";
@@ -40,7 +41,7 @@ export const Ticket = ({ ticket }: { ticket: ITicket }) => {
 
     const {
       data: { sandbox_init_point },
-    } = await ENDPOINT.CREATE_PREFERENCE(id, product);
+    } = await userBuyerService.TICKET.CREATE_PREFERENCE(id, product);
 
     setFetching(false);
 

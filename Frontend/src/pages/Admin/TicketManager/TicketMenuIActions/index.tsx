@@ -1,6 +1,6 @@
 import { Menu, MenuItem } from "@mui/material";
+import { Drawer } from "components/Drawer";
 import { useState } from "react";
-import { Drawer } from "shared/components/Drawer";
 import { ITicket } from "shared/interfaces/ticket.interface";
 import { TicketDetails } from "../TicketDetails";
 

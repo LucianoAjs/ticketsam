@@ -1,7 +1,7 @@
 import CameraAltRoundedIcon from "@mui/icons-material/CameraAltRounded";
 import { Dialog, SvgIcon } from "@mui/material";
+import { Camera, IData } from "components/Camera";
 import { useState } from "react";
-import { Camera, IData } from "shared/components/Camera";
 import Container from "./styles";
 
 export function CameraButton({

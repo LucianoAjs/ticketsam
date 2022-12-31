@@ -1,10 +1,10 @@
 import CheckCircleRoundedIcon from "@mui/icons-material/CheckCircleRounded";
 import { FormControl, FormControlLabel, TextField } from "@mui/material";
 import InputAdornment from "@mui/material/InputAdornment";
+import { NumberFormatCustom } from "components/fields/NumberFormatCustom";
 import React from "react";
 import { Controller } from "react-hook-form";
 import { IMaskInput } from "react-imask";
-import { NumberFormatCustom } from "shared/components/fields/NumberFormatCustom";
 import { MaskCustom } from "shared/enums/mask-custom";
 
 interface IFormInput {

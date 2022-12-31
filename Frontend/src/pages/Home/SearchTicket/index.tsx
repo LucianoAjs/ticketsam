@@ -1,14 +1,14 @@
 import { yupResolver } from "@hookform/resolvers/yup";
+import { SelectFormController } from "components/forms/SelectFormController";
 import ptBR from "dayjs/locale/pt-br";
 import { useForm } from "react-hook-form";
-import { SelectFormController } from "shared/components/forms/SelectFormController";
 import { IGetTicketFilter } from "shared/interfaces/get-ticket-filter.interface";
 import { getTicketFilterValidationSchema } from "shared/schemas/get-ticket-filter.schema";
 
 import { LocalizationProvider } from "@mui/x-date-pickers";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 
-import { NextButton } from "shared/components/buttons";
+import { NextButton } from "components/buttons";
 import Container, {
   Align,
   AlignButton,
@@ -22,9 +22,10 @@ import KeyboardArrowRight from "@mui/icons-material/KeyboardArrowRight";
 import { SvgIcon } from "@mui/material";
 import { useCallback, useEffect, useState } from "react";
 
-import { MobileDatePickerController } from "shared/components/forms/MobileDatePickerController";
-import Spin from "shared/components/Spin";
-import { ENDPOINT } from "shared/constants/endpoints";
+import { MobileDatePickerController } from "components/forms/MobileDatePickerController";
+import Spin from "components/Spin";
+
+import { userBuyerService } from "services/user-buyer.service";
 import { LOCALE_TEXT } from "shared/constants/locale-text.constant";
 import { convertDateFormat } from "shared/utils/date/date-format";
 
@@ -41,7 +42,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
   const [fetching, setFetching] = useState(false);
 
   const getAllState = useCallback(async () => {
-    const { data } = await ENDPOINT.GET_PLACE_NAMES();
+    const { data } = await userBuyerService.GET_PLACE_NAMES();
 
     setStates(data);
   }, []);
@@ -68,7 +69,7 @@ export const SearchTicket = ({ setTickets }: { setTickets: Function }) => {
 
     const dataFilter = { ...getValues(), dt_arrival, dt_output };
 
-    const { data } = await ENDPOINT.GET_TICKET(dataFilter);
+    const { data } = await userBuyerService.TICKET.GET_TICKET(dataFilter);
 
     setTickets(data);
 

@@ -1,10 +1,10 @@
 import ArrowBackIcon from "@mui/icons-material/ArrowBack";
 import { Button } from "@mui/material";
+import { QRcodeScanner } from "components/QRcodeScanner";
 import { useCallback, useState } from "react";
 import { BiError } from "react-icons/bi";
 import { GiConfirmed } from "react-icons/gi";
-import { QRcodeScanner } from "shared/components/QRcodeScanner";
-import { ENDPOINT } from "shared/constants/endpoints";
+import { userSellerService } from "services/user.seller.service";
 import Container, { ScannerStyles } from "./styles";
 
 export const ValidateTicket = ({ setOpen }: { setOpen: Function }) => {
@@ -18,7 +18,7 @@ export const ValidateTicket = ({ setOpen }: { setOpen: Function }) => {
     const ticketId = url.searchParams.get("ticketId") || "";
 
     try {
-      await ENDPOINT.VALIDATE_TICKET(ticketId, paymentId);
+      await userSellerService.TICKET.VALIDATE_TICKET(ticketId, paymentId);
       setClassStatus("success");
     } catch (error) {
       setClassStatus("error");

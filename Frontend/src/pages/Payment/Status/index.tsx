@@ -1,6 +1,8 @@
 import { useCallback, useEffect, useState } from "react";
 import { useSearchParams } from "react-router-dom";
-import { ENDPOINT } from "shared/constants/endpoints";
+import { userBuyerService } from "services/user-buyer.service";
+import { userSellerService } from "services/user.seller.service";
+
 import { IPayment } from "shared/interfaces/payment.interface";
 import { ITicket } from "shared/interfaces/ticket.interface";
 import { currentStatusPayment } from "shared/utils/common/status";
@@ -18,12 +20,14 @@ export const Status = () => {
   const getPaymentStatus = useCallback(async () => {
     const {
       data: { payment },
-    } = await ENDPOINT.GET_PAYMENT_STATUS(paymentId || "");
+    } = await userSellerService.PAYMENT.GET_PAYMENT_STATUS(paymentId || "");
     setPaymentStatus(payment);
   }, [paymentId]);
 
   const getTicket = useCallback(async () => {
-    const { data } = await ENDPOINT.GET_TICKET_BY_ID(ticketId || "");
+    const { data } = await userBuyerService.TICKET.GET_TICKET_BY_ID(
+      ticketId || ""
+    );
     setTicket(data);
   }, [ticketId]);
 
