@@ -54,7 +54,7 @@ const {
   },
 } = USER;
 
-@Controller('unknown')
+@Controller()
 @ApiBearerAuth()
 export class UserController {
   constructor(
@@ -66,7 +66,7 @@ export class UserController {
   ) {}
 
   @ApiTags('USER SELLER')
-  @Post('user_seller')
+  @Post('user-seller')
   @ApiOperation({
     summary: API_OPERATION.CREATE_USER.SUMMARY,
     description: API_OPERATION.CREATE_USER.DESCRIPTION,
@@ -94,7 +94,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Put('user_seller')
+  @Put('user-seller')
   @ApiOperation({
     summary: API_OPERATION.UPDATE_USER.SUMMARY,
     description: API_OPERATION.UPDATE_USER.DESCRIPTION,
@@ -128,7 +128,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Get('user_seller')
+  @Get('user-seller')
   @ApiOperation({
     summary: API_OPERATION.GET_USER_BY_ID.SUMMARY,
     description: API_OPERATION.GET_USER_BY_ID.DESCRIPTION,
@@ -158,7 +158,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Post('user_seller/upload_documents')
+  @Post('user-seller/upload-documents')
   @ApiOperation({
     summary: DOCUMENT.API_OPERATION.SUMMARY,
     description: DOCUMENT.API_OPERATION.DESCRIPTION,
@@ -191,7 +191,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Post('user_seller/boat')
+  @Post('user-seller/boat')
   @ApiOperation({
     summary: VALIDATE_BOAT.API_OPERATION.SUMMARY,
     description: VALIDATE_BOAT.API_OPERATION.DESCRIPTION,
@@ -222,7 +222,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Get('user_seller/boat')
+  @Get('user-seller/boat')
   @ApiOperation({
     summary: GET_BOAT_STATUS.API_OPERATION.SUMMARY,
     description: GET_BOAT_STATUS.API_OPERATION.DESCRIPTION,
@@ -251,7 +251,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Post('user_seller/boat/:boatId/ticket')
+  @Post('user-seller/boat/:boatId/ticket')
   @ApiOperation({
     summary: CREATE_TICKET.API_OPERATION.SUMMARY,
     description: CREATE_TICKET.API_OPERATION.DESCRIPTION,
@@ -279,7 +279,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Get('user_seller/payment/status')
+  @Get('user-seller/payment/status')
   @ApiOperation({
     summary: PAYMENT_STATUS.API_OPERATION.SUMMARY,
     description: PAYMENT_STATUS.API_OPERATION.DESCRIPTION,
@@ -304,7 +304,7 @@ export class UserController {
   }
 
   @ApiTags('USER SELLER')
-  @Post('user_seller/ticket/validate')
+  @Post('user-seller/ticket/validate')
   @ApiOperation({
     summary: VALIDATE_TICKET.API_OPERATION.SUMMARY,
     description: PAYMENT_STATUS.API_OPERATION.DESCRIPTION,

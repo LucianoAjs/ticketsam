@@ -17,7 +17,7 @@ const {
   },
 } = AUTH;
 
-@Controller('unknown')
+@Controller()
 export class AuthController {
   constructor(private authService: AuthService) {}
 

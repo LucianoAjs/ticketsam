@@ -6,7 +6,7 @@ import { NestFactory } from '@nestjs/core';
 async function bootstrap() {
   const app = await NestFactory.create(AppModule);
   app.enableCors();
-  app.setGlobalPrefix('v1/api');
+  app.setGlobalPrefix('v1/api/ticketsam');
   app.useGlobalPipes(new ValidationPipe({ transform: true }));
 
   bootstrapDocs(app);
