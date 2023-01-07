@@ -13,16 +13,16 @@ export const userBuyerService = {
       ticketId: String,
       data: IProduct
     ): Promise<AxiosResponse<ICreatePreferenceResponse>> =>
-      api.post(`/user_buyer/ticket/${ticketId}`, data),
+      api.post(`/user-buyer/ticket/${ticketId}`, data),
     GET_TICKET: (filter: IGetTicketFilter): Promise<AxiosResponse<ITicket[]>> =>
-      api.get(`/user_buyer/ticket/${queryToEncodedString(filter)}`),
+      api.get(`/user-buyer/ticket/${queryToEncodedString(filter)}`),
     GET_TICKET_BY_ID: (ticketId: string) =>
-      api.get(`user_buyer/ticket/${ticketId}`),
+      api.get(`user-buyer/ticket/${ticketId}`),
   },
   GENERATE_QRCODE: (url: string) =>
-    api.post(`/user_buyer/generate_qrcode`, { url }),
+    api.post(`/user-buyer/generate-qrcode`, { url }),
   GET_PLACE_NAMES: (): Promise<AxiosResponse<string[]>> =>
-    api.get("/user_buyer/states"),
+    api.get("/user-buyer/states"),
   SEND_PAYMENT_STATUS: (data: IPaymentResponseParams) =>
     api.post("/webhook", data),
 };

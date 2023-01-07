@@ -16,24 +16,24 @@ export const userSellerService = {
       api.post("/auth/login", user),
   },
   USER: {
-    CREATE_USER: (user: Partial<IUser>) => api.post("/user_seller", user),
-    UPDATE_USER: (user: Partial<IUser>) => api.put("/user_seller", user),
+    CREATE_USER: (user: Partial<IUser>) => api.post("/user-seller", user),
+    UPDATE_USER: (user: Partial<IUser>) => api.put("/user-seller", user),
     GET_USER_INFORMATION: (): Promise<AxiosResponse<IUser>> =>
-      api.get("user_seller"),
+      api.get("user-seller"),
   },
   PAYMENT: {
     GET_PAYMENT_STATUS: (paymentId: string): Promise<AxiosResponse<any>> =>
-      api.get(`user_seller/payment/status/?paymentId=${paymentId}`),
+      api.get(`user-seller/payment/status/?paymentId=${paymentId}`),
   },
   TICKET: {
     CREATE_TICKET: (
       boatId: string,
       data: ICreateTicket
     ): Promise<AxiosResponse<ITicket>> =>
-      api.post(`/user_seller/boat/${boatId}/ticket`, data),
+      api.post(`/user-seller/boat/${boatId}/ticket`, data),
     VALIDATE_TICKET: (ticketId: string, paymentId: string) =>
       api.post(
-        `/user_seller/ticket/validate${queryToEncodedString({
+        `/user-seller/ticket/validate${queryToEncodedString({
           ticketId,
           paymentId,
         })}`
@@ -41,8 +41,8 @@ export const userSellerService = {
   },
   BOAT: {
     CREATE_BOAT: (data: ICreateBoat): Promise<AxiosResponse<IBoat>> =>
-      api.post("/user_seller/boat", data),
+      api.post("/user-seller/boat", data),
     GET_BOAT: (): Promise<AxiosResponse<IBoat[]>> =>
-      api.get("/user_seller/boat"),
+      api.get("/user-seller/boat"),
   },
 };

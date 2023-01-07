@@ -24,7 +24,7 @@ const {
   API_RESPONSE: { INTERNAL_SERVER_ERROR, UNAUTHORIZED_OPERATION },
 } = GET_TICKET;
 
-@Controller('unknown')
+@Controller()
 export class UserBuyerController {
   constructor(
     private readonly ticketService: TicketService,
@@ -33,7 +33,7 @@ export class UserBuyerController {
   ) {}
 
   @ApiTags('USER BUYER')
-  @Get('user_buyer/ticket')
+  @Get('user-buyer/ticket')
   @ApiOperation({
     summary: GET_TICKET.API_OPERATION.SUMMARY,
     description: GET_TICKET.API_OPERATION.DESCRIPTION,
@@ -55,7 +55,7 @@ export class UserBuyerController {
   }
 
   @ApiTags('USER BUYER')
-  @Get('user_buyer/ticket/:ticketId')
+  @Get('user-buyer/ticket/:ticketId')
   @ApiOperation({
     summary: GET_TICKET_BY_ID.API_OPERATION.SUMMARY,
     description: GET_TICKET_BY_ID.API_OPERATION.DESCRIPTION,
@@ -82,7 +82,7 @@ export class UserBuyerController {
   }
 
   @ApiTags('USER BUYER')
-  @Post('user_buyer/ticket/:ticketId')
+  @Post('user-buyer/ticket/:ticketId')
   @ApiOperation({
     summary: CREATE_PREFERENCE.API_OPERATION.SUMMARY,
     description: CREATE_PREFERENCE.API_OPERATION.DESCRIPTION,
@@ -117,7 +117,7 @@ export class UserBuyerController {
   }
 
   @ApiTags('USER BUYER')
-  @Post('user_buyer/generate_qrcode')
+  @Post('user-buyer/generate-qrcode')
   @ApiOperation({
     summary: GENERATE_QRCODE.API_OPERATION.SUMMARY,
     description: GENERATE_QRCODE.API_OPERATION.DESCRIPTION,
@@ -147,7 +147,7 @@ export class UserBuyerController {
   }
 
   @ApiTags('USER BUYER')
-  @Get('user_buyer/states')
+  @Get('user-buyer/states')
   @ApiOperation({
     summary: GET_ALL_PLACES_AVAILABLE.API_OPERATION.SUMMARY,
     description: GET_ALL_PLACES_AVAILABLE.API_OPERATION.DESCRIPTION,
@@ -164,7 +164,6 @@ export class UserBuyerController {
     type: () => UnauthorizedException,
   })
   @ApiResponse({
-    status: 500,
     description: INTERNAL_SERVER_ERROR,
     type: () => InternalServerErrorException,
   })
